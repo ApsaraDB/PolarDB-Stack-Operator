@@ -435,11 +435,6 @@ func (s *SharedStorageClusterService) EnsureInsTypeMeta(ctx context.Context, clu
 }
 
 func (s *SharedStorageClusterService) CreateAndInstallIns(ctx context.Context, cluster *domain.SharedStorageCluster, ins *commondomain.DbIns, writeLock bool) error {
-	if !writeLock {
-		if err := cluster.RwIns.CreateReplicationSlot(ctx, ins.ResourceName); err != nil {
-			return err
-		}
-	}
 	if err := ins.CreatePod(ctx); err != nil {
 		return err
 	}
