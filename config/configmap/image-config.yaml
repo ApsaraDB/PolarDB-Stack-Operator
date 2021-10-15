@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  name: image-open
+  pfsdImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_test:v1.1
+  pfsdToolImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_san_tools:v1.1
+  pgClusterManagerImage: reg.docker.alibaba-inc.com/hujie/cm:opensource
+  pgEngineImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_pg_opensource_engine_release:11.9.20210910.17749afa.20211011162505
+  pgManagerImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_pg_opensource_manager:20211011162505.b65c136b
+kind: ConfigMap
+metadata:
+  labels:
+    configtype: minor_version_info
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+  name: postgresql-1-0-minor-version-info-rwo-image-open
+  namespace: kube-system

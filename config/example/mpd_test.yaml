@@ -1,0 +1,75 @@
+apiVersion: v1
+items:
+  - apiVersion: mpd.polardb.aliyun.com/v1
+    kind: MPDCluster
+    metadata:
+      annotations:
+        polarbox.audit.requestId: a0650495-856c-4ae6-afcb-cbb1542334c6
+        polarbox.audit.requestPath: /api/v1/DBCluster/CreateDBCluster
+        polarbox.audit.requestTime: "2021-07-14T08:17:42.515Z"
+        polarbox.audit.roles: sysadmin
+        polarbox.audit.username: admin
+        polarbox.enable.vip: "false"
+        polarbox.engine.port: "5400"
+        polarbox.maxscale.port: "15400"
+      creationTimestamp: "2021-07-14T08:17:42Z"
+      generation: 2
+      name: localstore-mpd
+      namespace: default
+      resourceVersion: "16764919"
+      selfLink: /apis/mpd.polardb.aliyun.com/v1beta1/namespaces/default/mpdclusters/localstore-mpd
+      uid: cttest123456
+    spec:
+      backupJustOnce:
+        bak_begin: 20:00Z
+        bak_period: "1111111"
+        retention: 3
+      dbClusterMode: WriteReadMore
+      dbInstanceClass2:
+        className: polar.o.x4.medium
+        cpu: 2000m
+        iops: "16000"
+        memory: 17Gi
+      dbInstanceModifyClass: {}
+      dbType: PostgreSQL
+      dbVersion: "1.0"
+      description: localstore-mpd
+      diskQuota: "296960"
+      operatorName: "cttest"
+      versionCfg:
+        clusterManagerImage: reg.docker.alibaba-inc.com/hujie/cm:4e4776897ebbebf581c50741bde877a0d40f726cddf77d476dcf1ff35bc7abf6
+        engineImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_box_ora_engine_release:11.2.20200630.58e913be.20201212165446
+        managerImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_box_ora_manager:20201212165446.2b8198c0
+        maxScaleOperationImage: reg.docker.alibaba-inc.com/apsaradb/maxscale_operation:f379c1062dab6b7c019b41a0a0f603456647e54c210c602f398353e2a756b866
+        maxScaleServiceImage: reg.docker.alibaba-inc.com/apsaradb/maxscale_service:eea39c940ab69055480a174ac70dfecc62c334a2c6af35c9c61369d1caf0abd5
+        pfsdImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_san_release:600620bef2c98c05f7d41f51b9d1d47ad282f5b88c8e27e3ac07c3ba096935cd
+        pfsdToolImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_san_tools:c7adccf96bbf044621555d4974b21751710a59c7aaa28739bebd8a4b59709677
+      polarboxInfo:
+        rwSlbInfo: {}
+      resources:
+        engine:
+          config: ""
+          cpu_cores: 1100m
+          limit_memory: 2Gi
+        manager:
+          config: ""
+          cpu_cores: 200m
+          limit_memory: 1Gi
+        pfsd:
+          config: -w 8 -s 20 -i 8192 -f
+          cpu_cores: 500m
+          limit_memory: 1Gi
+        pfsd-tool:
+          config: ""
+          cpu_cores: 200m
+          limit_memory: 1Gi
+      roReplicas: 1
+      storageType: csi-polardb-fc
+      upgradeImageInfo: {}
+      volumeFormat: true
+      netCfg:
+        engineStartPort: 5700
+kind: List
+metadata:
+  resourceVersion: ""
+  selfLink: ""

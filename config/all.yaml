@@ -1,0 +1,4667 @@
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: mpdclusters.mpd.polardb.aliyun.com
+spec:
+  group: mpd.polardb.aliyun.com
+  names:
+    kind: MPDCluster
+    listKind: MPDClusterList
+    plural: mpdclusters
+    singular: mpdcluster
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: MPDCluster is the Schema for the mpdclusters API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          properties:
+            classInfo:
+              properties:
+                className:
+                  type: string
+                cpu:
+                  type: string
+                iops:
+                  type: string
+                memory:
+                  type: string
+              required:
+                - className
+              type: object
+            classInfoModifyTo:
+              properties:
+                className:
+                  type: string
+                cpu:
+                  type: string
+                iops:
+                  type: string
+                memory:
+                  type: string
+              required:
+                - className
+              type: object
+            dbClusterType:
+              type: string
+            dbProxyInfo:
+              properties:
+                consistencyLevel:
+                  type: integer
+                enabled:
+                  type: boolean
+                name:
+                  type: string
+                resourceType:
+                  type: string
+              required:
+                - consistencyLevel
+                - enabled
+                - name
+                - resourceType
+              type: object
+            dbType:
+              type: string
+            description:
+              type: string
+            followerNum:
+              type: integer
+            localVolName:
+              type: string
+            netCfg:
+              properties:
+                enableEngineAdminIP:
+                  type: boolean
+                enableProxyAdminIP:
+                  type: boolean
+                engineAddress:
+                  type: string
+                engineStartPort:
+                  type: integer
+                leaderFloatingIP:
+                  properties:
+                    basedNetIf:
+                      type: string
+                    gateWay:
+                      type: string
+                    ipAddress:
+                      type: string
+                    ipAddressCfgType:
+                      type: string
+                    ipMode:
+                      type: string
+                    mask:
+                      type: integer
+                  type: object
+                netType:
+                  type: string
+                portStep:
+                  type: integer
+                proxyNetIF:
+                  type: string
+                proxyStartPort:
+                  type: integer
+              type: object
+            operatorName:
+              type: string
+            resourceAdditional:
+              additionalProperties:
+                description: 专用于额外定义资源相关参数配置
+                properties:
+                  config:
+                    type: string
+                  cpu_cores:
+                    anyOf:
+                      - type: integer
+                      - type: string
+                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                    x-kubernetes-int-or-string: true
+                  limit_memory:
+                    anyOf:
+                      - type: integer
+                      - type: string
+                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                    x-kubernetes-int-or-string: true
+                required:
+                  - config
+                  - cpu_cores
+                  - limit_memory
+                type: object
+              type: object
+            shareStore:
+              properties:
+                diskQuota:
+                  type: string
+                drive:
+                  type: string
+                isVolumeFormat:
+                  type: boolean
+                sharePvcName:
+                  type: string
+                sharePvcNamespace:
+                  type: string
+                shareVolumeWWID:
+                  type: string
+                volumeFormat:
+                  type: string
+                volumeId:
+                  type: string
+                volumeType:
+                  type: string
+              required:
+                - drive
+              type: object
+            versionCfg:
+              properties:
+                clusterManagerImage:
+                  type: string
+                engineImage:
+                  type: string
+                managerImage:
+                  type: string
+                otherImages:
+                  additionalProperties:
+                    type: string
+                  type: object
+                pfsdImage:
+                  type: string
+                pfsdToolImage:
+                  type: string
+                versionName:
+                  type: string
+              type: object
+            versionCfgModifyTo:
+              properties:
+                clusterManagerImage:
+                  type: string
+                engineImage:
+                  type: string
+                managerImage:
+                  type: string
+                otherImages:
+                  additionalProperties:
+                    type: string
+                  type: object
+                pfsdImage:
+                  type: string
+                pfsdToolImage:
+                  type: string
+                versionName:
+                  type: string
+              type: object
+          required:
+            - classInfo
+            - classInfoModifyTo
+            - dbClusterType
+            - followerNum
+            - operatorName
+            - versionCfg
+          type: object
+        status:
+          properties:
+            clusterManagerStatus:
+              properties:
+                deployName:
+                  type: string
+                workingPort:
+                  type: integer
+              type: object
+            clusterStatus:
+              type: string
+            conditions:
+              items:
+                properties:
+                  lastProbeTime:
+                    description: Last time we probed the condition.
+                    format: date-time
+                    type: string
+                  lastTransitionTime:
+                    description: Last time the condition transitioned from one status
+                      to another.
+                    format: date-time
+                    type: string
+                  message:
+                    description: Human-readable message indicating details about last
+                      transition.
+                    type: string
+                  reason:
+                    description: Unique, one-word, CamelCase reason for the condition's
+                      last transition.
+                    type: string
+                  status:
+                    description: Status is the status of the condition. Can be True,
+                      False, Unknown.
+                    type: string
+                  type:
+                    type: string
+                required:
+                  - status
+                  - type
+                type: object
+              type: array
+            dbInstanceStatus:
+              additionalProperties:
+                properties:
+                  currentState:
+                    properties:
+                      errorInfo:
+                        type: string
+                      finishAt:
+                        format: date-time
+                        type: string
+                      reason:
+                        type: string
+                      startAt:
+                        format: date-time
+                        type: string
+                      state:
+                        type: string
+                    type: object
+                  hostClientIP:
+                    type: string
+                  insClassInfo:
+                    properties:
+                      className:
+                        type: string
+                      cpu:
+                        type: string
+                      iops:
+                        type: string
+                      memory:
+                        type: string
+                    required:
+                      - className
+                    type: object
+                  insId:
+                    type: string
+                  insName:
+                    type: string
+                  insType:
+                    type: string
+                  installed:
+                    type: boolean
+                  lastState:
+                    properties:
+                      errorInfo:
+                        type: string
+                      finishAt:
+                        format: date-time
+                        type: string
+                      reason:
+                        type: string
+                      startAt:
+                        format: date-time
+                        type: string
+                      state:
+                        type: string
+                    type: object
+                  netInfo:
+                    properties:
+                      enableWorkingAdminIP:
+                        type: boolean
+                      netType:
+                        type: string
+                      workingAdminIP:
+                        type: string
+                      workingHostIP:
+                        type: string
+                      workingPort:
+                        type: integer
+                    type: object
+                  nodeName:
+                    type: string
+                  physicalInsId:
+                    type: string
+                  podName:
+                    type: string
+                  podNameSpace:
+                    type: string
+                  polarFsHostId:
+                    type: string
+                  role:
+                    type: string
+                  status:
+                    type: string
+                  versionInfo:
+                    properties:
+                      clusterManagerImage:
+                        type: string
+                      engineImage:
+                        type: string
+                      managerImage:
+                        type: string
+                      otherImages:
+                        additionalProperties:
+                          type: string
+                        type: object
+                      pfsdImage:
+                        type: string
+                      pfsdToolImage:
+                        type: string
+                      versionName:
+                        type: string
+                    type: object
+                type: object
+              type: object
+            floatingIP:
+              properties:
+                basedNetIf:
+                  type: string
+                gateWay:
+                  type: string
+                ipAddress:
+                  type: string
+                ipAddressCfgType:
+                  type: string
+                ipMode:
+                  type: string
+                mask:
+                  type: integer
+              type: object
+            followerNum:
+              type: integer
+            insClassInfo:
+              properties:
+                className:
+                  type: string
+                cpu:
+                  type: string
+                iops:
+                  type: string
+                memory:
+                  type: string
+              required:
+                - className
+              type: object
+            leaderInstanceHost:
+              type: string
+            leaderInstanceId:
+              type: string
+            localVolName:
+              type: string
+            logicId:
+              type: string
+            proxyStatus:
+              properties:
+                maxScaleName:
+                  type: string
+                maxScaleNameSpace:
+                  type: string
+                workingAddr:
+                  items:
+                    properties:
+                      enableWorkingAdminIP:
+                        type: boolean
+                      netType:
+                        type: string
+                      workingAdminIP:
+                        type: string
+                      workingHostIP:
+                        type: string
+                      workingPort:
+                        type: integer
+                    type: object
+                  type: array
+                workingPort:
+                  type: integer
+              type: object
+          type: object
+      type: object
+  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: mpdlocalvolumes.mpd.polardb.aliyun.com
+spec:
+  additionalPrinterColumns:
+    - JSONPath: .spec.lvNum
+      description: lvm logical volumes number claimed
+      name: lvnum
+      type: integer
+    - JSONPath: .status.validLVNum
+      description: current lvm logical volumes available
+      name: current lvnum
+      type: integer
+    - JSONPath: .status.pvcReady
+      description: LVM related PVCs are ready
+      name: pvcready
+      type: boolean
+    - JSONPath: .metadata.creationTimestamp
+      description: the age of this resource
+      name: age
+      type: date
+  group: mpd.polardb.aliyun.com
+  names:
+    categories:
+      - all
+      - mpd
+    kind: MPDLocalVolume
+    listKind: MPDLocalVolumeList
+    plural: mpdlocalvolumes
+    shortNames:
+      - mv
+    singular: mpdlocalvolume
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: MPDLocalVolume is the Schema for the mpdlocalvolumes API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: MPDLocalVolumeSpec defines the desired state of MPDLocalVolume
+          properties:
+            Description:
+              description: Description or comments
+              type: string
+            createPVC:
+              description: 'TODO: create PVC or not. Reserved for future.'
+              type: boolean
+            driver:
+              description: Specify a driver to provision volume, default lvm
+              type: string
+            formatFileSystem:
+              description: File system, default ext4, empty means no need to format
+              type: string
+            lvExpectedExpandToSizeMB:
+              description: VolMode = maker 或 mixed时有效，即希望stack扩容至多大的
+              format: int64
+              type: integer
+            lvExpectedSizeMB:
+              format: int64
+              type: integer
+            lvNum:
+              description: How many lvm logical volumes that are desired or claimed.
+              format: int64
+              type: integer
+            lvResources:
+              description: LvResources contains LVM logical volume information, including
+                basic metadata and location information It takes effect only when
+                volumeMode is custom or mixed
+              items:
+                description: MPDHostLV holds the basic info for a lvm logical volume,
+                  lv_path and hostname
+                properties:
+                  lvId:
+                    type: string
+                  lvPath:
+                    type: string
+                  nodeName:
+                    type: string
+                type: object
+              type: array
+            mpdVolumeMode:
+              description: The lvm logical volume used by MPDLocalVolume is provisioned
+                by an administrator or dynamically provisioned
+              type: string
+          type: object
+        status:
+          description: MPDLocalVolumeStatus defines the observed state of MPDLocalVolume
+          properties:
+            LvSizeMB:
+              description: 取LvStatusMap中size最小的值
+              format: int64
+              type: integer
+            conditions:
+              description: Current Condition of MDPLocalVolume. If underlying persistent
+                volume is being resized then the Condition will be set to 'ResizeStarted'.
+              items:
+                properties:
+                  lastProbeTime:
+                    description: Last time we probed the condition.
+                    format: date-time
+                    type: string
+                  lastTransitionTime:
+                    description: Last time the condition transitioned from one status
+                      to another.
+                    format: date-time
+                    type: string
+                  message:
+                    description: Human-readable message indicating details about last
+                      transition.
+                    type: string
+                  reason:
+                    description: Unique, one-word, CamelCase reason for the condition's
+                      last transition.
+                    type: string
+                  status:
+                    description: Status is the status of the condition. Can be True,
+                      False, Unknown.
+                    type: string
+                  type:
+                    type: string
+                required:
+                  - status
+                  - type
+                type: object
+              type: array
+            formatFileSystem:
+              description: Observed file system format
+              type: string
+            lvNum:
+              description: How many lvm logical volumes that are observed.
+              type: integer
+            lvStatus:
+              additionalProperties:
+                properties:
+                  errorInfo:
+                    properties:
+                      errorCode:
+                        type: string
+                      lastErrorMsg:
+                        type: string
+                      lastErrorTime:
+                        format: date-time
+                        type: string
+                    type: object
+                  fileSystem:
+                    type: string
+                  lvId:
+                    type: string
+                  lvName:
+                    description: lv Name 需要由应用rename成与 MPDLocalVolume.Name 名称相关， 如：
+                      MPDLocalVol-01
+                    type: string
+                  lvPath:
+                    type: string
+                  lvSectors:
+                    format: int32
+                    type: integer
+                  lvSizeMB:
+                    format: int64
+                    type: integer
+                  lvStatus:
+                    type: string
+                  lvUUID:
+                    type: string
+                  nodeName:
+                    type: string
+                  vgName:
+                    type: string
+                  vgUUID:
+                    type: string
+                type: object
+              description: 映射关系：lvID->MPDHostLVStatus
+              type: object
+            pvcInfo:
+              additionalProperties:
+                properties:
+                  errorInfo:
+                    properties:
+                      errorCode:
+                        type: string
+                      lastErrorMsg:
+                        type: string
+                      lastErrorTime:
+                        format: date-time
+                        type: string
+                    type: object
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                type: object
+              description: PVC and LVM logical colume map, lvID->LVPVCInfo
+              type: object
+            pvcNumber:
+              description: PVC number for each LVM logical volume
+              type: integer
+            pvcReady:
+              description: Whether PVCs are ready
+              type: boolean
+            pvcReadyNum:
+              description: Avaliable PVC number in current mode
+              type: boolean
+            validLVNum:
+              description: Number of valid and available LVM logical volumes
+              type: integer
+          type: object
+      type: object
+  version: v1
+  versions:
+    - name: v1
+      served: true
+      storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: polar-mpd-manager-nodeport
+  namespace: kube-system
+spec:
+  ports:
+    - name: polar-mpd-controller-manager-nodeport
+      port: 16099
+      protocol: TCP
+      targetPort: 6099
+  selector:
+    control-plane: mpd-controller-manager
+    controller-tools.k8s.io: "1.0"
+  type: NodePort
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: mpd-controller-manager
+    controller-tools.k8s.io: "1.0"
+  name: manager
+  namespace: kube-system
+spec:
+  progressDeadlineSeconds: 20
+  replicas: 3
+  selector:
+    matchLabels:
+      control-plane: mpd-controller-manager
+      controller-tools.k8s.io: "1.0"
+  strategy:
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 5
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        apsara.metric.arch: pod_arch_v1
+        apsaradb_pod_type: mpd_standby_operator
+        control-plane: mpd-controller-manager
+        controller-tools.k8s.io: "1.0"
+        pod_port: "6099"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: apsaradb_pod_type
+                    operator: In
+                    values:
+                      - mpd_standby_operator
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - args:
+            - --work-flow-meta-dir=/usr/local/polar-as/k8s/workflow
+            - --enable-leader-election
+            - --log_dir=/kube-log
+            - --log_file=/kube-log/controller.log
+            - --logtostderr=false
+            - --stderrthreshold=1
+            - -v=5
+            - --image-pull-policy=Always
+            - --port=6099
+          command:
+            - /mgr
+          env:
+            - name: apsara.log.appname
+              value: polar-mpd-controller
+            - name: apsara.log.line_separator
+              value: |2+
+
+            - name: apsara.log.dir
+              value: /var/log/polardb-box/polar-mpd-controller
+            - name: apsara.log.function
+              value: json
+            - name: apsara.log.current_limiting
+              value: "false"
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CURRENT_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: KUBERNETES_SERVICE_HOST
+              value: 10.0.0.77
+            - name: KUBERNETES_SERVICE_PORT
+              value: "6443"
+            - name: ETCDCTL_CERT
+              value: /cert/client.pem
+            - name: ETCDCTL_KEY
+              value: /cert/client-key.pem
+            - name: ETCDCTL_CACERT
+              value: /cert/ca.pem
+          image: reg.docker.alibaba-inc.com/polarbox/polar-mpd-controller:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            tcpSocket:
+              port: 6099
+            timeoutSeconds: 3
+          name: manager
+          ports:
+            - containerPort: 6079
+              name: control-http
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          volumeMounts:
+            - mountPath: /root/.ssh
+              name: ssh-client
+            - mountPath: /kube-log
+              name: kube-log
+            - mountPath: /cert
+              name: config-etcd
+            - mountPath: /var/run/docker.sock
+              name: var-run-docker
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      priorityClassName: system-cluster-critical
+      terminationGracePeriodSeconds: 10
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      volumes:
+        - hostPath:
+            path: /root/.ssh
+          name: ssh-client
+        - hostPath:
+            path: /var/log/polardb-box/polar-mpd
+            type: DirectoryOrCreate
+          name: kube-log
+        - hostPath:
+            path: /var/run/docker.sock
+          name: var-run-docker
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  creationTimestamp: null
+  name: mpd-manager-role
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - admissionregistration.k8s.io
+    resources:
+      - mutatingwebhookconfigurations
+      - validatingwebhookconfigurations
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/status
+    verbs:
+      - patch
+      - update
+  - apiGroups:
+      - mpd.polardb.aliyun.com
+    resources:
+      - mpdclusters
+    verbs:
+      - create
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - mpd.polardb.aliyun.com
+    resources:
+      - mpdclusters/status
+    verbs:
+      - get
+      - patch
+      - update
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: mpd-manager-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: mpd-manager-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: kube-system
+---
+apiVersion: v1
+data:
+  autoSnapshotSupport: "false"
+  backupApiLimiterBurst: "1"
+  backupApiLimiterQPS: "5"
+  backupApiLimiterTimeout: 1ns
+  canUpdateNotChangeableParams: "false"
+  cmHybridDeployment: "true"
+  controllerListenAddr: ""
+  controllerNodeLabel: node-role.kubernetes.io/master
+  cowSnapshotSupport: "false"
+  degradeDaemonSet: polar-tianxiang/polarbox-operator-log-sync,kube-system/polardb-backup-agent,polar-tianxiang/esdb-data,polar-tianxiang/universe-daemonset,polar-tianxiang/rds-redline-auto-local-volum-provisioner,polar-tianxiang/rds-redline-ue,polar-tianxiang/rds-redline-ue
+  degradeDeployment: polar-tianxiang/universe-deployment,polar-tianxiang/elastalert-deployment,polar-tianxiang/elasticsearch-operator
+  disableSanCmd: "true"
+  disabledWfEvents: ""
+  enableBackupClusterManager: "false"
+  enableCheckSum: "true"
+  enableDegrade: "false"
+  enableOnlinePromote: "false"
+  enablePodGc: "true"
+  enableRedline: "true"
+  enableVip: "false"
+  hybridDeployment: "true"
+  isCheckOObIP: "true"
+  mxsListenAddr: ""
+  pureSoftStorageClass: ""
+  sshPassword: ""
+  sshUser: root
+kind: ConfigMap
+metadata:
+  name: controller-config
+  namespace: kube-system
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB
+  labels:
+    classKey: polar.o.x8.12xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "88"
+  cpu_cores_request: "66"
+  hugepage_limit: "522240"
+  iops: "512000"
+  max_conn: "36000"
+  max_storage: "102389760"
+  mem: "727040"
+  mem_limit: "204800"
+  mem_request: "92160"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"2Gi"},"pfsd":{"cpu_cores":"27200m","limit_memory":"50Gi","config":"-w 64 -s 15 -i 262144 -f"},"manager":{"cpu_cores":"400m","limit_memory":"2Gi"},"engine":{"cpu_cores":"60000m","limit_memory":"150Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB
+  labels:
+    classKey: polar.o.x8.12xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "8GB"
+  effective_cache_size: "465GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "32"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "32"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "5GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "465GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核64GB
+  labels:
+    classKey: polar.o.x8.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "1600MB"
+  effective_cache_size: "48GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "4"
+  max_parallel_workers: "4"
+  max_parallel_workers_per_gather: "4"
+  max_sync_workers_per_subscription: "4"
+  polar_logindex_bloom_blocks: "3072"
+  polar_logindex_mem_size: "1536MB"
+  polar_parallel_new_bgwriter_threshold_lag: "1500MB"
+  polar_xlog_page_buffers: "1500MB"
+  polar_xlog_queue_buffers: "1536MB"
+  shared_buffers: "48GB"
+  wal_buffers: "16MB"
+  work_mem: "16384"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB
+  labels:
+    classKey: polar.o.x8.4xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "4GB"
+  effective_cache_size: "192GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "28"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "28"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "6GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "192GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核32GB
+  labels:
+    classKey: polar.o.x4.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x4-xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "800MB"
+  effective_cache_size: "24GB"
+  maintenance_work_mem: "2GB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "4"
+  max_parallel_workers: "4"
+  max_parallel_workers_per_gather: "4"
+  max_sync_workers_per_subscription: "4"
+  polar_logindex_bloom_blocks: "1536"
+  polar_logindex_mem_size: "768MB"
+  polar_parallel_new_bgwriter_threshold_lag: "750MB"
+  polar_xlog_page_buffers: "750MB"
+  polar_xlog_queue_buffers: "768MB"
+  shared_buffers: "24GB"
+  wal_buffers: "16MB"
+  work_mem: "8192"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB
+  labels:
+    classKey: polar.o.x8.4xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "233472"
+  iops: "384000"
+  max_conn: "12800"
+  max_storage: "102389760"
+  mem: "262144"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores: "32"
+  mem_limit: "96598"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"10000m","limit_memory":"30Gi","config":"-w 48 -s 15 -i 131072 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"21200m","limit_memory":"64Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 2核8GB
+  labels:
+    classKey: polar.o.x4.medium
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x4-medium-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "200MB"
+  effective_cache_size: "6GB"
+  maintenance_work_mem: "500MB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "2"
+  max_parallel_workers: "2"
+  max_parallel_workers_per_gather: "2"
+  max_sync_workers_per_subscription: "2"
+  polar_logindex_bloom_blocks: "1024"
+  polar_logindex_mem_size: "512MB"
+  polar_parallel_new_bgwriter_threshold_lag: "500MB"
+  polar_xlog_page_buffers: "500MB"
+  polar_xlog_queue_buffers: "512MB"
+  shared_buffers: "6GB"
+  wal_buffers: "16MB"
+  work_mem: "4096"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 2核8GB
+  labels:
+    classKey: polar.o.x4.medium
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x4-medium-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "2"
+  hugepage_limit: "12288"
+  iops: "16000"
+  max_conn: "400"
+  max_storage: "102389760"
+  mem: "8192"
+  mem_limit: "5120"
+  storage: "204800"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "512"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"500m","limit_memory":"1Gi","config":"-w 8 -s 20 -i 8192 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"1100m","limit_memory":"2Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核64GB
+  labels:
+    classKey: polar.o.x8.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-xlarge-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "8"
+  hugepage_limit: "61440"
+  iops: "160000"
+  max_conn: "3200"
+  max_storage: "102389760"
+  mem: "65536"
+  mem_limit: "24841"
+  storage: "327680"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"2400m","limit_memory":"6Gi","config":"-w 32 -s 15 -i 65536 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"5200m","limit_memory":"16Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 4核16GB
+  labels:
+    classKey: polar.o.x4.large
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x4-large-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "400MB"
+  effective_cache_size: "12GB"
+  maintenance_work_mem: "1GB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "2"
+  max_parallel_workers: "2"
+  max_parallel_workers_per_gather: "2"
+  max_sync_workers_per_subscription: "2"
+  polar_logindex_bloom_blocks: "1024"
+  polar_logindex_mem_size: "512MB"
+  polar_parallel_new_bgwriter_threshold_lag: "500MB"
+  polar_xlog_page_buffers: "500MB"
+  polar_xlog_queue_buffers: "512MB"
+  shared_buffers: "12GB"
+  wal_buffers: "16MB"
+  work_mem: "4096"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核32GB
+  labels:
+    classKey: polar.o.x4.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x4-xlarge-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "8"
+  hugepage_limit: "32768"
+  iops: "128000"
+  max_conn: "1600"
+  max_storage: "102389760"
+  mem: "32768"
+  mem_limit: "16468"
+  storage: "204800"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "512"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"2400m","limit_memory":"7Gi","config":"-w 32 -s 15 -i 32768 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"5200m","limit_memory":"7Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB
+  labels:
+    classKey: polar.o.x8.2xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "119808"
+  iops: "256000"
+  max_conn: "6400"
+  max_storage: "102389760"
+  mem: "131072"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores: "16"
+  mem_limit: "48395"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"4800m","limit_memory":"16Gi","config":"-w 32 -s 10 -i 65536 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"10400m","limit_memory":"30Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 4核16GB
+  labels:
+    classKey: polar.o.x4.large
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x4-large-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "4"
+  hugepage_limit: "18432"
+  iops: "64000"
+  max_conn: "800"
+  max_storage: "102389760"
+  mem: "16384"
+  mem_limit: "9030"
+  storage: "204800"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "512"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"1000m","limit_memory":"3Gi","config":"-w 16 -s 10 -i 16384 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"2600m","limit_memory":"4Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB
+  labels:
+    classKey: polar.o.x8.2xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "2GB"
+  effective_cache_size: "96GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "8"
+  max_parallel_workers: "12"
+  max_parallel_workers_per_gather: "12"
+  max_sync_workers_per_subscription: "12"
+  polar_logindex_bloom_blocks: "6144"
+  polar_logindex_mem_size: "3072MB"
+  polar_parallel_new_bgwriter_threshold_lag: "3GB"
+  polar_xlog_page_buffers: "3000MB"
+  polar_xlog_queue_buffers: "3072MB"
+  shared_buffers: "96GB"
+  wal_buffers: "16MB"
+  work_mem: "32768"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB-独占
+  labels:
+    classKey: polar.o.x8.12xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-exclusive-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores_request: "66"
+  hugepage_limit: "522240"
+  iops: "512000"
+  max_conn: "36000"
+  max_storage: "102389760"
+  mem: "727040"
+  mem_request: "92160"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  exclusive: "true"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"2Gi"},"pfsd":{"cpu_cores":"27200m","limit_memory":"50Gi","config":"-w 64 -s 15 -i 262144 -f"},"manager":{"cpu_cores":"400m","limit_memory":"2Gi"},"engine":{"cpu_cores":"60000m","limit_memory":"150Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB-独占
+  labels:
+    classKey: polar.o.x8.12xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-exclusive-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "8GB"
+  effective_cache_size: "465GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "32"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "32"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "5GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "465GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB-独占
+  labels:
+    classKey: polar.o.x8.4xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-exclusive-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "233472"
+  iops: "384000"
+  max_conn: "12800"
+  max_storage: "102389760"
+  mem: "262144"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores_request: "32"
+  mem_request: "96598"
+  exclusive: "true"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"10000m","limit_memory":"30Gi","config":"-w 48 -s 15 -i 131072 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"21200m","limit_memory":"64Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB-独占
+  labels:
+    classKey: polar.o.x8.4xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-exclusive-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "4GB"
+  effective_cache_size: "192GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "28"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "28"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "6GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "192GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB-独占
+  labels:
+    classKey: polar.o.x8.2xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-exclusive-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "119808"
+  iops: "256000"
+  max_conn: "6400"
+  max_storage: "102389760"
+  mem: "131072"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores_request: "16"
+  mem_request: "48395"
+  exclusive: "true"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"4800m","limit_memory":"16Gi","config":"-w 32 -s 10 -i 65536 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"10400m","limit_memory":"30Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB-独占
+  labels:
+    classKey: polar.o.x8.2xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-exclusive-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "2GB"
+  effective_cache_size: "96GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "8"
+  max_parallel_workers: "12"
+  max_parallel_workers_per_gather: "12"
+  max_sync_workers_per_subscription: "12"
+  polar_logindex_bloom_blocks: "6144"
+  polar_logindex_mem_size: "3072MB"
+  polar_parallel_new_bgwriter_threshold_lag: "3GB"
+  polar_xlog_page_buffers: "3000MB"
+  polar_xlog_queue_buffers: "3072MB"
+  shared_buffers: "96GB"
+  wal_buffers: "16MB"
+  work_mem: "32768"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    rds.schema.git.repo: http://gitlab.alibaba-inc.com/rds/schema_scripts/tree/develop/schema-scripts-pengine-k8s-master/schema_scripts_pengine_k8s_master
+    rds.schema.scripts: 1.3.2.1
+    rds.schema.git.commitID: 98305b5133d22b2f60a874720ead509752523794
+    rds.schema.key.diff: "old_snapshot_threshold,polar_comp_dynatune,temp_tablespaces,polar_max_non_super_wal_snd"
+  labels:
+    configtype: mycnf_template
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    dbClusterMode: WriteReadMore
+  name: postgresql-1-0-mycnf-template-rwo
+  namespace: kube-system
+data:
+  mycnf_template: |
+    - name: archive_command
+      default_value: "''"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the shell command that will be called to archive a WAL file.'
+    - name: archive_mode
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[always|on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allows archiving of WAL files using archive_command.'
+    - name: archive_timeout
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Forces a switch to the next WAL file if a new file has not been started within N seconds.'
+    - name: authentication_timeout
+      default_value: "60"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed time to complete client authentication.'
+    - name: auth_delay.milliseconds
+      default_value: "3000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Milliseconds to delay before reporting authentication failure.'
+    - name: autovacuum
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Starts the autovacuum subprocess.'
+    - name: autovacuum_analyze_scale_factor
+      default_value: "0.05"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of tuple inserts, updates, or deletes prior to analyze as a fraction of reltuples.'
+    - name: autovacuum_analyze_threshold
+      default_value: "50"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum number of tuple inserts, updates, or deletes prior to analyze.'
+    - name: autovacuum_freeze_max_age
+      default_value: "1200000000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[200000000-1500000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Age at which to autovacuum a table to prevent transaction ID wraparound.'
+    - name: autovacuum_max_workers
+      default_value: "5"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously running autovacuum worker processes.'
+    - name: autovacuum_multixact_freeze_max_age
+      default_value: "1400000000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[200000000-1500000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Multixact age at which to autovacuum a table to prevent multixact wraparound.'
+    - name: autovacuum_naptime
+      default_value: "30"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time to sleep between autovacuum runs.'
+    - name: autovacuum_vacuum_cost_delay
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost delay in milliseconds, for autovacuum.'
+    - name: autovacuum_vacuum_cost_limit
+      default_value: "10000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost amount available before napping, for autovacuum.'
+    - name: autovacuum_vacuum_scale_factor
+      default_value: "0.02"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of tuple updates or deletes prior to vacuum as a fraction of reltuples.'
+    - name: autovacuum_vacuum_threshold
+      default_value: "50"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum number of tuple updates or deletes prior to vacuum.'
+    - name: autovacuum_work_mem
+      default_value: "-1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum memory to be used by each autovacuum worker process.'
+    - name: auto_explain.log_analyze
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Use EXPLAIN ANALYZE for plan logging.'
+    - name: auto_explain.log_buffers
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Log buffers usage.'
+    - name: auto_explain.log_format
+      default_value: "text"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[text|xml|json|yaml]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'EXPLAIN format to be used for plan logging.'
+    - name: auto_explain.log_min_duration
+      default_value: "5000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum execution time above which plans will be logged.'
+    - name: auto_explain.log_nested_statements
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Log nested statements.'
+    - name: auto_explain.log_timing
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collect timing data, not just row counts.'
+    - name: auto_explain.log_triggers
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Include trigger statistics in plans.'
+    - name: auto_explain.log_verbose
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Use EXPLAIN VERBOSE for plan logging.'
+    - name: auto_explain.sample_rate
+      default_value: "1"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Fraction of queries to process.'
+    - name: backend_flush_after
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-256]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of pages after which previously performed writes are flushed to disk.'
+    - name: bgwriter_delay
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[10-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Background writer sleep time between rounds.'
+    - name: bgwriter_flush_after
+      default_value: "128"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-256]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of pages after which previously performed writes are flushed to disk.'
+    - name: bgwriter_lru_maxpages
+      default_value: "1000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Background writer maximum number of LRU pages to flush per round.'
+    - name: bgwriter_lru_multiplier
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Multiple of the average buffer usage to free per round.'
+    - name: checkpoint_completion_target
+      default_value: "0.9"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time spent flushing dirty buffers during checkpoint, as fraction of checkpoint interval.'
+    - name: checkpoint_flush_after
+      default_value: "256"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-256]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of pages after which previously performed writes are flushed to disk.'
+    - name: checkpoint_timeout
+      default_value: "300"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[1-86400]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum time between automatic WAL checkpoints.'
+    - name: checkpoint_warning
+      default_value: "30"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[30-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Enables warnings if checkpoint segments are filled more frequently than this.'
+    - name: commit_delay
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-100000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the delay in microseconds between transaction commit and flushing WAL to disk.'
+    - name: commit_siblings
+      default_value: "5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum concurrent open transactions before performing commit_delay.'
+    - name: constraint_exclusion
+      default_value: "partition"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[partition|on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner to use constraints to optimize queries.'
+    - name: cpu_index_tuple_cost
+      default_value: "0.005"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of processing each index entry during an index scan.'
+    - name: cpu_operator_cost
+      default_value: "0.0025"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of processing each operator or function call.'
+    - name: cpu_tuple_cost
+      default_value: "0.01"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of processing each tuple (row).'
+    - name: cursor_tuple_fraction
+      default_value: "0.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the fraction of a cursor''s rows that will be retrieved.'
+    - name: data_sync_retry
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Whether to continue running after a failure to sync data files.'
+    - name: dbms_pipe.total_message_buffer
+      default_value: "30"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[30-262144]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets dbms_pipe''s total message buffer size.'
+    - name: deadlock_timeout
+      default_value: "1000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the time to wait on a lock before checking for deadlock.'
+    - name: debug_pretty_print
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Indents parse and plan tree displays.'
+    - name: debug_print_parse
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each query''s parse tree.'
+    - name: debug_print_plan
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each query''s execution plan.'
+    - name: debug_print_rewritten
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each query''s rewritten parse tree.'
+    - name: default_statistics_target
+      default_value: "100"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the default statistics target.'
+    - name: default_text_search_config
+      default_value: "'pg_catalog.simple'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets default text search configuration.'
+    - name: default_transaction_deferrable
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the default deferrable status of new transactions.'
+    - name: default_transaction_read_only
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the default read-only status of new transactions.'
+    - name: default_with_oids
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'This controls whether CREATE TABLE and CREATE TABLE AS include an OID column in newly-created tables.'
+    - name: dynamic_shared_memory_type
+      default_value: "posix"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[posix|sysv|mmap]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects the dynamic shared memory implementation used.'
+    - name: effective_io_concurrency
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of simultaneous requests that can be handled efficiently by the disk subsystem.'
+    - name: enable_bitmapscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of bitmap-scan plans.'
+    - name: enable_gathermerge
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of gather merge plans.'
+    - name: enable_hashagg
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of hashed aggregation plans.'
+    - name: enable_hashjoin
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of hash join plans.'
+    - name: enable_indexonlyscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of index-only-scan plans.'
+    - name: enable_indexscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of index-scan plans.'
+    - name: enable_material
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of materialization.'
+    - name: enable_mergejoin
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of merge join plans.'
+    - name: enable_nestloop
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of nested-loop join plans.'
+    - name: enable_parallel_append
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of parallel append plans.'
+    - name: enable_parallel_hash
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of parallel hash plans.'
+    - name: enable_partitionwise_aggregate
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables partitionwise aggregation and grouping.'
+    - name: enable_partitionwise_join
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables partitionwise join.'
+    - name: enable_partition_pruning
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable plan-time and run-time partition pruning.'
+    - name: enable_seqscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of sequential-scan plans.'
+    - name: enable_sort
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of explicit sort steps.'
+    - name: enable_tidscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of TID scan plans.'
+    - name: extra_float_digits
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-15-3]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of digits displayed for floating-point values.'
+    - name: force_parallel_mode
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[off|on|regress]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Forces use of parallel query facilities.'
+    - name: from_collapse_limit
+      default_value: "8"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the FROM-list size beyond which subqueries are not collapsed.'
+    - name: fsync
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Forces synchronization of updates to disk.'
+    - name: full_page_writes
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes full pages to WAL when first modified after a checkpoint.'
+    - name: gin_fuzzy_search_limit
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed result for exact search by GIN.'
+    - name: gin_pending_list_limit
+      default_value: "4096"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[64-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum size of the pending list for GIN index.'
+    - name: hot_standby
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allows connections and queries during recovery.'
+    - name: hot_standby_feedback
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allows feedback from a hot standby to the primary that will avoid query conflicts.'
+    - name: huge_pages
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[off|on|try]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Use of huge pages on Linux or Windows.'
+    - name: idle_in_transaction_session_timeout
+      default_value: "3600000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^(0|[1-9]\d{3,8}|1\d{9}|2000000000)$
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed duration of any idling transaction.'
+    - name: jit
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allow JIT compilation.'
+    - name: join_collapse_limit
+      default_value: "8"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the FROM-list size beyond which JOIN constructs are not flattened.'
+    - name: listen_addresses
+      default_value: "'*'"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the host name or IP address(es) to listen to.'
+    - name: lock_timeout
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^(0|[1-9]\d{3,8}|1\d{9}|2000000000)$
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed duration of any wait for a lock.'
+    - name: logging_collector
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Start a subprocess to capture stderr output and/or csvlogs into log files.'
+    - name: log_autovacuum_min_duration
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum execution time above which autovacuum actions will be logged.'
+    - name: log_checkpoints
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each checkpoint.'
+    - name: log_connections
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each successful connection.'
+    - name: log_directory
+      default_value: "'log'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the destination directory for log files.'
+    - name: log_disconnections
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs end of a session, including duration.'
+    - name: log_duration
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs the duration of each completed SQL statement.'
+    - name: log_error_verbosity
+      default_value: "default"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[terse|default|verbose]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the verbosity of logged messages.'
+    - name: log_executor_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes executor performance statistics to the server log.'
+    - name: log_filename
+      default_value: "'postgresql-%Y-%m-%d_%H%M%S.log'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the file name pattern for log files.'
+    - name: log_file_mode
+      default_value: "0600"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the file permissions for log files.'
+    - name: log_hostname
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs the host name in the connection logs.'
+    - name: log_lock_waits
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs long lock waits.'
+    - name: log_min_duration_statement
+      default_value: "-1"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum execution time above which statements will be logged.'
+    - name: log_parser_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes parser performance statistics to the server log.'
+    - name: log_planner_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes planner performance statistics to the server log.'
+    - name: log_replication_commands
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each replication command.'
+    - name: log_rotation_age
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-35791394]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Automatic log file rotation will occur after N minutes.'
+    - name: log_rotation_size
+      default_value: "131072"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2097151]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Automatic log file rotation will occur after N kilobytes.'
+    - name: log_statement
+      default_value: "all"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[none|ddl|mod|all]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the type of statements logged.'
+    - name: log_statement_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes cumulative performance statistics to the server log.'
+    - name: log_temp_files
+      default_value: "100000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Log the use of temporary files larger than this number of kilobytes.'
+    - name: log_timezone
+      default_value: "'PRC'"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^'(((UTC)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|((GMT)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|CST6CDT|Poland|Kwajalein|MST|NZ|Universal|Libya|Turkey|EST5EDT|Greenwich|NZ-CHAT|MET|Portugal|GMT-0|CET|Eire|PST8PDT|Jamaica|GMT|Zulu|Japan|ROC|GB-Eire|ROK|Navajo|Singapore|posixrules|GB|EST|GMT0|Hongkong|PRC|Iran|MST7MDT|WET|W-SU|UCT|Cuba|Egypt|EET|Israel|UTC|HST|Iceland)'$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the time zone to use in log messages.'
+    - name: log_truncate_on_rotation
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Truncate existing log files of same name during log rotation.'
+    - name: max_files_per_process
+      default_value: "10000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[25-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously open files for each server process.'
+    - name: max_locks_per_transaction
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[10-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of locks per transaction.'
+    - name: max_logical_replication_workers
+      default_value: "32"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of logical replication worker processes.'
+    - name: max_parallel_maintenance_workers
+      default_value: "2"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1024]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of parallel processes per maintenance operation.'
+    - name: max_parallel_workers
+      default_value: "8"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-512]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of parallel workers that can be active at one time.'
+    - name: max_parallel_workers_per_gather
+      default_value: "2"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-512]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of parallel processes per executor node.'
+    - name: max_pred_locks_per_page
+      default_value: "2"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of predicate-locked tuples per page.'
+    - name: max_pred_locks_per_relation
+      default_value: "-2"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-2147483648-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of predicate-locked pages and tuples per relation.'
+    - name: max_pred_locks_per_transaction
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[10-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of predicate locks per transaction.'
+    - name: max_prepared_transactions
+      default_value: "800"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-36100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously prepared transactions.'
+    - name: max_replication_slots
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously defined replication slots.'
+    - name: max_stack_depth
+      default_value: "6144"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum stack depth, in kilobytes.'
+    - name: max_standby_archive_delay
+      default_value: "30000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum delay before canceling queries when a hot standby server is processing archived WAL data.'
+    - name: max_standby_streaming_delay
+      default_value: "30000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum delay before canceling queries when a hot standby server is processing streamed WAL data.'
+    - name: max_sync_workers_per_subscription
+      default_value: "4"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of table synchronization workers per subscription.'
+    - name: max_wal_senders
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously running WAL sender processes.'
+    - name: max_worker_processes
+      default_value: "256"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of concurrent worker processes.'
+    - name: min_parallel_index_scan_size
+      default_value: "64"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-715827882]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum amount of index data for a parallel scan.'
+    - name: min_parallel_table_scan_size
+      default_value: "1024"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-715827882]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum amount of table data for a parallel scan.'
+    - name: old_snapshot_threshold
+      default_value: "-1"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-86400]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time before a snapshot is too old to read pages changed after the snapshot was taken.'
+    - name: parallel_setup_cost
+      default_value: "1000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of starting up worker processes for parallel query.'
+    - name: parallel_tuple_cost
+      default_value: "0.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of passing each tuple (row) from worker to master backend.'
+    - name: password_encryption
+      default_value: "md5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[md5|scram-sha-256]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Encrypt passwords.'
+    - name: pg_stat_statements.max
+      default_value: "5000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of statements tracked by pg_stat_statements.'
+    - name: pg_stat_statements.save
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Save pg_stat_statements statistics across server shutdowns.'
+    - name: pg_stat_statements.track
+      default_value: "all"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[none|top|all]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects which statements are tracked by pg_stat_statements.'
+    - name: pg_stat_statements.track_utility
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects whether utility commands are tracked by pg_stat_statements.'
+    - name: polar_bgwriter_batch_size_flushlist
+      default_value: "100"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_bgwriter_max_batch_size
+      default_value: "5000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_bgwriter_sleep_lsn_lag
+      default_value: "100"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_buffer_copy_lsn_lag_with_cons_lsn
+      default_value: "100"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_buffer_copy_min_modified_count
+      default_value: "5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_check_checkpoint_legal_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-3600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_clog_slot_size
+      default_value: "512"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[128-8192]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_copy_buffers
+      default_value: "16384"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[128-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_enable_shared_storage_mode
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_bgwriter_check_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_bgwriter_delay
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_bgwriter_workers
+      default_value: "5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-8]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_new_bgwriter_threshold_time
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-3600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_read_ahead_xlog_num
+      default_value: "200"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-200]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_vfs.localfs_mode
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment:
+    - name: polar_enable_fullpage_snapshot
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable fullpage snapshot feature'
+    - name: quote_all_identifiers
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'When generating SQL fragments, quote all identifiers.'
+    - name: random_page_cost
+      default_value: "1.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of a nonsequentially fetched disk page.'
+    - name: row_security
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable row security.'
+    - name: seq_page_cost
+      default_value: "1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of a sequentially fetched disk page.'
+    - name: shared_preload_libraries
+      default_value: "'polar_vfs,polar_worker,pg_stat_statements,auth_delay,auto_explain'"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: ^'(polar_vfs,polar_worker)(,\w+)*'$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Lists shared libraries to preload into server.'
+    - name: ssl
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables SSL connections.'
+    - name: ssl_cert_file
+      default_value: "'server.crt'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Location of the SSL server certificate file.'
+    - name: ssl_key_file
+      default_value: "'server.key'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Location of the SSL server private key file.'
+    - name: statement_timeout
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^(0|[1-9]\d{3,8}|1\d{9}|2000000000)$
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed duration of any statement.'
+    - name: superuser_reserved_connections
+      default_value: "100"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of connection slots reserved for superusers.'
+    - name: synchronize_seqscans
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable synchronized sequential scans.'
+    - name: synchronous_commit
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[local|remote_write|remote_apply|on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the current transaction''s synchronization level.'
+    - name: synchronous_standby_names
+      default_value: "''"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Number of synchronous standbys and list of names of potential synchronous ones.'
+    - name: tcp_keepalives_count
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of TCP keepalive retransmits.'
+    - name: tcp_keepalives_idle
+      default_value: "60"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time between issuing TCP keepalives.'
+    - name: tcp_keepalives_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time between TCP keepalive retransmits.'
+    - name: temp_buffers
+      default_value: "1024"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of temporary buffers used by each session.'
+    - name: temp_file_limit
+      default_value: "524288000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-1048576000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Limits the total size of all temporary files used by each process.'
+    - name: timezone
+      default_value: "'PRC'"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^'(((UTC)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|((GMT)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|CST6CDT|Poland|Kwajalein|MST|NZ|Universal|Libya|Turkey|EST5EDT|Greenwich|NZ-CHAT|MET|Portugal|GMT-0|CET|Eire|PST8PDT|Jamaica|GMT|Zulu|Japan|ROC|GB-Eire|ROK|Navajo|Singapore|posixrules|GB|EST|GMT0|Hongkong|PRC|Iran|MST7MDT|WET|W-SU|UCT|Cuba|Egypt|EET|Israel|UTC|HST|Iceland)'$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the time zone for displaying and interpreting time stamps.'
+    - name: trace_notify
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Generates debugging output for LISTEN and NOTIFY.'
+    - name: trace_sort
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Emit information about resource usage in sorting.'
+    - name: track_activities
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects information about executing commands.'
+    - name: track_activity_query_size
+      default_value: "1024"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-102400]"
+      unit: B
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the size reserved for pg_stat_activity.query, in bytes.'
+    - name: track_commit_timestamp
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects transaction commit time.'
+    - name: track_counts
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects statistics on database activity.'
+    - name: track_functions
+      default_value: "pl"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[none|pl|all]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects function-level statistics on database activity.'
+    - name: track_io_timing
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects timing statistics for database I/O activity.'
+    - name: unix_socket_directories
+      default_value: "'.'"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the directories where Unix-domain sockets will be created.'
+    - name: unix_socket_permissions
+      default_value: "0700"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the access permissions of the Unix-domain socket.'
+    - name: update_process_title
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Updates the process title to show the active SQL command.'
+    - name: vacuum_cleanup_index_scale_factor
+      default_value: "0.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000000000]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of tuple inserts prior to index cleanup as a fraction of reltuples.'
+    - name: vacuum_cost_delay
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost delay in milliseconds.'
+    - name: vacuum_cost_limit
+      default_value: "10000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost amount available before napping.'
+    - name: vacuum_cost_page_dirty
+      default_value: "20"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost for a page dirtied by vacuum.'
+    - name: vacuum_cost_page_hit
+      default_value: "1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost for a page found in the buffer cache.'
+    - name: vacuum_cost_page_miss
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost for a page not found in the buffer cache.'
+    - name: vacuum_defer_cleanup_age
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of transactions by which VACUUM and HOT cleanup should be deferred, if any.'
+    - name: vacuum_freeze_min_age
+      default_value: "50000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum age at which VACUUM should freeze a table row.'
+    - name: vacuum_freeze_table_age
+      default_value: "200000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[150000000-2000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Age at which VACUUM should scan whole table to freeze tuples.'
+    - name: vacuum_multixact_freeze_min_age
+      default_value: "5000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum age at which VACUUM should freeze a MultiXactId in a table row.'
+    - name: vacuum_multixact_freeze_table_age
+      default_value: "200000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[150000000-2000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Multixact age at which VACUUM should scan whole table to freeze tuples.'
+    - name: wal_buffers
+      default_value: "2048"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-1-131071]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of disk-page buffers in shared memory for WAL.'
+    - name: wal_compression
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Compresses full-page writes written in WAL file.'
+    - name: wal_keep_segments
+      default_value: "32"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-100000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of WAL files held for standby servers.'
+    - name: wal_level
+      default_value: "logical"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[replica|logical]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Set the level of information written to the WAL.'
+    - name: wal_log_hints
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes full pages to WAL when first modified after a checkpoint, even for a non-critical modifications.'
+    - name: wal_receiver_status_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum interval between WAL receiver status reports to the sending server.'
+    - name: wal_receiver_timeout
+      default_value: "30000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum wait time to receive data from the sending server.'
+    - name: wal_retrieve_retry_interval
+      default_value: "5000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the time to wait before retrying to retrieve WAL after a failed attempt.'
+    - name: wal_sender_timeout
+      default_value: "60000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum time to wait for WAL replication.'
+    - name: wal_sync_method
+      default_value: "fdatasync"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[fsync|fsync_writethrough|fdatasync|open_sync|open_datasync]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects the method used for forcing WAL updates to disk.'
+    - name: wal_writer_delay
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-10000]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Time between WAL flushes performed in the WAL writer.'
+    - name: wal_writer_flush_after
+      default_value: "64"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Amount of WAL written out by WAL writer that triggers a flush.'
+    - name: work_mem
+      default_value: "4096"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[4096-524288]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum memory to be used for query workspaces.'
+    - name: temp_tablespaces
+      default_value: "'polar_tmp'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: ""
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets temp tablespaces dir.'
+    - name: polar_enable_lazy_checkpoint
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable the use of lazy checkpoint.'
+    - name: shared_buffers
+      default_value: "6GB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the number of shared memory buffers used by the server.'
+    - name: effective_cache_size
+      default_value: "6GB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: "Sets the planner's assumption about the total size of the data caches."
+    - name: maintenance_work_mem
+      default_value: "500MB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the maximum memory to be used for maintenance operations.'
+    - name: max_wal_size
+      default_value: "6GB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the WAL size that triggers a checkpoint.'
+    - name: min_wal_size
+      default_value: "3GB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the minimum size to shrink the WAL to.'
+    - name: max_connections
+      default_value: "3300"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of concurrent connections.'
+    - name: polar_parallel_new_bgwriter_threshold_lag
+      default_value: "500MB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Set the threshold to add a new bgwriter.'
+    - name: polar_logindex_mem_size
+      default_value: "512MB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Set the size for logindex memory table.'
+    - name: polar_xlog_queue_buffers
+      default_value: "512MB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the size of xlog queue buffer used to keep xlog meta. 0 means disable xlog buffer.'
+    - name: polar_logindex_bloom_blocks
+      default_value: "1024"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[8-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Set the number of blocks for logindex bloom filter.'
+    - name: polar_xlog_page_buffers
+      default_value: "500MB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the size of xlog buffer used by startup and backedn in replica and standby mode.'
+    - name: polar_enable_master_xlog_read_ahead
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable master xlog read ahead in recovery.'
+---
+apiVersion: v1
+data:
+  KubesprayPlaceholder: "1"
+  NextClusterScopeCustInsId: "1000"
+  Pbx.Next.Engine.Port: "30006"
+  Pbx.Next.External.Port: "37507"
+  Pbx.Next.Maxscale.Port: "33396"
+kind: ConfigMap
+metadata:
+  annotations:
+    datamax.port.range: 16000-16400
+    polarbox.novip.engine.port.range: 5400-5800
+    polarbox.novip.maxscale.port.range: 15400-15800
+    polarbox.mpd.engine.port.range: 30000-32999
+    polarbox.mpd.external.port.range: 36000-39999
+    polarbox.mpd.maxscale.port.range: 33000-35999
+    polarbox.mpd.reserved.port.ranges: ""
+  name: polardb4mpd-controller
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: polardb4mpd-controller-manager-role
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - pods
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - pods/exec
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apps
+    resources:
+      - deployments
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - mpd.polardb.aliyun.com
+    resources:
+      - mpdclusters
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - mpd.polardb.aliyun.com
+    resources:
+      - mpdclusters/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - rbac.authorization.k8s.io
+    resources:
+      - clusterrolebindings
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - admissionregistration.k8s.io
+    resources:
+      - mutatingwebhookconfigurations
+      - validatingwebhookconfigurations
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes/status
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - nodes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - storage.k8s.io
+    resources:
+      - storageclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apsaradb.aliyun.com
+    resources:
+      - backups
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apsaradb.aliyun.com
+    resources:
+      - backupexecutes
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apsaradb.aliyun.com
+    resources:
+      - backupexecutes/status
+    verbs:
+      - get
+      - update
+      - patch
+  - apiGroups:
+      - batch
+    resources:
+      - jobs
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - snapshot.storage.k8s.io
+    resources:
+      - volumesnapshotclasses
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - snapshot.storage.k8s.io
+    resources:
+      - volumesnapshots
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - endpoints
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+  - apiGroups:
+      - aliyun.com
+    resources:
+      - maxscaleclusters
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - ""
+    resources:
+      - nodes/status
+    verbs:
+      - patch
+      - update
+  - apiGroups:
+      - mpd.polardb.aliyun.com
+    resources:
+      - dbclustercerts
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - apsaradb.aliyun.com
+    resources:
+      - backuplogplans
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+  - apiGroups:
+      - innersvc.polardb.aliyun.com
+    resources:
+      - whiteips
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: polardb4mpd-controller-manager-rolebinding
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: polardb4mpd-controller-manager-role
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: kube-system
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: polardb4mpd-controller-webhook-server-secret
+  namespace: kube-system
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: polardb-controller-manager-nodeport
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+    - port: 16068
+      name: polardb-controller-manager-nodeport
+      targetPort: 6068
+      protocol: TCP
+  selector:
+    control-plane: controller-manager
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    control-plane: controller-manager
+    controller-tools.k8s.io: "1.0"
+  name: polardb4mpd-controller-controller-manager
+  namespace: kube-system
+spec:
+  progressDeadlineSeconds: 20
+  replicas: 3
+  selector:
+    matchLabels:
+      control-plane: controller-manager
+      controller-tools.k8s.io: "1.0"
+  strategy:
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 5
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        apsaradb_pod_type: db_instance_operator
+        pod_port: "6068"
+        control-plane: controller-manager
+        controller-tools.k8s.io: "1.0"
+        apsara.metric.insid: "1"
+        apsara.metric.ins_id: "1"
+        apsara.ins.port: "0"
+        apsara.metric.db_type: "polarbox-operator"
+        apsara.metric.clusterName: "polarbox-operator-ins"
+        apsara.metric.db_ins_type: "polarbox-operator"
+        apsara.metric.exclusive: "false"
+        apsara.metric.logic_custins_id: "1"
+        apsara.metric.ins_name: "polarbox-operator-ins"
+        apsara.metric.logic_custins_name: "polarbox-operator"
+        apsara.metric.arch: "pod_arch_v1"
+    spec:
+      affinity:
+        nodeAffinity:
+          {{- if eq .Values.controllerConfig.hybridDeployment "false"}}
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: {{.Values.controllerConfig.controllerNodeLabel}}
+                    operator: Exists
+          {{- end}}
+          # 弱亲和性，拔电会调度到非master节点
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: node.kubernetes.io/master
+                    operator: In
+                    values:
+                      - ""
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: apsaradb_pod_type
+                    operator: In
+                    values:
+                      - db_instance_operator
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: manager
+          args:
+            - --work-flow-meta-dir=/usr/local/rds/k8s/workflow
+            - --max-concurrent-reconciles=26
+            - --run-mode=polarbox
+            - --feature-gates=ClusterManager=true,Backup=true,StandbySupport=false
+            - --filter-operator-name=polarboxtest
+            - --image-pull-policy={{ .Values.imagePullPolicy }}
+            - --log-dir=/kube-log
+            - --log-file=/kube-log/polardb-opt.log
+            - --log-flush-frequency=2s
+            - --logtostderr=false
+            - --stderrthreshold=1
+            - --tool-manager-image={{ .Values.images.toolmanagerImage }}
+            - --event-log=false
+            - --hw_check=false
+            - --dbcluster-log-dir={{ .Values.dbcluster.logDir }}
+            - --leader-elect-lease-duration=4s
+            - --leader-elect-renew-deadline=3s
+            - --leader-elect-retry-period=2s
+            - -v=5
+            - --exclusive_mode=true
+            - --minio-url={{ .Values.minio.endpoint }}
+            - --minio-https={{ .Values.minio.secure }}
+            - --minio-access-key={{ .Values.minio.accesskey }}
+            - --minio-secret-key={{ .Values.minio.secretkey }}
+            - --enable-minor-version-upgrade=true
+            - --backup-tool-max-worksize=16
+            - --ins-folder-overdue-days={{ .Values.dbcluster.insFolderOverdueDays }}
+          command:
+            - /root/manager
+          env:
+            - name: apsara.log.appname
+              value: polardb4mpd-controller
+            - name: apsara.log.line_separator
+              value: "\n"
+            - name: apsara.log.dir
+              value: /var/log/polardb-box/polardb-operator
+            - name: apsara.log.filename_pattern
+              value: polardb-workflow.txt
+            - name: apsara.log.function
+              value: json
+            - name: apsara.log.current_limiting
+              value: "false"
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CURRENT_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: SECRET_NAME
+              value: polardb4mpd-controller-webhook-server-secret
+            - name: KUBERNETES_SERVICE_HOST
+              value: "{{ .Values.KUBERNETES_SERVICE_HOST }}"
+            - name: KUBERNETES_SERVICE_PORT
+              value: "{{ .Values.KUBERNETES_SERVICE_PORT }}"
+            - name: ETCDCTL_ENDPOINTS
+              valueFrom:
+                configMapKeyRef:
+                  key: endpoints-event
+                  name: etcd-configmap
+            - name: ETCDCTL_CERT
+              value: /cert/client.pem
+            - name: ETCDCTL_KEY
+              value: /cert/client-key.pem
+            - name: ETCDCTL_CACERT
+              value: /cert/ca.pem
+          image: {{ .Values.images.controllerImage }}
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          ports:
+            - containerPort: 6068
+              protocol: TCP
+              # must less than 15 words
+              name: control-http
+            - containerPort: 9876
+              name: webhook-server
+              protocol: TCP
+          livenessProbe:
+            tcpSocket:
+              # It is magic number see line 378: pod_port
+              port: 6068
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 10
+            failureThreshold: 5
+          volumeMounts:
+            - mountPath: /tmp/cert
+              name: cert
+              readOnly: true
+            - mountPath: /root/.ssh
+              name: ssh-client
+            - mountPath: /kube-log
+              name: kube-log
+            - mountPath: /cert
+              name: config-etcd
+            - mountPath: /var/run/docker.sock
+              name: var-run-docker
+            - name: temp-path
+              mountPath: /var/temp-path
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: cert
+          secret:
+            defaultMode: 420
+            secretName: polardb4mpd-controller-webhook-server-secret
+        - name: ssh-client
+          hostPath:
+            path: /root/.ssh
+        - name: kube-log
+          hostPath:
+            path: /var/log/polardb-box/polardb-operator
+            type: DirectoryOrCreate # 如果目录不存在就创建
+        - name: temp-path
+          hostPath:
+            path: {{ .Values.upgradePackagePath }}
+            type: DirectoryOrCreate
+        - name: var-run-docker
+          hostPath:
+            path: /var/run/docker.sock
+        - name: config-etcd
+          configMap:
+            name: etcd-configmap
+            items:
+              - key: ca.pem
+                path: ca.pem
+              - key: client.pem
+                path: client.pem
+              - key: client-key.pem
+                path: client-key.pem
+
+---
+apiVersion: v1
+data:
+  enableResourceShare: "true"
+  normal: |
+    single:
+      manager:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+    readWriteMany:
+      pfsdTool:
+        limits:
+          cpu: 200m
+          memory: 1Gi
+        requests:
+          cpu: 200m
+          memory: 1Gi
+      pfsd:
+        limits:
+          cpu: 3800m
+          memory: 7Gi
+        requests:
+          cpu: 3800m
+          memory: 7Gi
+      manager:
+        limits:
+          cpu: 1000m
+          memory: 512Mi
+        requests:
+          cpu: 500m
+          memory: 128Mi
+  shared: |
+    single:
+      manager:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 50m
+          memory: 64Mi
+    readWriteMany:
+      pfsdTool:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 500m
+          memory: 256Mi
+      pfsd:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 500m
+          memory: 256Mi
+      manager:
+        limits:
+          cpu: 500m
+          memory: 128Mi
+        requests:
+          cpu: 500m
+          memory: 128Mi
+    maxscale:
+      operator:
+        limits:
+          cpu: 1000m
+          memory: 1Gi
+        requests:
+          cpu: 1000m
+          memory: 1Gi
+kind: ConfigMap
+metadata:
+  name: instance-system-resources
+  namespace: kube-system
+---
+apiVersion: v1
+data:
+  name: image-open
+  pfsdImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_test:v1.1
+  pfsdToolImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_san_tools:v1.1
+  pgClusterManagerImage: reg.docker.alibaba-inc.com/hujie/cm:opensource
+  pgEngineImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_pg_opensource_engine_release:11.9.20210910.17749afa.20211011162505
+  pgManagerImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_pg_opensource_manager:20211011162505.b65c136b
+kind: ConfigMap
+metadata:
+  labels:
+    configtype: minor_version_info
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+  name: postgresql-1-0-minor-version-info-rwo-image-open
+  namespace: kube-system

@@ -1,0 +1,11 @@
+flowName: ExtendStorageSharedStorageCluster
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.ExtendStorageFs
+    stepName: ExtendStorageFs
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus

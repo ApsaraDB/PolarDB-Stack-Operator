@@ -1,0 +1,7 @@
+apiVersion: mpd.polardb.aliyun.com/v1
+kind: MPDLocalVolume
+metadata:
+  name: mpdlocalvolume-sample
+spec:
+  # Add fields here
+  lvNum: 2

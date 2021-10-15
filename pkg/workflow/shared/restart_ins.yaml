@@ -1,0 +1,18 @@
+flowName: SharedStorageClusterRestartIns
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.DisableHA
+    stepName:  DisableHA
+
+  - className: workflow_shared.RestartIns
+    stepName:  RestartIns
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus
+

@@ -1,0 +1,9 @@
+flowName: CreateLocalStorageDBCluster
+recoverFromFirstStep: false
+steps:
+  - className: workflow_local.InitStatusInfo
+    stepName: InitStatusInfo
+  - className: workflow_local.CreatePod
+    stepName: CreatePod
+  - className: workflow_local.InstallDBEngine
+    stepName: InstallDBEngine

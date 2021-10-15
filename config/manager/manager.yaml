@@ -1,0 +1,148 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: polar-mpd-manager-nodeport
+  namespace: kube-system
+spec:
+  type: NodePort
+  ports:
+    - port: 16099
+      name: polar-mpd-controller-manager-nodeport
+      targetPort: 6099
+      protocol: TCP
+  selector:
+    control-plane: mpd-controller-manager
+    controller-tools.k8s.io: "1.0"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: manager
+  namespace: kube-system
+  labels:
+    control-plane: mpd-controller-manager
+    controller-tools.k8s.io: "1.0"
+spec:
+  progressDeadlineSeconds: 20
+  replicas: 1
+  selector:
+    matchLabels:
+      control-plane: mpd-controller-manager
+      controller-tools.k8s.io: "1.0"
+  strategy:
+    rollingUpdate:
+      maxSurge: 5
+      maxUnavailable: 5
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        apsaradb_pod_type: mpd_standby_operator
+        pod_port: "6099"
+        control-plane: mpd-controller-manager
+        controller-tools.k8s.io: "1.0"
+        apsara.metric.arch: "pod_arch_v1"
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: apsaradb_pod_type
+                    operator: In
+                    values:
+                      - mpd_standby_operator
+              topologyKey: kubernetes.io/hostname
+      containers:
+        - name: manager
+          args:
+            - --work-flow-meta-dir=/usr/local/polar-as/k8s/workflow
+            - --enable-leader-election
+            - --log_dir=/kube-log
+            - --log_file=/kube-log/controller.log
+            - --logtostderr=false
+            - --stderrthreshold=1
+            - -v=5
+            - --image-pull-policy=Always
+            - --port=6099
+          command:
+            - /mgr
+          env:
+            - name: apsara.log.appname
+              value: polar-mpd-controller
+            - name: apsara.log.line_separator
+              value: "\n"
+            - name: apsara.log.dir
+              value: /var/log/polardb-box/polar-mpd-controller
+            - name: apsara.log.function
+              value: json
+            - name: apsara.log.current_limiting
+              value: "false"
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+            - name: CURRENT_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: KUBERNETES_SERVICE_HOST
+              value: "127.0.0.1"
+            - name: KUBERNETES_SERVICE_PORT
+              value: "7443"
+            - name: ETCDCTL_ENDPOINTS
+              valueFrom:
+                configMapKeyRef:
+                  key: endpoints-event
+                  name: etcd-configmap
+            - name: ETCDCTL_CERT
+              value: /cert/client.pem
+            - name: ETCDCTL_KEY
+              value: /cert/client-key.pem
+            - name: ETCDCTL_CACERT
+              value: /cert/ca.pem
+          image: reg.docker.alibaba-inc.com/polarbox/polar-mpd-controller:0.0.1-SNAPSHOT
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          ports:
+            - containerPort: 6079
+              protocol: TCP
+              name: control-http
+          livenessProbe:
+            tcpSocket:
+              port: 6099
+            initialDelaySeconds: 10
+            timeoutSeconds: 3
+            periodSeconds: 10
+            failureThreshold: 5
+          volumeMounts:
+            - mountPath: /root/.ssh
+              name: ssh-client
+            - mountPath: /kube-log
+              name: kube-log
+            - mountPath: /var/run/docker.sock
+              name: var-run-docker
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      priorityClassName: system-cluster-critical
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+      terminationGracePeriodSeconds: 10
+      volumes:
+        - name: ssh-client
+          hostPath:
+            path: /root/.ssh
+        - name: kube-log
+          hostPath:
+            path: /var/log/polardb-box/polar-mpd
+            type: DirectoryOrCreate
+        - name: var-run-docker
+          hostPath:
+            path: /var/run/docker.sock

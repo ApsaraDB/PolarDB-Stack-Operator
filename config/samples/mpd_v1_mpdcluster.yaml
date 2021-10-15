@@ -1,0 +1,27 @@
+apiVersion: mpd.polardb.aliyun.com/v1
+kind: MPDCluster
+metadata:
+  name: mpdcluster-sample-2
+  namespace: default
+spec:
+  operatorName: polar-mpd
+  dbClusterType: share
+  followerNum: 1
+  classInfo:
+    className: polar.o.x4.medium
+    cpu: 2000m
+    memory: 17Gi
+  classInfoModifyTo:
+    className: ""
+  versionCfg:
+    versionName: image-open
+  netCfg:
+    engineStartPort: 5780
+  shareStore:
+    drive: "pvc"
+    sharePvcNamespace: "default"
+    sharePvcName: "pvc-360050767088081329800000000000116"
+    diskQuota: "520000"
+    volumeId: "360050767088081329800000000000116"
+    volumeType: "multipath"
+

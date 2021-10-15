@@ -1,0 +1,153 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    control-plane: controller-manager
+    pod_port: "6099"
+  name: mpd-controller-manager-01
+  namespace: kube-system
+spec:
+  containers:
+    - args:
+        - --work-flow-meta-dir=/usr/local/polar-as/k8s/workflow
+        - --enable-leader-election
+        - --log_dir=/kube-log
+        - --log_file=/kube-log/controller.log
+        - --logtostderr=false
+        - --stderrthreshold=1
+        - -v=5
+        - --image-pull-policy=Always
+        - --port=6099
+      command:
+        - /mgr
+      env:
+        - name: apsara.log.appname
+          value: polardb4mpd-controller
+        - name: apsara.log.line_separator
+          value: |2+
+
+        - name: apsara.log.dir
+          value: /var/log/polardb-box/polardb-mpd
+        - name: apsara.log.filename_pattern
+          value: polardb-workflow.txt
+        - name: apsara.log.function
+          value: json
+        - name: apsara.log.current_limiting
+          value: "false"
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: CURRENT_NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: SECRET_NAME
+          value: polardb4mpd-controller-webhook-server-secret
+        - name: KUBERNETES_SERVICE_HOST
+          value: 127.0.0.1
+        - name: KUBERNETES_SERVICE_PORT
+          value: "7443"
+        - name: KUBERNETES_SERVICE_ENDPOINTS
+          valueFrom:
+            configMapKeyRef:
+              key: KUBERNETES_SERVICE_ENDPOINTS
+              name: k8s-env-config
+        - name: ETCDCTL_ENDPOINTS
+          valueFrom:
+            configMapKeyRef:
+              key: endpoints-event
+              name: etcd-configmap
+        - name: ETCDCTL_CERT
+          value: /cert/client.pem
+        - name: ETCDCTL_KEY
+          value: /cert/client-key.pem
+        - name: ETCDCTL_CACERT
+          value: /cert/ca.pem
+      image: reg.docker.alibaba-inc.com/polarbox/polar-mpd-controller:0.0.1-SNAPSHOT
+      imagePullPolicy: IfNotPresent
+      livenessProbe:
+        failureThreshold: 5
+        initialDelaySeconds: 10
+        periodSeconds: 10
+        successThreshold: 1
+        tcpSocket:
+          port: 6099
+        timeoutSeconds: 3
+      name: manager
+      ports:
+        - containerPort: 7068
+          hostPort: 7068
+          name: control-http
+          protocol: TCP
+      resources:
+        limits:
+          cpu: 500m
+          memory: 512Mi
+        requests:
+          cpu: 10m
+          memory: 64Mi
+      terminationMessagePath: /dev/termination-log
+      terminationMessagePolicy: File
+      volumeMounts:
+        - mountPath: /tmp/cert
+          name: cert
+          readOnly: true
+        - mountPath: /root/.ssh
+          name: ssh-client
+        - mountPath: /kube-log
+          name: kube-log
+        - mountPath: /cert
+          name: config-etcd
+        - mountPath: /var/run/docker.sock
+          name: var-run-docker
+  dnsPolicy: ClusterFirstWithHostNet
+  enableServiceLinks: true
+  hostNetwork: true
+  nodeName: dbm-01
+  priority: 2000000000
+  priorityClassName: system-cluster-critical
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  terminationGracePeriodSeconds: 10
+  tolerations:
+    - key: CriticalAddonsOnly
+      operator: Exists
+    - effect: NoExecute
+      key: node.kubernetes.io/not-ready
+      operator: Exists
+      tolerationSeconds: 16
+    - effect: NoExecute
+      key: node.kubernetes.io/unreachable
+      operator: Exists
+      tolerationSeconds: 16
+  volumes:
+    - name: cert
+      secret:
+        defaultMode: 420
+        secretName: polardb4mpd-controller-webhook-server-secret
+    - hostPath:
+        path: /root/.ssh
+        type: ""
+      name: ssh-client
+    - hostPath:
+        path: /var/log/polardb-box/polar-mpd
+        type: DirectoryOrCreate
+      name: kube-log
+    - hostPath:
+        path: /var/run/docker.sock
+        type: ""
+      name: var-run-docker
+    - configMap:
+        defaultMode: 420
+        items:
+          - key: ca.pem
+            path: ca.pem
+          - key: client.pem
+            path: client.pem
+          - key: client-key.pem
+            path: client-key.pem
+        name: etcd-configmap
+      name: config-etcd

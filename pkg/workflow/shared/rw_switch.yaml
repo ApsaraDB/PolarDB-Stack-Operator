@@ -1,0 +1,21 @@
+flowName: SharedStorageClusterSwitchRw
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.DisableHA
+    stepName:  DisableHA
+
+  - className: workflow_shared.SwitchRw
+    stepName:  SwitchRw
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.EnsureCmRwAffinity
+    stepName:  EnsureCmRwAffinity
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus
+

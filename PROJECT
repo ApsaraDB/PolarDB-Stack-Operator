@@ -1,0 +1,11 @@
+domain: polardb.aliyun.com
+multigroup: true
+repo: gitlab.alibaba-inc.com/polar-as/polar-mpd-controller
+resources:
+- group: mpd
+  kind: MPDCluster
+  version: v1
+- group: mpd
+  kind: MPDLocalVolume
+  version: v1
+version: "2"

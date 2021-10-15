@@ -1,0 +1,23 @@
+flowName: SharedStorageClusterMigrateRo
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.GenerateMigrateTempId
+    stepName:  GenerateMigrateTempId
+
+  - className: workflow_shared.InitTempRoMeta
+    stepName:  InitTempRoMeta
+
+  - className: workflow_shared.DisableHA
+    stepName:  DisableHA
+
+  - className: workflow_shared.EnsureRoMigrate
+    stepName:  EnsureRoMigrate
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus

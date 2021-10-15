@@ -1,0 +1,6 @@
+.idea
+go.sum
+bin/
+local_workflow.txt
+shared_workflow.txt
+.DS_Store

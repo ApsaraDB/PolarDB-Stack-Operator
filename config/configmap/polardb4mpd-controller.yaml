@@ -1,0 +1,19 @@
+apiVersion: v1
+data:
+  KubesprayPlaceholder: "1"
+  NextClusterScopeCustInsId: "1000"
+  Pbx.Next.Engine.Port: "30006"
+  Pbx.Next.External.Port: "37507"
+  Pbx.Next.Maxscale.Port: "33396"
+kind: ConfigMap
+metadata:
+  annotations:
+    datamax.port.range: 16000-16400
+    polarbox.novip.engine.port.range: 5400-5800
+    polarbox.novip.maxscale.port.range: 15400-15800
+    polarbox.mpd.engine.port.range: 30000-32999
+    polarbox.mpd.external.port.range: 36000-39999
+    polarbox.mpd.maxscale.port.range: 33000-35999
+    polarbox.mpd.reserved.port.ranges: ""
+  name: polardb4mpd-controller
+  namespace: kube-system

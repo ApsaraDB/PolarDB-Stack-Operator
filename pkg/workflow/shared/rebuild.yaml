@@ -1,0 +1,39 @@
+flowName: SharedStorageClusterRebuild
+recoverFromFirstStep: true
+steps:
+  - className: workflow_shared.SetRebuildTag
+    stepName: SetRebuildTag
+
+  - className: workflow_shared.CleanOldTempMeta
+    stepName: CleanOldTempMeta
+
+  - className: workflow_shared.RemoveClusterManager
+    stepName:  RemoveClusterManager
+
+  - className: workflow_shared.RemoveAllInsPod
+    stepName:  RemoveAllInsPod
+
+  - className: workflow_shared.CleanTempRoMeta
+    stepName:  CleanTempRoMeta
+
+  - className: workflow_shared.CreateRwPod
+    stepName:  CreateRwPod
+
+  - className: workflow_shared.CreateRoPods
+    stepName:  CreateRoPods
+
+  - className: workflow_shared.CreateClusterManager
+    stepName:  CreateClusterManager
+
+  - className: workflow_shared.AddToClusterManager
+    stepName:  AddToClusterManager
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus
+

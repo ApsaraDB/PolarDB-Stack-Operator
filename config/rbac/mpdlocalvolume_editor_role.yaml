@@ -1,0 +1,24 @@
+# permissions for end users to edit mpdlocalvolumes.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: mpdlocalvolume-editor-role
+rules:
+- apiGroups:
+  - mpd.polardb.aliyun.com
+  resources:
+  - mpdlocalvolumes
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - mpd.polardb.aliyun.com
+  resources:
+  - mpdlocalvolumes/status
+  verbs:
+  - get

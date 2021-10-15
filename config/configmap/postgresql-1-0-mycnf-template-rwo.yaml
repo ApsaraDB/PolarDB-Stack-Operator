@@ -1,0 +1,2247 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    rds.schema.git.repo: http://gitlab.alibaba-inc.com/rds/schema_scripts/tree/develop/schema-scripts-pengine-k8s-master/schema_scripts_pengine_k8s_master
+    rds.schema.scripts: 1.3.2.1
+    rds.schema.git.commitID: 98305b5133d22b2f60a874720ead509752523794
+    rds.schema.key.diff: "old_snapshot_threshold,polar_comp_dynatune,temp_tablespaces,polar_max_non_super_wal_snd"
+  labels:
+    configtype: mycnf_template
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    dbClusterMode: WriteReadMore
+  name: postgresql-1-0-mycnf-template-rwo
+  namespace: kube-system
+data:
+  mycnf_template: |
+    - name: archive_command
+      default_value: "''"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the shell command that will be called to archive a WAL file.'
+    - name: archive_mode
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[always|on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allows archiving of WAL files using archive_command.'
+    - name: archive_timeout
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Forces a switch to the next WAL file if a new file has not been started within N seconds.'
+    - name: authentication_timeout
+      default_value: "60"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed time to complete client authentication.'
+    - name: auth_delay.milliseconds
+      default_value: "3000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Milliseconds to delay before reporting authentication failure.'
+    - name: autovacuum
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Starts the autovacuum subprocess.'
+    - name: autovacuum_analyze_scale_factor
+      default_value: "0.05"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of tuple inserts, updates, or deletes prior to analyze as a fraction of reltuples.'
+    - name: autovacuum_analyze_threshold
+      default_value: "50"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum number of tuple inserts, updates, or deletes prior to analyze.'
+    - name: autovacuum_freeze_max_age
+      default_value: "1200000000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[200000000-1500000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Age at which to autovacuum a table to prevent transaction ID wraparound.'
+    - name: autovacuum_max_workers
+      default_value: "5"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously running autovacuum worker processes.'
+    - name: autovacuum_multixact_freeze_max_age
+      default_value: "1400000000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[200000000-1500000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Multixact age at which to autovacuum a table to prevent multixact wraparound.'
+    - name: autovacuum_naptime
+      default_value: "30"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time to sleep between autovacuum runs.'
+    - name: autovacuum_vacuum_cost_delay
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost delay in milliseconds, for autovacuum.'
+    - name: autovacuum_vacuum_cost_limit
+      default_value: "10000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost amount available before napping, for autovacuum.'
+    - name: autovacuum_vacuum_scale_factor
+      default_value: "0.02"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of tuple updates or deletes prior to vacuum as a fraction of reltuples.'
+    - name: autovacuum_vacuum_threshold
+      default_value: "50"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum number of tuple updates or deletes prior to vacuum.'
+    - name: autovacuum_work_mem
+      default_value: "-1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum memory to be used by each autovacuum worker process.'
+    - name: auto_explain.log_analyze
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Use EXPLAIN ANALYZE for plan logging.'
+    - name: auto_explain.log_buffers
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Log buffers usage.'
+    - name: auto_explain.log_format
+      default_value: "text"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[text|xml|json|yaml]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'EXPLAIN format to be used for plan logging.'
+    - name: auto_explain.log_min_duration
+      default_value: "5000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum execution time above which plans will be logged.'
+    - name: auto_explain.log_nested_statements
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Log nested statements.'
+    - name: auto_explain.log_timing
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collect timing data, not just row counts.'
+    - name: auto_explain.log_triggers
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Include trigger statistics in plans.'
+    - name: auto_explain.log_verbose
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Use EXPLAIN VERBOSE for plan logging.'
+    - name: auto_explain.sample_rate
+      default_value: "1"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Fraction of queries to process.'
+    - name: backend_flush_after
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-256]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of pages after which previously performed writes are flushed to disk.'
+    - name: bgwriter_delay
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[10-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Background writer sleep time between rounds.'
+    - name: bgwriter_flush_after
+      default_value: "128"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-256]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of pages after which previously performed writes are flushed to disk.'
+    - name: bgwriter_lru_maxpages
+      default_value: "1000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Background writer maximum number of LRU pages to flush per round.'
+    - name: bgwriter_lru_multiplier
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Multiple of the average buffer usage to free per round.'
+    - name: checkpoint_completion_target
+      default_value: "0.9"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time spent flushing dirty buffers during checkpoint, as fraction of checkpoint interval.'
+    - name: checkpoint_flush_after
+      default_value: "256"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-256]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of pages after which previously performed writes are flushed to disk.'
+    - name: checkpoint_timeout
+      default_value: "300"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[1-86400]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum time between automatic WAL checkpoints.'
+    - name: checkpoint_warning
+      default_value: "30"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[30-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Enables warnings if checkpoint segments are filled more frequently than this.'
+    - name: commit_delay
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-100000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the delay in microseconds between transaction commit and flushing WAL to disk.'
+    - name: commit_siblings
+      default_value: "5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum concurrent open transactions before performing commit_delay.'
+    - name: constraint_exclusion
+      default_value: "partition"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[partition|on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner to use constraints to optimize queries.'
+    - name: cpu_index_tuple_cost
+      default_value: "0.005"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of processing each index entry during an index scan.'
+    - name: cpu_operator_cost
+      default_value: "0.0025"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of processing each operator or function call.'
+    - name: cpu_tuple_cost
+      default_value: "0.01"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of processing each tuple (row).'
+    - name: cursor_tuple_fraction
+      default_value: "0.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the fraction of a cursor''s rows that will be retrieved.'
+    - name: data_sync_retry
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Whether to continue running after a failure to sync data files.'
+    - name: dbms_pipe.total_message_buffer
+      default_value: "30"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[30-262144]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets dbms_pipe''s total message buffer size.'
+    - name: deadlock_timeout
+      default_value: "1000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the time to wait on a lock before checking for deadlock.'
+    - name: debug_pretty_print
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Indents parse and plan tree displays.'
+    - name: debug_print_parse
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each query''s parse tree.'
+    - name: debug_print_plan
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each query''s execution plan.'
+    - name: debug_print_rewritten
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each query''s rewritten parse tree.'
+    - name: default_statistics_target
+      default_value: "100"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the default statistics target.'
+    - name: default_text_search_config
+      default_value: "'pg_catalog.simple'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets default text search configuration.'
+    - name: default_transaction_deferrable
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the default deferrable status of new transactions.'
+    - name: default_transaction_read_only
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the default read-only status of new transactions.'
+    - name: default_with_oids
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'This controls whether CREATE TABLE and CREATE TABLE AS include an OID column in newly-created tables.'
+    - name: dynamic_shared_memory_type
+      default_value: "posix"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[posix|sysv|mmap]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects the dynamic shared memory implementation used.'
+    - name: effective_io_concurrency
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of simultaneous requests that can be handled efficiently by the disk subsystem.'
+    - name: enable_bitmapscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of bitmap-scan plans.'
+    - name: enable_gathermerge
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of gather merge plans.'
+    - name: enable_hashagg
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of hashed aggregation plans.'
+    - name: enable_hashjoin
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of hash join plans.'
+    - name: enable_indexonlyscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of index-only-scan plans.'
+    - name: enable_indexscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of index-scan plans.'
+    - name: enable_material
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of materialization.'
+    - name: enable_mergejoin
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of merge join plans.'
+    - name: enable_nestloop
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of nested-loop join plans.'
+    - name: enable_parallel_append
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of parallel append plans.'
+    - name: enable_parallel_hash
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of parallel hash plans.'
+    - name: enable_partitionwise_aggregate
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables partitionwise aggregation and grouping.'
+    - name: enable_partitionwise_join
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables partitionwise join.'
+    - name: enable_partition_pruning
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable plan-time and run-time partition pruning.'
+    - name: enable_seqscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of sequential-scan plans.'
+    - name: enable_sort
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of explicit sort steps.'
+    - name: enable_tidscan
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables the planner''s use of TID scan plans.'
+    - name: extra_float_digits
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-15-3]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of digits displayed for floating-point values.'
+    - name: force_parallel_mode
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[off|on|regress]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Forces use of parallel query facilities.'
+    - name: from_collapse_limit
+      default_value: "8"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the FROM-list size beyond which subqueries are not collapsed.'
+    - name: fsync
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Forces synchronization of updates to disk.'
+    - name: full_page_writes
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes full pages to WAL when first modified after a checkpoint.'
+    - name: gin_fuzzy_search_limit
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed result for exact search by GIN.'
+    - name: gin_pending_list_limit
+      default_value: "4096"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[64-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum size of the pending list for GIN index.'
+    - name: hot_standby
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allows connections and queries during recovery.'
+    - name: hot_standby_feedback
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allows feedback from a hot standby to the primary that will avoid query conflicts.'
+    - name: huge_pages
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[off|on|try]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Use of huge pages on Linux or Windows.'
+    - name: idle_in_transaction_session_timeout
+      default_value: "3600000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^(0|[1-9]\d{3,8}|1\d{9}|2000000000)$
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed duration of any idling transaction.'
+    - name: jit
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Allow JIT compilation.'
+    - name: join_collapse_limit
+      default_value: "8"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the FROM-list size beyond which JOIN constructs are not flattened.'
+    - name: listen_addresses
+      default_value: "'*'"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the host name or IP address(es) to listen to.'
+    - name: lock_timeout
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^(0|[1-9]\d{3,8}|1\d{9}|2000000000)$
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed duration of any wait for a lock.'
+    - name: logging_collector
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Start a subprocess to capture stderr output and/or csvlogs into log files.'
+    - name: log_autovacuum_min_duration
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum execution time above which autovacuum actions will be logged.'
+    - name: log_checkpoints
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each checkpoint.'
+    - name: log_connections
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each successful connection.'
+    - name: log_directory
+      default_value: "'log'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the destination directory for log files.'
+    - name: log_disconnections
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs end of a session, including duration.'
+    - name: log_duration
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs the duration of each completed SQL statement.'
+    - name: log_error_verbosity
+      default_value: "default"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[terse|default|verbose]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the verbosity of logged messages.'
+    - name: log_executor_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes executor performance statistics to the server log.'
+    - name: log_filename
+      default_value: "'postgresql-%Y-%m-%d_%H%M%S.log'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the file name pattern for log files.'
+    - name: log_file_mode
+      default_value: "0600"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the file permissions for log files.'
+    - name: log_hostname
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs the host name in the connection logs.'
+    - name: log_lock_waits
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs long lock waits.'
+    - name: log_min_duration_statement
+      default_value: "-1"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum execution time above which statements will be logged.'
+    - name: log_parser_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes parser performance statistics to the server log.'
+    - name: log_planner_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes planner performance statistics to the server log.'
+    - name: log_replication_commands
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Logs each replication command.'
+    - name: log_rotation_age
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-35791394]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Automatic log file rotation will occur after N minutes.'
+    - name: log_rotation_size
+      default_value: "131072"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2097151]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Automatic log file rotation will occur after N kilobytes.'
+    - name: log_statement
+      default_value: "all"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[none|ddl|mod|all]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the type of statements logged.'
+    - name: log_statement_stats
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes cumulative performance statistics to the server log.'
+    - name: log_temp_files
+      default_value: "100000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Log the use of temporary files larger than this number of kilobytes.'
+    - name: log_timezone
+      default_value: "'PRC'"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^'(((UTC)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|((GMT)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|CST6CDT|Poland|Kwajalein|MST|NZ|Universal|Libya|Turkey|EST5EDT|Greenwich|NZ-CHAT|MET|Portugal|GMT-0|CET|Eire|PST8PDT|Jamaica|GMT|Zulu|Japan|ROC|GB-Eire|ROK|Navajo|Singapore|posixrules|GB|EST|GMT0|Hongkong|PRC|Iran|MST7MDT|WET|W-SU|UCT|Cuba|Egypt|EET|Israel|UTC|HST|Iceland)'$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the time zone to use in log messages.'
+    - name: log_truncate_on_rotation
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Truncate existing log files of same name during log rotation.'
+    - name: max_files_per_process
+      default_value: "10000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[25-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously open files for each server process.'
+    - name: max_locks_per_transaction
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[10-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of locks per transaction.'
+    - name: max_logical_replication_workers
+      default_value: "32"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of logical replication worker processes.'
+    - name: max_parallel_maintenance_workers
+      default_value: "2"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1024]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of parallel processes per maintenance operation.'
+    - name: max_parallel_workers
+      default_value: "8"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-512]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of parallel workers that can be active at one time.'
+    - name: max_parallel_workers_per_gather
+      default_value: "2"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-512]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of parallel processes per executor node.'
+    - name: max_pred_locks_per_page
+      default_value: "2"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of predicate-locked tuples per page.'
+    - name: max_pred_locks_per_relation
+      default_value: "-2"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-2147483648-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of predicate-locked pages and tuples per relation.'
+    - name: max_pred_locks_per_transaction
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[10-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of predicate locks per transaction.'
+    - name: max_prepared_transactions
+      default_value: "800"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-36100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously prepared transactions.'
+    - name: max_replication_slots
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously defined replication slots.'
+    - name: max_stack_depth
+      default_value: "6144"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum stack depth, in kilobytes.'
+    - name: max_standby_archive_delay
+      default_value: "30000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum delay before canceling queries when a hot standby server is processing archived WAL data.'
+    - name: max_standby_streaming_delay
+      default_value: "30000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[-1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum delay before canceling queries when a hot standby server is processing streamed WAL data.'
+    - name: max_sync_workers_per_subscription
+      default_value: "4"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of table synchronization workers per subscription.'
+    - name: max_wal_senders
+      default_value: "64"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of simultaneously running WAL sender processes.'
+    - name: max_worker_processes
+      default_value: "256"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of concurrent worker processes.'
+    - name: min_parallel_index_scan_size
+      default_value: "64"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-715827882]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum amount of index data for a parallel scan.'
+    - name: min_parallel_table_scan_size
+      default_value: "1024"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-715827882]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the minimum amount of table data for a parallel scan.'
+    - name: old_snapshot_threshold
+      default_value: "-1"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-86400]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time before a snapshot is too old to read pages changed after the snapshot was taken.'
+    - name: parallel_setup_cost
+      default_value: "1000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of starting up worker processes for parallel query.'
+    - name: parallel_tuple_cost
+      default_value: "0.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of passing each tuple (row) from worker to master backend.'
+    - name: password_encryption
+      default_value: "md5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[md5|scram-sha-256]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Encrypt passwords.'
+    - name: pg_stat_statements.max
+      default_value: "5000"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of statements tracked by pg_stat_statements.'
+    - name: pg_stat_statements.save
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Save pg_stat_statements statistics across server shutdowns.'
+    - name: pg_stat_statements.track
+      default_value: "all"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[none|top|all]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects which statements are tracked by pg_stat_statements.'
+    - name: pg_stat_statements.track_utility
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects whether utility commands are tracked by pg_stat_statements.'
+    - name: polar_bgwriter_batch_size_flushlist
+      default_value: "100"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_bgwriter_max_batch_size
+      default_value: "5000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_bgwriter_sleep_lsn_lag
+      default_value: "100"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_buffer_copy_lsn_lag_with_cons_lsn
+      default_value: "100"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-1000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_buffer_copy_min_modified_count
+      default_value: "5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_check_checkpoint_legal_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-3600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_clog_slot_size
+      default_value: "512"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[128-8192]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_copy_buffers
+      default_value: "16384"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[128-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_enable_shared_storage_mode
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_bgwriter_check_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_bgwriter_delay
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_bgwriter_workers
+      default_value: "5"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-8]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_parallel_new_bgwriter_threshold_time
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[1-3600]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_read_ahead_xlog_num
+      default_value: "200"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-200]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment:
+    - name: polar_vfs.localfs_mode
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment:
+    - name: polar_enable_fullpage_snapshot
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable fullpage snapshot feature'
+    - name: quote_all_identifiers
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'When generating SQL fragments, quote all identifiers.'
+    - name: random_page_cost
+      default_value: "1.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of a nonsequentially fetched disk page.'
+    - name: row_security
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable row security.'
+    - name: seq_page_cost
+      default_value: "1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the planner''s estimate of the cost of a sequentially fetched disk page.'
+    - name: shared_preload_libraries
+      default_value: "'polar_vfs,polar_worker,pg_stat_statements,auth_delay,auto_explain'"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: ^'(polar_vfs,polar_worker)(,\w+)*'$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Lists shared libraries to preload into server.'
+    - name: ssl
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enables SSL connections.'
+    - name: ssl_cert_file
+      default_value: "'server.crt'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Location of the SSL server certificate file.'
+    - name: ssl_key_file
+      default_value: "'server.key'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Location of the SSL server private key file.'
+    - name: statement_timeout
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^(0|[1-9]\d{3,8}|1\d{9}|2000000000)$
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum allowed duration of any statement.'
+    - name: superuser_reserved_connections
+      default_value: "100"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-262143]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of connection slots reserved for superusers.'
+    - name: synchronize_seqscans
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable synchronized sequential scans.'
+    - name: synchronous_commit
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[local|remote_write|remote_apply|on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the current transaction''s synchronization level.'
+    - name: synchronous_standby_names
+      default_value: "''"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Number of synchronous standbys and list of names of potential synchronous ones.'
+    - name: tcp_keepalives_count
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Maximum number of TCP keepalive retransmits.'
+    - name: tcp_keepalives_idle
+      default_value: "60"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time between issuing TCP keepalives.'
+    - name: tcp_keepalives_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Time between TCP keepalive retransmits.'
+    - name: temp_buffers
+      default_value: "1024"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of temporary buffers used by each session.'
+    - name: temp_file_limit
+      default_value: "524288000"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[-1-1048576000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Limits the total size of all temporary files used by each process.'
+    - name: timezone
+      default_value: "'PRC'"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: ^'(((UTC)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|((GMT)(-){0,1}(\d|[1-9]\d|1([0-5]\d|6[0-7])))|CST6CDT|Poland|Kwajalein|MST|NZ|Universal|Libya|Turkey|EST5EDT|Greenwich|NZ-CHAT|MET|Portugal|GMT-0|CET|Eire|PST8PDT|Jamaica|GMT|Zulu|Japan|ROC|GB-Eire|ROK|Navajo|Singapore|posixrules|GB|EST|GMT0|Hongkong|PRC|Iran|MST7MDT|WET|W-SU|UCT|Cuba|Egypt|EET|Israel|UTC|HST|Iceland)'$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the time zone for displaying and interpreting time stamps.'
+    - name: trace_notify
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Generates debugging output for LISTEN and NOTIFY.'
+    - name: trace_sort
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Emit information about resource usage in sorting.'
+    - name: track_activities
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects information about executing commands.'
+    - name: track_activity_query_size
+      default_value: "1024"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[100-102400]"
+      unit: B
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the size reserved for pg_stat_activity.query, in bytes.'
+    - name: track_commit_timestamp
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects transaction commit time.'
+    - name: track_counts
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects statistics on database activity.'
+    - name: track_functions
+      default_value: "pl"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[none|pl|all]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects function-level statistics on database activity.'
+    - name: track_io_timing
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Collects timing statistics for database I/O activity.'
+    - name: unix_socket_directories
+      default_value: "'.'"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the directories where Unix-domain sockets will be created.'
+    - name: unix_socket_permissions
+      default_value: "0700"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ""
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the access permissions of the Unix-domain socket.'
+    - name: update_process_title
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Updates the process title to show the active SQL command.'
+    - name: vacuum_cleanup_index_scale_factor
+      default_value: "0.1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000000000]"
+      unit: DOUBLE
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of tuple inserts prior to index cleanup as a fraction of reltuples.'
+    - name: vacuum_cost_delay
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-100]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost delay in milliseconds.'
+    - name: vacuum_cost_limit
+      default_value: "10000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost amount available before napping.'
+    - name: vacuum_cost_page_dirty
+      default_value: "20"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost for a page dirtied by vacuum.'
+    - name: vacuum_cost_page_hit
+      default_value: "1"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost for a page found in the buffer cache.'
+    - name: vacuum_cost_page_miss
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-10000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Vacuum cost for a page not found in the buffer cache.'
+    - name: vacuum_defer_cleanup_age
+      default_value: "0"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[0-1000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Number of transactions by which VACUUM and HOT cleanup should be deferred, if any.'
+    - name: vacuum_freeze_min_age
+      default_value: "50000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum age at which VACUUM should freeze a table row.'
+    - name: vacuum_freeze_table_age
+      default_value: "200000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[150000000-2000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Age at which VACUUM should scan whole table to freeze tuples.'
+    - name: vacuum_multixact_freeze_min_age
+      default_value: "5000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-1000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Minimum age at which VACUUM should freeze a MultiXactId in a table row.'
+    - name: vacuum_multixact_freeze_table_age
+      default_value: "200000000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[150000000-2000000000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Multixact age at which VACUUM should scan whole table to freeze tuples.'
+    - name: wal_buffers
+      default_value: "2048"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[-1-131071]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of disk-page buffers in shared memory for WAL.'
+    - name: wal_compression
+      default_value: "on"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Compresses full-page writes written in WAL file.'
+    - name: wal_keep_segments
+      default_value: "32"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[0-100000]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the number of WAL files held for standby servers.'
+    - name: wal_level
+      default_value: "logical"
+      is_dynamic: 0
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[replica|logical]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Set the level of information written to the WAL.'
+    - name: wal_log_hints
+      default_value: "off"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Writes full pages to WAL when first modified after a checkpoint, even for a non-critical modifications.'
+    - name: wal_receiver_status_interval
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum interval between WAL receiver status reports to the sending server.'
+    - name: wal_receiver_timeout
+      default_value: "30000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum wait time to receive data from the sending server.'
+    - name: wal_retrieve_retry_interval
+      default_value: "5000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the time to wait before retrying to retrieve WAL after a failed attempt.'
+    - name: wal_sender_timeout
+      default_value: "60000"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum time to wait for WAL replication.'
+    - name: wal_sync_method
+      default_value: "fdatasync"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[fsync|fsync_writethrough|fdatasync|open_sync|open_datasync]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Selects the method used for forcing WAL updates to disk.'
+    - name: wal_writer_delay
+      default_value: "10"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-10000]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Time between WAL flushes performed in the WAL writer.'
+    - name: wal_writer_flush_after
+      default_value: "64"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[0-2147483647]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Amount of WAL written out by WAL writer that triggers a flush.'
+    - name: work_mem
+      default_value: "4096"
+      is_dynamic: 1
+      is_visible: 1
+      is_user_changable: 1
+      optional: "[4096-524288]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum memory to be used for query workspaces.'
+    - name: temp_tablespaces
+      default_value: "'polar_tmp'"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 1
+      optional: ""
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets temp tablespaces dir.'
+    - name: polar_enable_lazy_checkpoint
+      default_value: "off"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable the use of lazy checkpoint.'
+    - name: shared_buffers
+      default_value: "6GB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the number of shared memory buffers used by the server.'
+    - name: effective_cache_size
+      default_value: "6GB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: "Sets the planner's assumption about the total size of the data caches."
+    - name: maintenance_work_mem
+      default_value: "500MB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the maximum memory to be used for maintenance operations.'
+    - name: max_wal_size
+      default_value: "6GB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the WAL size that triggers a checkpoint.'
+    - name: min_wal_size
+      default_value: "3GB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*GB$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the minimum size to shrink the WAL to.'
+    - name: max_connections
+      default_value: "3300"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[1-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Sets the maximum number of concurrent connections.'
+    - name: polar_parallel_new_bgwriter_threshold_lag
+      default_value: "500MB"
+      is_dynamic: 1
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Set the threshold to add a new bgwriter.'
+    - name: polar_logindex_mem_size
+      default_value: "512MB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Set the size for logindex memory table.'
+    - name: polar_xlog_queue_buffers
+      default_value: "512MB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the size of xlog queue buffer used to keep xlog meta. 0 means disable xlog buffer.'
+    - name: polar_logindex_bloom_blocks
+      default_value: "1024"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: "[8-1073741823]"
+      unit: INT
+      divide_base: 1
+      is_deleted: 0
+      comment: 'Set the number of blocks for logindex bloom filter.'
+    - name: polar_xlog_page_buffers
+      default_value: "500MB"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 0
+      optional: ^0|[1-9]\d*[MG]B$
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Sets the size of xlog buffer used by startup and backedn in replica and standby mode.'
+    - name: polar_enable_master_xlog_read_ahead
+      default_value: "on"
+      is_dynamic: 0
+      is_visible: 0
+      is_user_changable: 1
+      optional: "[on|off]"
+      unit: STRING
+      divide_base: 0
+      is_deleted: 0
+      comment: 'Enable master xlog read ahead in recovery.'

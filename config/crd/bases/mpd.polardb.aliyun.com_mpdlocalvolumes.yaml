@@ -1,0 +1,237 @@
+
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.2.5
+  creationTimestamp: null
+  name: mpdlocalvolumes.mpd.polardb.aliyun.com
+spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.lvNum
+    description: lvm logical volumes number claimed
+    name: lvnum
+    type: integer
+  - JSONPath: .status.validLVNum
+    description: current lvm logical volumes available
+    name: current lvnum
+    type: integer
+  - JSONPath: .status.pvcReady
+    description: LVM related PVCs are ready
+    name: pvcready
+    type: boolean
+  - JSONPath: .metadata.creationTimestamp
+    description: the age of this resource
+    name: age
+    type: date
+  group: mpd.polardb.aliyun.com
+  names:
+    categories:
+    - all
+    - mpd
+    kind: MPDLocalVolume
+    listKind: MPDLocalVolumeList
+    plural: mpdlocalvolumes
+    shortNames:
+    - mv
+    singular: mpdlocalvolume
+  scope: Namespaced
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      description: MPDLocalVolume is the Schema for the mpdlocalvolumes API
+      properties:
+        apiVersion:
+          description: 'APIVersion defines the versioned schema of this representation
+            of an object. Servers should convert recognized schemas to the latest
+            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+          type: string
+        kind:
+          description: 'Kind is a string value representing the REST resource this
+            object represents. Servers may infer this from the endpoint the client
+            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+          type: string
+        metadata:
+          type: object
+        spec:
+          description: MPDLocalVolumeSpec defines the desired state of MPDLocalVolume
+          properties:
+            Description:
+              description: Description or comments
+              type: string
+            createPVC:
+              description: 'TODO: create PVC or not. Reserved for future.'
+              type: boolean
+            driver:
+              description: Specify a driver to provision volume, default lvm
+              type: string
+            formatFileSystem:
+              description: File system, default ext4, empty means no need to format
+              type: string
+            lvExpectedExpandToSizeMB:
+              description: VolMode = maker 或 mixed时有效，即希望stack扩容至多大的
+              format: int64
+              type: integer
+            lvExpectedSizeMB:
+              format: int64
+              type: integer
+            lvNum:
+              description: How many lvm logical volumes that are desired or claimed.
+              format: int64
+              type: integer
+            lvResources:
+              description: LvResources contains LVM logical volume information, including
+                basic metadata and location information It takes effect only when
+                volumeMode is custom or mixed
+              items:
+                description: MPDHostLV holds the basic info for a lvm logical volume,
+                  lv_path and hostname
+                properties:
+                  lvId:
+                    type: string
+                  lvPath:
+                    type: string
+                  nodeName:
+                    type: string
+                type: object
+              type: array
+            mpdVolumeMode:
+              description: The lvm logical volume used by MPDLocalVolume is provisioned
+                by an administrator or dynamically provisioned
+              type: string
+          type: object
+        status:
+          description: MPDLocalVolumeStatus defines the observed state of MPDLocalVolume
+          properties:
+            LvSizeMB:
+              description: 取LvStatusMap中size最小的值
+              format: int64
+              type: integer
+            conditions:
+              description: Current Condition of MDPLocalVolume. If underlying persistent
+                volume is being resized then the Condition will be set to 'ResizeStarted'.
+              items:
+                properties:
+                  lastProbeTime:
+                    description: Last time we probed the condition.
+                    format: date-time
+                    type: string
+                  lastTransitionTime:
+                    description: Last time the condition transitioned from one status
+                      to another.
+                    format: date-time
+                    type: string
+                  message:
+                    description: Human-readable message indicating details about last
+                      transition.
+                    type: string
+                  reason:
+                    description: Unique, one-word, CamelCase reason for the condition's
+                      last transition.
+                    type: string
+                  status:
+                    description: Status is the status of the condition. Can be True,
+                      False, Unknown.
+                    type: string
+                  type:
+                    type: string
+                required:
+                - status
+                - type
+                type: object
+              type: array
+            formatFileSystem:
+              description: Observed file system format
+              type: string
+            lvNum:
+              description: How many lvm logical volumes that are observed.
+              type: integer
+            lvStatus:
+              additionalProperties:
+                properties:
+                  errorInfo:
+                    properties:
+                      errorCode:
+                        type: string
+                      lastErrorMsg:
+                        type: string
+                      lastErrorTime:
+                        format: date-time
+                        type: string
+                    type: object
+                  fileSystem:
+                    type: string
+                  lvId:
+                    type: string
+                  lvName:
+                    description: lv Name 需要由应用rename成与 MPDLocalVolume.Name 名称相关， 如：
+                      MPDLocalVol-01
+                    type: string
+                  lvPath:
+                    type: string
+                  lvSectors:
+                    format: int32
+                    type: integer
+                  lvSizeMB:
+                    format: int64
+                    type: integer
+                  lvStatus:
+                    type: string
+                  lvUUID:
+                    type: string
+                  nodeName:
+                    type: string
+                  vgName:
+                    type: string
+                  vgUUID:
+                    type: string
+                type: object
+              description: 映射关系：lvID->MPDHostLVStatus
+              type: object
+            pvcInfo:
+              additionalProperties:
+                properties:
+                  errorInfo:
+                    properties:
+                      errorCode:
+                        type: string
+                      lastErrorMsg:
+                        type: string
+                      lastErrorTime:
+                        format: date-time
+                        type: string
+                    type: object
+                  name:
+                    type: string
+                  namespace:
+                    type: string
+                type: object
+              description: PVC and LVM logical colume map, lvID->LVPVCInfo
+              type: object
+            pvcNumber:
+              description: PVC number for each LVM logical volume
+              type: integer
+            pvcReady:
+              description: Whether PVCs are ready
+              type: boolean
+            pvcReadyNum:
+              description: Avaliable PVC number in current mode
+              type: boolean
+            validLVNum:
+              description: Number of valid and available LVM logical volumes
+              type: integer
+          type: object
+      type: object
+  version: v1
+  versions:
+  - name: v1
+    served: true
+    storage: true
+status:
+  acceptedNames:
+    kind: ""
+    plural: ""
+  conditions: []
+  storedVersions: []

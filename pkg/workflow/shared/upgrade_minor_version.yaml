@@ -1,0 +1,44 @@
+flowName: SharedStorageClusterUpgradeMinorVersion
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.InitUpgradeImages
+    stepName: InitUpgradeImages
+
+  - className: workflow_shared.GenerateTempRoIds
+    stepName:  GenerateTempRoIds
+
+  - className: workflow_shared.InitTempRoMeta
+    stepName:  InitTempRoMeta
+
+  - className: workflow_shared.DisableHA
+    stepName:  DisableHA
+
+  - className: workflow_shared.CreateTempRoForRw
+    stepName:  CreateTempRoForRw
+
+  - className: workflow_shared.ConvertTempRoToRo
+    stepName:  ConvertTempRoToRo
+
+  - className: workflow_shared.SwitchNewRoToRw
+    stepName:  SwitchNewRoToRw
+
+  - className: workflow_shared.DeleteOldRw
+    stepName:  DeleteOldRw
+
+  - className: workflow_shared.EnsureNewRoUpToDate
+    stepName:  EnsureNewRoUpToDate
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.UpgradeCmVersion
+    stepName:  UpgradeCmVersion
+
+  - className: workflow_shared.EnsureCmRwAffinity
+    stepName:  EnsureCmRwAffinity
+
+  - className: workflow_shared.CleanUpgradeTempMeta
+    stepName:  CleanUpgradeTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus

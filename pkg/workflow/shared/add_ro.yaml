@@ -1,0 +1,17 @@
+flowName: SharedStorageClusterAddRo
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.GenerateAddRoTempId
+    stepName:  GenerateAddRoTempId
+
+  - className: workflow_shared.InitTempRoMeta
+    stepName:  InitTempRoMeta
+
+  - className: workflow_shared.EnsureNewRoUpToDate
+    stepName:  EnsureNewRoUpToDate
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus

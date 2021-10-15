@@ -1,0 +1,24 @@
+flowName: SharedStorageClusterFlushParams
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.DisableHA
+    stepName:  DisableHA
+
+  - className: workflow_shared.FlushParams
+    stepName:  FlushParams
+
+  - className: workflow_shared.RestartClusterIfNeed
+    stepName:  RestartClusterIfNeed
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.SaveParamsLastUpdateTime
+    stepName: SaveParamsLastUpdateTime
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus
+

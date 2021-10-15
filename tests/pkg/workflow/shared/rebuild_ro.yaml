@@ -1,0 +1,27 @@
+flowName: SharedStorageClusterRebuildRo
+recoverFromFirstStep: false
+steps:
+  - className: workflow_shared.GenerateRebuildRoTempId
+    stepName:  GenerateRebuildRoTempId
+
+  - className: workflow_shared.DisableHA
+    stepName: DisableHA
+
+  # stop engine and delete the slot to prevent wal accumulation
+  - className: workflow_shared.StopOldRo
+    stepName:  StopOldRo
+
+  - className: workflow_shared.InitTempRoMeta
+    stepName:  InitTempRoMeta
+
+  - className: workflow_shared.EnsureNewRoUpToDate
+    stepName:  EnsureNewRoUpToDate
+
+  - className: workflow_shared.EnableHA
+    stepName:  EnableHA
+
+  - className: workflow_shared.CleanAllTempMeta
+    stepName: CleanAllTempMeta
+
+  - className: workflow_shared.UpdateRunningStatus
+    stepName:  UpdateRunningStatus
