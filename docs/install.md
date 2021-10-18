@@ -98,22 +98,23 @@ EOF
 
 元数据库需要是关系型数据库，目前暂只支持 mysql，您需要自行创建元数据库并且保证该数据库可以连通。
 
-创建元数据表结构，示例参考 deploy/meta/db.sql
+创建元数据表结构，示例参考 PolarDB-Stack-Storage [scripts/db.sql](https://github.com/ApsaraDB/PolarDB-Stack-Storage/blob/master/scripts/db.sql)
 
 4. 创建 sms-manager deployment
-   a. 下载示例 yaml
+   
+a. 下载示例 yaml
 
 ```shell
-wget deploy/manager/all.yaml
+wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/blob/master/deploy/all.yaml
 ```
 
 ​        b. 修改 KUBERNETES_SERVICE_HOST 及 KUBERNETES_SERVICE_PORT 为您 k8s 集群 apiserver 的 IP 及端口
 
 ```shell
-						- name: KUBERNETES_SERVICE_HOST
-              value: 10.0.0.77
-            - name: KUBERNETES_SERVICE_PORT
-              value: "6443"
+- name: KUBERNETES_SERVICE_HOST
+  value: 10.0.0.77
+- name: KUBERNETES_SERVICE_PORT
+  value: "6443"
 ```
 
 ​        c. 将元数据库的信息配置进 config map
@@ -153,7 +154,8 @@ cloud-provider-wwid-usage-dbm-03     4      33s
 
 注意：DATA 中有数据表示已经扫描到 polardb 所需的共享盘。
 
-6. 在机器上安装 pfs，需要分别在您所有的机器上执行以下命令。
+6. 在机器上安装 pfs，需要分别在您所有的机器上安装 pfs rpm 包。
+[pfs 编译安装](https://github.com/ApsaraDB/polardb-file-system) 
 
 ```shell
 rpm -ivh t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
@@ -164,13 +166,14 @@ rpm -ivh t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
 1. 将源码编译成 docker 镜像
 
 ```shell
+wget https://github.com/ApsaraDB/PolarDB-Stack-Daemon/blob/master/build.sh
 ./build.sh
 ```
 
 2. 下载示例 yaml
 
 ```shell
-wget deploy/all.yaml
+wget https://github.com/ApsaraDB/PolarDB-Stack-Daemon/blob/master/deploy/all.yaml
 ```
 
 3. 使用 ifconfig 查看您的网口信息，并修改示例 yaml
