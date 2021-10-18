@@ -194,7 +194,8 @@ func (s *SharedStorageClusterService) PrepareStorage(ctx context.Context, cluste
 }
 
 func (s *SharedStorageClusterService) CreateRoIns(ctx context.Context, cluster *domain.SharedStorageCluster, ins *commondomain.DbIns) error {
-	return s.CreateAndInstallIns(ctx, cluster, ins, false)
+	installCtx := context.WithValue(ctx, "isRo", true)
+	return s.CreateAndInstallIns(installCtx, cluster, ins, false)
 }
 
 func (s *SharedStorageClusterService) CreateRwIns(ctx context.Context, cluster *domain.SharedStorageCluster, ins *commondomain.DbIns) error {
@@ -260,7 +261,8 @@ func (s *SharedStorageClusterService) InitTempRoMeta(ctx context.Context, cluste
 }
 
 func (s *SharedStorageClusterService) CreateTempRoIns(ctx context.Context, cluster *domain.SharedStorageCluster, ins *commondomain.DbIns) error {
-	if err := s.CreateAndInstallIns(ctx, cluster, ins, false); err != nil {
+	installCtx := context.WithValue(ctx, "isRo", true)
+	if err := s.CreateAndInstallIns(installCtx, cluster, ins, false); err != nil {
 		return err
 	}
 	return nil
@@ -449,8 +451,10 @@ func (s *SharedStorageClusterService) CreateAndInstallIns(ctx context.Context, c
 	if err := ins.InstallDbIns(ctx); err != nil {
 		return err
 	}
-	if err := ins.DoHealthCheck(ctx); err != nil {
-		return err
+	if writeLock {
+		if err := ins.DoHealthCheck(ctx); err != nil {
+			return err
+		}
 	}
 	if err := ins.SetupLogAgent(ctx); err != nil {
 		return err

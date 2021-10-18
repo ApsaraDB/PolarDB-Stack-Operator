@@ -88,6 +88,9 @@ func (step *CreateRwPod) DoStep(ctx context.Context, logger logr.Logger) error {
 	if err := step.Service.CreateRwIns(ctx, step.Model, step.Model.RwIns); err != nil {
 		return err
 	}
+	if err := step.Model.AddInsToClusterManager(ctx, step.Model.RwIns.InsId); err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -100,6 +103,9 @@ func (step *CreateRoPods) DoStep(ctx context.Context, logger logr.Logger) error 
 		if err := step.Service.CreateRoIns(ctx, step.Model, ins); err != nil {
 			return err
 		}
+		if err := step.Model.AddInsToClusterManager(ctx, "", ins.InsId); err != nil {
+			return err
+		}
 	}
 	return nil
 }
@@ -110,18 +116,6 @@ type CreateNetwork struct {
 
 func (step *CreateNetwork) DoStep(ctx context.Context, logger logr.Logger) error {
 	return nil
-}
-
-type AddToClusterManager struct {
-	wf.SharedStorageClusterStepBase
-}
-
-func (step *AddToClusterManager) DoStep(ctx context.Context, logger logr.Logger) error {
-	var roInsIds []string
-	for id, _ := range step.Model.RoInses {
-		roInsIds = append(roInsIds, id)
-	}
-	return step.Model.AddInsToClusterManager(ctx, step.Model.RwIns.InsId, roInsIds...)
 }
 
 type CreateClusterManager struct {

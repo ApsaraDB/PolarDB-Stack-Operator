@@ -7,17 +7,14 @@ steps:
   - className: workflow_shared.PrepareStorage
     stepName:  PrepareStorage
 
+  - className: workflow_shared.CreateClusterManager
+    stepName:  CreateClusterManager
+
   - className: workflow_shared.CreateRwPod
     stepName:  CreateRwPod
 
   - className: workflow_shared.CreateRoPods
     stepName:  CreateRoPods
-
-  - className: workflow_shared.CreateClusterManager
-    stepName:  CreateClusterManager
-
-  - className: workflow_shared.AddToClusterManager
-    stepName:  AddToClusterManager
 
   - className: workflow_shared.UpdateRunningStatus
     stepName:  UpdateRunningStatus

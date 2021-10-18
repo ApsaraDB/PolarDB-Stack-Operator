@@ -22,6 +22,8 @@ import (
 	"strconv"
 	"time"
 
+	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils/waitutil"
+
 	"github.com/go-logr/logr"
 	"github.com/pkg/errors"
 	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
@@ -126,6 +128,9 @@ func (cluster *SharedStorageCluster) AddInsToClusterManager(ctx context.Context,
 		if err := cluster.ClusterManagerClient.AddIns(ctx, cluster.RwIns.ResourceName, cluster.RwIns.HostIP, "RW", "SYNC", cluster.RwIns.Host, cluster.RwIns.NetInfo.Port, false); err != nil {
 			return err
 		}
+		if err := cluster.WaitForEngineReady(ctx, cluster.RwIns.ResourceName); err != nil {
+			return err
+		}
 	}
 	for _, insId := range roInsIds {
 		found := false
@@ -136,6 +141,9 @@ func (cluster *SharedStorageCluster) AddInsToClusterManager(ctx context.Context,
 			if insId == ins.InsId {
 				found = true
 				if err := cluster.ClusterManagerClient.AddIns(ctx, ins.ResourceName, ins.HostIP, "RO", "SYNC", ins.Host, ins.NetInfo.Port, false); err != nil {
+					return err
+				}
+				if err := cluster.WaitForEngineReady(ctx, ins.ResourceName); err != nil {
 					return err
 				}
 			}
@@ -149,6 +157,9 @@ func (cluster *SharedStorageCluster) AddInsToClusterManager(ctx context.Context,
 				if err := cluster.ClusterManagerClient.AddIns(ctx, ins.ResourceName, ins.HostIP, "RO", "SYNC", ins.Host, ins.NetInfo.Port, false); err != nil {
 					return err
 				}
+				if err := cluster.WaitForEngineReady(ctx, ins.ResourceName); err != nil {
+					return err
+				}
 			}
 		}
 		if !found {
@@ -156,6 +167,34 @@ func (cluster *SharedStorageCluster) AddInsToClusterManager(ctx context.Context,
 		}
 	}
 	return nil
+}
+
+func (cluster *SharedStorageCluster) WaitForEngineReady(ctx context.Context, resourceName string) error {
+	if err := cluster.ClusterManagerClient.InitWithLocalDbCluster(ctx, cluster.Namespace, cluster.Name, true); err != nil {
+		return err
+	}
+	return waitutil.PollImmediateWithContext(ctx, time.Second, 3*time.Minute, func() (bool, error) {
+		if clusterStatus, err := cluster.ClusterManagerClient.GetClusterStatus(ctx); err == nil {
+			if clusterStatus.Rw.PodName == resourceName {
+				if clusterStatus.Rw.Phase == commondefine.EnginePhaseRunning {
+					return true, nil
+				} else if clusterStatus.Rw.Phase == commondefine.EnginePhaseFailed {
+					return false, errors.New(fmt.Sprintf("%s rw start failed", resourceName))
+				}
+			} else {
+				for _, ro := range clusterStatus.Ro {
+					if ro.PodName == resourceName {
+						if ro.Phase == commondefine.EnginePhaseRunning {
+							return true, nil
+						} else if clusterStatus.Rw.Phase == commondefine.EnginePhaseFailed {
+							return false, errors.New(fmt.Sprintf("%s ro start failed", resourceName))
+						}
+					}
+				}
+			}
+		}
+		return false, nil
+	})
 }
 
 func (cluster *SharedStorageCluster) RemoveInsFromClusterManager(ctx context.Context, insIds ...string) error {

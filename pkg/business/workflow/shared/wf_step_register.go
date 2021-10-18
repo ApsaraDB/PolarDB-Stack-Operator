@@ -43,7 +43,6 @@ func Register() {
 		&CreateRwPod{},
 		&CreateRoPods{},
 		&CreateNetwork{},
-		&AddToClusterManager{},
 		&CreateClusterManager{},
 		&UpdateRunningStatus{},
 		&GenerateTempRoIds{},

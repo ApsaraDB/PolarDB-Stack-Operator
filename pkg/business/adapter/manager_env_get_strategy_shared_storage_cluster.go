@@ -71,11 +71,12 @@ func (d *SharedStorageClusterEnvGetStrategy) GetInstallEngineEnvirons(ctx contex
 		return "", err
 	}
 
-	// todo check ssl
-
-	// tmp table
 	addEnvs := map[string]string{
 		"create_tablespace_env": `{"tablespace_name":"polar_tmp","tablespace_path":"/log/pg_tmp"}`,
+	}
+	isRoParam := ctx.Value("isRo")
+	if isRoParam != nil && isRoParam.(bool) == true {
+		addEnvs["lock_install_ins"] = "True"
 	}
 
 	envs := d.TranslateEnvMap2StringWithBase(addEnvs, baseEnvs)
