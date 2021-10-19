@@ -10,7 +10,6 @@ RUN echo "$ssh_prv_key" | tr -d '\r' > /root/.ssh/id_rsa && \
     echo "$ssh_pub_key" | tr -d '\r' > /root/.ssh/id_rsa.pub && \
     chmod 600 /root/.ssh/id_rsa && \
     chmod 600 /root/.ssh/id_rsa.pub
-RUN echo "Host gitlab.alibaba-inc.com\n\tStrictHostKeyChecking no\n" >> /root/.ssh/config
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
@@ -21,8 +20,6 @@ COPY go.sum go.sum
 
 ENV GO111MODULE=on
 ENV GOPROXY=https://goproxy.cn,direct
-ENV GOPRIVATE=gitlab.alibaba-inc.com
-RUN git config --global url."git@gitlab.alibaba-inc.com:".insteadOf "https://gitlab.alibaba-inc.com/"
 RUN go mod download
 
 

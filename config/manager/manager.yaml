@@ -101,7 +101,7 @@ spec:
               value: /cert/client-key.pem
             - name: ETCDCTL_CACERT
               value: /cert/ca.pem
-          image: reg.docker.alibaba-inc.com/polarbox/polar-mpd-controller:0.0.1-SNAPSHOT
+          image: polardb/polar-mpd-controller:0.0.1-SNAPSHOT
           imagePullPolicy: IfNotPresent
           resources:
             limits:
