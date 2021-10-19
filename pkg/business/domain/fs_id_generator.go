@@ -21,7 +21,7 @@ import (
 	"strconv"
 	"sync"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils"
 )
 
 var fsIdConst = make([]string, 28)

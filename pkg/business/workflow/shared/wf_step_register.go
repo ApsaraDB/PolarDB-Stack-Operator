@@ -17,7 +17,7 @@
 package workflow_shared
 
 import (
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
 	"os"
 )
 

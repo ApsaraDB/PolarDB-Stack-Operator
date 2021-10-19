@@ -19,20 +19,20 @@ package workflow_shared
 import (
 	"context"
 
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils"
 	"k8s.io/apimachinery/pkg/types"
 
-	commondefine "gitlab.alibaba-inc.com/polar-as/polar-common-domain/define"
+	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
 
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 
 	"github.com/go-logr/logr"
-	wf "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func checkInstall(obj statemachine.StateResource) (*statemachine.Event, error) {

@@ -6,12 +6,12 @@ package business
 import (
 	"github.com/go-logr/logr"
 	"github.com/google/wire"
-	commonadapter "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	commonservice "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/service"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/adapter"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/service"
+	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	commonservice "github.com/ApsaraDB/PolarDB-Stack-Common/business/service"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/adapter"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
 )
 
 var commonSet = wire.NewSet(

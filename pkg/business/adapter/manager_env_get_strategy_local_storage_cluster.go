@@ -20,9 +20,9 @@ import (
 	"context"
 
 	"github.com/go-logr/logr"
-	commonadapter "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
+	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 )
 
 func NewLocalStorageClusterEnvGetStrategy(logger logr.Logger, accountRepository commondomain.IAccountRepository) *LocalStorageClusterEnvGetStrategy {

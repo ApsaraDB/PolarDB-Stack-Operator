@@ -19,9 +19,9 @@ package workflow_shared
 import (
 	"context"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	wf "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func checkMigrateRw(obj statemachine.StateResource) (*statemachine.Event, error) {

@@ -18,9 +18,9 @@ package tests
 
 import (
 	"context"
-	commonconfig "gitlab.alibaba-inc.com/polar-as/polar-common-domain/configuration"
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils/k8sutil"
-	workflow_shared "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/workflow/shared"
+	commonconfig "github.com/ApsaraDB/PolarDB-Stack-Common/configuration"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils/k8sutil"
+	workflow_shared "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/workflow/shared"
 	"gotest.tools/v3/assert"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

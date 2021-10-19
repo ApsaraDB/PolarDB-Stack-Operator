@@ -22,14 +22,14 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils/waitutil"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils/waitutil"
 
 	"github.com/go-logr/logr"
 	"github.com/pkg/errors"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	commondefine "gitlab.alibaba-inc.com/polar-as/polar-common-domain/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 type SharedStorageCluster struct {

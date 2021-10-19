@@ -22,20 +22,20 @@ import (
 	"fmt"
 	"reflect"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils/k8sutil"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils/k8sutil"
 
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
 	"github.com/go-logr/logr"
 	"github.com/pkg/errors"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	commonutils "gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils"
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
-	mpddefine "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	commonutils "github.com/ApsaraDB/PolarDB-Stack-Common/utils"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
+	mpddefine "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 	"sigs.k8s.io/controller-runtime/pkg/client"
 )
 

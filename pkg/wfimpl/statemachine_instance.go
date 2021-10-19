@@ -19,7 +19,7 @@ package wfimpl
 import (
 	"sync"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 var (

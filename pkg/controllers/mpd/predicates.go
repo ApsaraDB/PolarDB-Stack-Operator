@@ -22,7 +22,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/event"
 	"sigs.k8s.io/controller-runtime/pkg/predicate"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/configuration"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/configuration"
 )
 
 var debugPredicateLogger = ctrl.Log.WithName("predicate").WithName("eventFilters")

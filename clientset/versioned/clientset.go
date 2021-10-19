@@ -34,7 +34,7 @@ limitations under the License.
 package versioned
 
 import (
-	mpdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned/typed/mpd/v1"
+	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned/typed/mpd/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"

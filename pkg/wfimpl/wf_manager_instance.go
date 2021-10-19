@@ -20,9 +20,9 @@ import (
 	"fmt"
 	"sync"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/configuration"
-	wfengineimpl "gitlab.alibaba-inc.com/polar-as/polar-wf-engine/implement/wfengine"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/wfengine"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/configuration"
+	wfengineimpl "github.com/ApsaraDB/PolarDB-Stack-Workflow/implement/wfengine"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/wfengine"
 )
 
 var ResourceType = "shared"

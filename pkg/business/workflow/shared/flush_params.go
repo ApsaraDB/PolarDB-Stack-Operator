@@ -20,10 +20,10 @@ import (
 	"context"
 
 	"github.com/go-logr/logr"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	wf "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func checkFlushParams(obj statemachine.StateResource) (*statemachine.Event, error) {

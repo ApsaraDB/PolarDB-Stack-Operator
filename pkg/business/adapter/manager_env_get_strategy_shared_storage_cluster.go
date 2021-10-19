@@ -21,16 +21,16 @@ import (
 	"encoding/json"
 	"strconv"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 
 	"github.com/go-logr/logr"
 
-	commonadapter "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	commondefine "gitlab.alibaba-inc.com/polar-as/polar-common-domain/define"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
+	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 	v1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

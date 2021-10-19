@@ -32,7 +32,7 @@ import (
 
 	"github.com/emicklei/go-restful"
 	"github.com/pkg/errors"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business"
 	"k8s.io/klog/klogr"
 )
 

@@ -21,12 +21,12 @@ import (
 
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 
 	"github.com/go-logr/logr"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/implement"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/implement"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 )

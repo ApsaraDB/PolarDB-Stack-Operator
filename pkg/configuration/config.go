@@ -20,9 +20,9 @@ import (
 	"flag"
 	"sync"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 
-	commonconfig "gitlab.alibaba-inc.com/polar-as/polar-common-domain/configuration"
+	commonconfig "github.com/ApsaraDB/PolarDB-Stack-Common/configuration"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/klog"
 )

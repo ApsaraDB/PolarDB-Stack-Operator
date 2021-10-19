@@ -36,8 +36,8 @@ package v1
 import (
 	"time"
 
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
-	scheme "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned/scheme"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
+	scheme "github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned/scheme"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	types "k8s.io/apimachinery/pkg/types"
 	watch "k8s.io/apimachinery/pkg/watch"

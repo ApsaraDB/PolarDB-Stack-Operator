@@ -1,6 +1,6 @@
 domain: polardb.aliyun.com
 multigroup: true
-repo: gitlab.alibaba-inc.com/polar-as/polar-mpd-controller
+repo: github.com/ApsaraDB/PolarDB-Stack-Operator
 resources:
 - group: mpd
   kind: MPDCluster

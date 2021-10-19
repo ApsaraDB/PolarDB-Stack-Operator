@@ -8,12 +8,12 @@ package business
 import (
 	"github.com/go-logr/logr"
 	"github.com/google/wire"
-	adapter2 "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	service2 "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/service"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/adapter"
-	domain2 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/service"
+	adapter2 "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	service2 "github.com/ApsaraDB/PolarDB-Stack-Common/business/service"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/adapter"
+	domain2 "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
 )
 
 // Injectors from wire.go:

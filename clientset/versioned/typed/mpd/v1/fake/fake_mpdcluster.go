@@ -34,7 +34,7 @@ limitations under the License.
 package fake
 
 import (
-	mpdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

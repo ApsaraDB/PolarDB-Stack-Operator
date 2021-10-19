@@ -18,8 +18,8 @@ package tests
 
 import (
 	"context"
-	adapter2 "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
-	workflow_shared "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/workflow/shared"
+	adapter2 "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
+	workflow_shared "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/workflow/shared"
 	"gotest.tools/v3/assert"
 	"strings"
 	"testing"

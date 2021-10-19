@@ -17,7 +17,7 @@
 package workflow_local
 
 import (
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
 )
 
 func init() {

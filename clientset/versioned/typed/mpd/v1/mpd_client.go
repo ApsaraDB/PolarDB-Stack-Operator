@@ -34,8 +34,8 @@ limitations under the License.
 package v1
 
 import (
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned/scheme"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 

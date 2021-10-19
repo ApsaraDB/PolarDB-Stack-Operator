@@ -34,7 +34,7 @@ limitations under the License.
 package fake
 
 import (
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned/typed/mpd/v1"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned/typed/mpd/v1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )

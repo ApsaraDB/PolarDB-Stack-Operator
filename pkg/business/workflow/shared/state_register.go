@@ -17,9 +17,9 @@
 package workflow_shared
 
 import (
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func init() {

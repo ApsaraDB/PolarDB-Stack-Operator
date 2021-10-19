@@ -17,9 +17,9 @@
 package define
 
 import (
-	commondefine "gitlab.alibaba-inc.com/polar-as/polar-common-domain/define"
-	wfdefine "gitlab.alibaba-inc.com/polar-as/polar-wf-engine/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
+	wfdefine "github.com/ApsaraDB/PolarDB-Stack-Workflow/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 const (

@@ -19,18 +19,18 @@ package wfimpl
 import (
 	"context"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 
 	"github.com/go-logr/logr"
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
-	wfdefine "gitlab.alibaba-inc.com/polar-as/polar-wf-engine/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/wfengine"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
+	wfdefine "github.com/ApsaraDB/PolarDB-Stack-Workflow/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/wfengine"
 	"k8s.io/apimachinery/pkg/types"
 
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/service"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
 )
 
 type SharedStorageClusterStepBase struct {

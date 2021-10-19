@@ -22,11 +22,11 @@ import (
 	"strconv"
 	"time"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils/waitutil"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils/waitutil"
 
 	"github.com/go-logr/logr"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 )
 
 func NewShardStorageClusterService(

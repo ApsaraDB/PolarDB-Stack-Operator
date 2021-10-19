@@ -26,7 +26,7 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/manager"
 	"sigs.k8s.io/controller-runtime/pkg/runtime/inject"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/define"
 )
 
 type PolarOptLead struct {

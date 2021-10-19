@@ -5,7 +5,7 @@ set -o nounset
 set -o pipefail
 
 # corresponding to go mod init <module>
-MODULE=gitlab.alibaba-inc.com/polar-as/polar-mpd-controller
+MODULE=github.com/ApsaraDB/PolarDB-Stack-Operator
 # api package
 APIS_PKG=apis
 # generated output package

@@ -20,10 +20,10 @@ import (
 	"context"
 	"encoding/json"
 
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 	"k8s.io/apimachinery/pkg/types"
 )
 

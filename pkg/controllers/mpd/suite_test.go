@@ -46,7 +46,7 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	mpdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 	// +kubebuilder:scaffold:imports
 )
 

@@ -20,12 +20,12 @@ import (
 	"reflect"
 
 	"github.com/go-logr/logr"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
-	mpddefine "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
+	mpddefine "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func NewLocalStorageClusterRepository(logger logr.Logger) *LocalStorageClusterRepository {

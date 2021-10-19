@@ -19,8 +19,8 @@ package service
 import (
 	"context"
 	"github.com/go-logr/logr"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/domain"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 )
 
 type LocalStorageClusterService struct {

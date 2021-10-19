@@ -19,12 +19,12 @@ package adapter
 import (
 	"context"
 
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 
 	"github.com/go-logr/logr"
-	commonadapter "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
+	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/types"
 )

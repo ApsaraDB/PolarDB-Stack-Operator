@@ -18,8 +18,8 @@ package tests
 
 import (
 	"context"
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	mpdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"

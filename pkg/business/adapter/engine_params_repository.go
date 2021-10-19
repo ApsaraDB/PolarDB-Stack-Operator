@@ -18,7 +18,7 @@ package adapter
 
 import (
 	"github.com/go-logr/logr"
-	commonadapter "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/adapter"
+	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
 )
 
 func NewMpdEngineParamsRepository(logger logr.Logger) *commonadapter.EngineParamsRepository {

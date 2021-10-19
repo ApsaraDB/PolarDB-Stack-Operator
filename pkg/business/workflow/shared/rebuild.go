@@ -20,19 +20,19 @@ import (
 	"context"
 	"strings"
 
-	wfdefine "gitlab.alibaba-inc.com/polar-as/polar-wf-engine/define"
+	wfdefine "github.com/ApsaraDB/PolarDB-Stack-Workflow/define"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-common-domain/utils"
-	v1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	"github.com/ApsaraDB/PolarDB-Stack-Common/utils"
+	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 
 	"github.com/go-logr/logr"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 
-	wf "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func checkRebuild(obj statemachine.StateResource) (*statemachine.Event, error) {

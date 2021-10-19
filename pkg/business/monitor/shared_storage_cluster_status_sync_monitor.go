@@ -22,11 +22,11 @@ import (
 	"runtime/debug"
 	"time"
 
-	commondefine "gitlab.alibaba-inc.com/polar-as/polar-common-domain/define"
+	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
 
 	"github.com/go-logr/logr"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/business/service"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
 )

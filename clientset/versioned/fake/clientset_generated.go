@@ -34,9 +34,9 @@ limitations under the License.
 package fake
 
 import (
-	clientset "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned"
-	mpdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned/typed/mpd/v1"
-	fakempdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/clientset/versioned/typed/mpd/v1/fake"
+	clientset "github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned"
+	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned/typed/mpd/v1"
+	fakempdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/clientset/versioned/typed/mpd/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

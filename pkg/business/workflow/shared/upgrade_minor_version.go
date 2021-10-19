@@ -20,12 +20,12 @@ import (
 	"context"
 
 	"github.com/go-logr/logr"
-	mgr "gitlab.alibaba-inc.com/polar-as/polar-common-domain/manager"
-	mpdv1 "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/apis/mpd/v1"
+	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
+	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	wf "gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/wfimpl"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 )
 
 func checkUpgradeMinorVersion(obj statemachine.StateResource) (*statemachine.Event, error) {

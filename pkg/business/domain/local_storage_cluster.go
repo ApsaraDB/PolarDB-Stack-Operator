@@ -19,9 +19,9 @@ package domain
 import (
 	"github.com/go-logr/logr"
 	"github.com/pkg/errors"
-	commondomain "gitlab.alibaba-inc.com/polar-as/polar-common-domain/business/domain"
-	"gitlab.alibaba-inc.com/polar-as/polar-mpd-controller/pkg/define"
-	"gitlab.alibaba-inc.com/polar-as/polar-wf-engine/statemachine"
+	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
+	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
+	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
 	"strconv"
 )
 
