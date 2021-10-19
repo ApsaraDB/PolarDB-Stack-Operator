@@ -23,10 +23,10 @@ wget config/all.yaml
 ​      b. 修改 KUBERNETES_SERVICE_HOST 及 KUBERNETES_SERVICE_PORT 为您 k8s 集群 apiserver 的 IP 及端口
 
 ```shell
-						- name: KUBERNETES_SERVICE_HOST
-              value: 10.0.0.77
-            - name: KUBERNETES_SERVICE_PORT
-              value: "6443"
+- name: KUBERNETES_SERVICE_HOST
+  value: 10.0.0.77
+- name: KUBERNETES_SERVICE_PORT
+  value: "6443"
 ```
 
 ​      c. 修改镜像版本病应用apply 修改好的配置
