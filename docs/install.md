@@ -10,14 +10,14 @@
 
 ### 步骤三、安装 mpd controller
 
-1. ./build.sh 生成镜像
+1. ./build.sh 生成镜像，或直接使用 polardb/polar-mpd-controller:0.0.1-SNAPSHOT
 
 2. 安装 mpdcluster crd
 
    a. 下载示例 yaml
 
 ```shell
-wget config/all.yaml
+wget https://github.com/ApsaraDB/PolarDB-Stack-Operator/blob/master/config/all.yaml
 ```
 
 ​      b. 修改 KUBERNETES_SERVICE_HOST 及 KUBERNETES_SERVICE_PORT 为您 k8s 集群 apiserver 的 IP 及端口
@@ -38,7 +38,8 @@ kubectl apply -f all.yaml
 3. 设置 node label
 
 ```shell
-./script/set_labels.sh
+wget https://github.com/ApsaraDB/PolarDB-Stack-Operator/blob/master/script/set_labels.sh
+./set_labels.sh
 ```
 
 ### 步骤四、安装存储管理
