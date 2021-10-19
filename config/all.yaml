@@ -4651,11 +4651,11 @@ metadata:
 apiVersion: v1
 data:
   name: image-open
-  pfsdImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_test:v1.1
-  pfsdToolImage: reg.docker.alibaba-inc.com/apsaradb/polardb_pfsd_san_tools:v1.1
+  pfsdImage: polardb/pfsd:1.2.41-20211018
+  pfsdToolImage: polardb/pfsd_tool:1.2.41-20211018
   pgClusterManagerImage: reg.docker.alibaba-inc.com/hujie/cm:opensource
-  pgEngineImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_pg_opensource_engine_release:11.9.20210910.17749afa.20211011162505
-  pgManagerImage: reg.docker.alibaba-inc.com/polardb_pg/polardb_pg_opensource_manager:20211011162505.b65c136b
+  pgEngineImage: polardb/polardb_pg_engine_release:11beta2.20210910.d558886c.20211018195123
+  pgManagerImage: polardb/polardb_pg_manager:20211018195123.9ae43314
 kind: ConfigMap
 metadata:
   labels:
