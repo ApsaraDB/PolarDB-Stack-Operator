@@ -41,6 +41,12 @@ func checkRebuild(obj statemachine.StateResource) (*statemachine.Event, error) {
 		return statemachine.CreateEvent(statemachine.EventName(statemachine.StateRebuild), nil), nil
 	}
 
+	if cluster.Status.DBInstanceStatus == nil ||
+		len(cluster.Status.DBInstanceStatus) == 0 ||
+		cluster.Status.LeaderInstanceId == "" {
+		return nil, nil
+	}
+
 	if cluster.Annotations != nil {
 		r := cluster.Annotations[define.AnnotationForceRebuild]
 		if r == "1" || r == "T" || r == "true" {
