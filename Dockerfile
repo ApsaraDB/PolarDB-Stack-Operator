@@ -34,7 +34,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 GO111MODULE=on go build -a -o mgr main
 
 # Use distroless as minimal base image to package the manager binary
 # Refer to https://github.com/GoogleContainerTools/distroless for more details
-FROM reg.docker.alibaba-inc.com/polarbox/alpine:3.9
+FROM alpine:3.9
 
 ARG APK_MIRROR=mirrors.aliyun.com
 ARG CodeSource=
@@ -44,13 +44,6 @@ ARG CodeVersion=
 ENV CODE_SOURCE=$CodeSource
 ENV CODE_BRANCHES=$CodeBranches
 ENV CODE_VERSION=$CodeVersion
-
-RUN mkdir -p /usr/local/polar-as/k8s/workflow && \
-    echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
-    echo "UserKnownHostsFile /dev/null"  >> /etc/ssh/ssh_config && \
-    echo "ServerAliveInterval 3"  >> /etc/ssh/ssh_config && \
-    echo "ServerAliveCountMax 2"  >> /etc/ssh/ssh_config && \
-    echo "hosts: files dns" > /etc/nsswitch.conf
 
 LABEL CodeSource=$CodeSource CodeBranches=$CodeBranches CodeVersion=$CodeVersion
 LABEL PERF_BUSINESS_TYPE=polar-common-domain
