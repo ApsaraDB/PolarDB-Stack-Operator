@@ -9,7 +9,16 @@ show_usage() {
 Usage: $0 [OPTION]
 Install PolarDB Stack.
     -h, --help                     Display help and exit
+    -c, --config                   The config for PolarDB Stack, default is env.yaml
 EOF
+}
+
+parse_args() {
+  if [[ $# -eq 0 ]]; then
+    echo "Invalid usage!!!"
+    show_usage
+    exit 1
+  fi
 }
 
 main "$@"
