@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: polarstack-daemon
+  name: polarstack-daemon
+  namespace: kube-system
+spec:
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: polarstack-daemon
+  template:
+    metadata:
+      labels:
+        app: polarstack-daemon
+    spec:
+      containers:
+        - command:
+            - polarstack-daemon
+            - --v=5
+            - --logtostderr=false
+            - --log-dir=/kube-log
+            - --log-file=/kube-log/polardb-net.log
+            - --log-flush-frequency=2s
+            - --stderrthreshold=1
+            - --dbcluster-log-dir=/disk1/polardb/
+            - --ins-folder-overdue-days=7
+            - --events-enable-upload=true
+            - --events-upload-url=http://rds-redline-worker-log-api.rds:8080/
+            - --events-upload-timeout=3
+            - --job-enable-del-fip=true
+            - --job-enable-add-fip=true
+            - --polarstack-daemon-pod-labels=app=polarstack-daemon
+            - --core-version-cm-labels=configtype=minor_version_info,dbClusterMode=WriteReadMore
+            - --mpd-controller-cm-name=polardb4mpd-controller
+            - --service-owner-db-cluster=mpdcluster
+          env:
+            - name: CURRENT_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: spec.nodeName
+          envFrom:
+            - configMapRef:
+                name: ccm-config
+          image: polardb/polarstack-daemon:1.0.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 5
+            httpGet:
+              path: /healthz
+              port: 8900
+              scheme: HTTP
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 3
+          name: polarstack-daemon
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 10m
+              memory: 96Mi
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /root/.ssh
+              name: ssh-client
+            - mountPath: /kube-log
+              name: kube-log
+            - mountPath: /var/run/docker.sock
+              name: var-run-docker
+            - mountPath: /var/temp-path
+              name: temp-path
+      dnsPolicy: ClusterFirstWithHostNet
+      hostNetwork: true
+      priorityClassName: system-node-critical
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      serviceAccountName: cloud-controller-manager
+      terminationGracePeriodSeconds: 30
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          key: node-role.kubernetes.io/master
+          operator: Exists
+        - effect: NoSchedule
+          key: node.cloudprovider.kubernetes.io/uninitialized
+          operator: Exists
+      volumes:
+        - hostPath:
+            path: /var/log/polardb-box/polardb-net
+            type: ""
+          name: kube-log
+        - hostPath:
+            path: /root/.ssh
+            type: ""
+          name: ssh-client
+        - hostPath:
+            path: /var/run/docker.sock
+            type: ""
+          name: var-run-docker
+        - hostPath:
+            path: /disk1/polardb-box-temp/ppas-operator/
+            type: DirectoryOrCreate
+          name: temp-path
+  updateStrategy:
+    rollingUpdate:
+      maxUnavailable: 10
+    type: RollingUpdate

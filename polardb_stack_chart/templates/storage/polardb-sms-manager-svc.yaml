@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: polardb-sms-manager
+  name: polardb-sms-manager
+  namespace: kube-system
+spec:
+  ports:
+    - port: 2002
+      protocol: TCP
+      targetPort: 2002
+      nodePort: 2003
+  selector:
+    app: polardb-sms-manager
+  type: NodePort

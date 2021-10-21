@@ -1,0 +1,32 @@
+apiVersion: v1
+data:
+  autoSnapshotSupport: "false"
+  backupApiLimiterBurst: "1"
+  backupApiLimiterQPS: "5"
+  backupApiLimiterTimeout: 1ns
+  canUpdateNotChangeableParams: "false"
+  cmHybridDeployment: "true"
+  controllerListenAddr: ""
+  controllerNodeLabel: node-role.kubernetes.io/master
+  cowSnapshotSupport: "false"
+  degradeDaemonSet: polar-tianxiang/polarbox-operator-log-sync,kube-system/polardb-backup-agent,polar-tianxiang/esdb-data,polar-tianxiang/universe-daemonset,polar-tianxiang/rds-redline-auto-local-volum-provisioner,polar-tianxiang/rds-redline-ue,polar-tianxiang/rds-redline-ue
+  degradeDeployment: polar-tianxiang/universe-deployment,polar-tianxiang/elastalert-deployment,polar-tianxiang/elasticsearch-operator
+  disableSanCmd: "true"
+  disabledWfEvents: ""
+  enableBackupClusterManager: "false"
+  enableCheckSum: "true"
+  enableDegrade: "false"
+  enableOnlinePromote: "false"
+  enablePodGc: "true"
+  enableRedline: "true"
+  enableVip: "false"
+  hybridDeployment: "true"
+  isCheckOObIP: "true"
+  mxsListenAddr: ""
+  pureSoftStorageClass: ""
+  sshPassword: ""
+  sshUser: root
+kind: ConfigMap
+metadata:
+  name: controller-config
+  namespace: kube-system

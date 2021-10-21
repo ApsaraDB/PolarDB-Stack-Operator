@@ -1,0 +1,619 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB
+  labels:
+    classKey: polar.o.x8.12xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "88"
+  cpu_cores_request: "66"
+  hugepage_limit: "522240"
+  iops: "512000"
+  max_conn: "36000"
+  max_storage: "102389760"
+  mem: "727040"
+  mem_limit: "204800"
+  mem_request: "92160"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"2Gi"},"pfsd":{"cpu_cores":"27200m","limit_memory":"50Gi","config":"-w 64 -s 15 -i 262144 -f"},"manager":{"cpu_cores":"400m","limit_memory":"2Gi"},"engine":{"cpu_cores":"60000m","limit_memory":"150Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB
+  labels:
+    classKey: polar.o.x8.12xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "8GB"
+  effective_cache_size: "465GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "32"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "32"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "5GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "465GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核64GB
+  labels:
+    classKey: polar.o.x8.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "1600MB"
+  effective_cache_size: "48GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "4"
+  max_parallel_workers: "4"
+  max_parallel_workers_per_gather: "4"
+  max_sync_workers_per_subscription: "4"
+  polar_logindex_bloom_blocks: "3072"
+  polar_logindex_mem_size: "1536MB"
+  polar_parallel_new_bgwriter_threshold_lag: "1500MB"
+  polar_xlog_page_buffers: "1500MB"
+  polar_xlog_queue_buffers: "1536MB"
+  shared_buffers: "48GB"
+  wal_buffers: "16MB"
+  work_mem: "16384"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB
+  labels:
+    classKey: polar.o.x8.4xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "4GB"
+  effective_cache_size: "192GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "28"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "28"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "6GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "192GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核32GB
+  labels:
+    classKey: polar.o.x4.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x4-xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "800MB"
+  effective_cache_size: "24GB"
+  maintenance_work_mem: "2GB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "4"
+  max_parallel_workers: "4"
+  max_parallel_workers_per_gather: "4"
+  max_sync_workers_per_subscription: "4"
+  polar_logindex_bloom_blocks: "1536"
+  polar_logindex_mem_size: "768MB"
+  polar_parallel_new_bgwriter_threshold_lag: "750MB"
+  polar_xlog_page_buffers: "750MB"
+  polar_xlog_queue_buffers: "768MB"
+  shared_buffers: "24GB"
+  wal_buffers: "16MB"
+  work_mem: "8192"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB
+  labels:
+    classKey: polar.o.x8.4xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "233472"
+  iops: "384000"
+  max_conn: "12800"
+  max_storage: "102389760"
+  mem: "262144"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores: "32"
+  mem_limit: "96598"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"10000m","limit_memory":"30Gi","config":"-w 48 -s 15 -i 131072 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"21200m","limit_memory":"64Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 2核8GB
+  labels:
+    classKey: polar.o.x4.medium
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x4-medium-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "200MB"
+  effective_cache_size: "6GB"
+  maintenance_work_mem: "500MB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "2"
+  max_parallel_workers: "2"
+  max_parallel_workers_per_gather: "2"
+  max_sync_workers_per_subscription: "2"
+  polar_logindex_bloom_blocks: "1024"
+  polar_logindex_mem_size: "512MB"
+  polar_parallel_new_bgwriter_threshold_lag: "500MB"
+  polar_xlog_page_buffers: "500MB"
+  polar_xlog_queue_buffers: "512MB"
+  shared_buffers: "6GB"
+  wal_buffers: "16MB"
+  work_mem: "4096"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 2核8GB
+  labels:
+    classKey: polar.o.x4.medium
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x4-medium-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "2"
+  hugepage_limit: "12288"
+  iops: "16000"
+  max_conn: "400"
+  max_storage: "102389760"
+  mem: "8192"
+  mem_limit: "5120"
+  storage: "204800"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "512"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"500m","limit_memory":"1Gi","config":"-w 8 -s 20 -i 8192 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"1100m","limit_memory":"2Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核64GB
+  labels:
+    classKey: polar.o.x8.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-xlarge-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "8"
+  hugepage_limit: "61440"
+  iops: "160000"
+  max_conn: "3200"
+  max_storage: "102389760"
+  mem: "65536"
+  mem_limit: "24841"
+  storage: "327680"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"2400m","limit_memory":"6Gi","config":"-w 32 -s 15 -i 65536 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"5200m","limit_memory":"16Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 4核16GB
+  labels:
+    classKey: polar.o.x4.large
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x4-large-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "5"
+  autovacuum_work_mem: "400MB"
+  effective_cache_size: "12GB"
+  maintenance_work_mem: "1GB"
+  max_connections: "3300"
+  max_parallel_maintenance_workers: "2"
+  max_parallel_workers: "2"
+  max_parallel_workers_per_gather: "2"
+  max_sync_workers_per_subscription: "2"
+  polar_logindex_bloom_blocks: "1024"
+  polar_logindex_mem_size: "512MB"
+  polar_parallel_new_bgwriter_threshold_lag: "500MB"
+  polar_xlog_page_buffers: "500MB"
+  polar_xlog_queue_buffers: "512MB"
+  shared_buffers: "12GB"
+  wal_buffers: "16MB"
+  work_mem: "4096"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 8核32GB
+  labels:
+    classKey: polar.o.x4.xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x4-xlarge-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "8"
+  hugepage_limit: "32768"
+  iops: "128000"
+  max_conn: "1600"
+  max_storage: "102389760"
+  mem: "32768"
+  mem_limit: "16468"
+  storage: "204800"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "512"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"2400m","limit_memory":"7Gi","config":"-w 32 -s 15 -i 32768 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"5200m","limit_memory":"7Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB
+  labels:
+    classKey: polar.o.x8.2xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "119808"
+  iops: "256000"
+  max_conn: "6400"
+  max_storage: "102389760"
+  mem: "131072"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores: "16"
+  mem_limit: "48395"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"4800m","limit_memory":"16Gi","config":"-w 32 -s 10 -i 65536 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"10400m","limit_memory":"30Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 4核16GB
+  labels:
+    classKey: polar.o.x4.large
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x4-large-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores: "4"
+  hugepage_limit: "18432"
+  iops: "64000"
+  max_conn: "800"
+  max_storage: "102389760"
+  mem: "16384"
+  mem_limit: "9030"
+  storage: "204800"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "512"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"200m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"1000m","limit_memory":"3Gi","config":"-w 16 -s 10 -i 16384 -f"},"manager":{"cpu_cores":"200m","limit_memory":"1Gi"},"engine":{"cpu_cores":"2600m","limit_memory":"4Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB
+  labels:
+    classKey: polar.o.x8.2xlarge
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "2GB"
+  effective_cache_size: "96GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "8"
+  max_parallel_workers: "12"
+  max_parallel_workers_per_gather: "12"
+  max_sync_workers_per_subscription: "12"
+  polar_logindex_bloom_blocks: "6144"
+  polar_logindex_mem_size: "3072MB"
+  polar_parallel_new_bgwriter_threshold_lag: "3GB"
+  polar_xlog_page_buffers: "3000MB"
+  polar_xlog_queue_buffers: "3072MB"
+  shared_buffers: "96GB"
+  wal_buffers: "16MB"
+  work_mem: "32768"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB-独占
+  labels:
+    classKey: polar.o.x8.12xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-exclusive-resource-rwo
+  namespace: kube-system
+data:
+  cpu_cores_request: "66"
+  hugepage_limit: "522240"
+  iops: "512000"
+  max_conn: "36000"
+  max_storage: "102389760"
+  mem: "727040"
+  mem_request: "92160"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  exclusive: "true"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"2Gi"},"pfsd":{"cpu_cores":"27200m","limit_memory":"50Gi","config":"-w 64 -s 15 -i 262144 -f"},"manager":{"cpu_cores":"400m","limit_memory":"2Gi"},"engine":{"cpu_cores":"60000m","limit_memory":"150Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 88核710GB-独占
+  labels:
+    classKey: polar.o.x8.12xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-12xlarge-exclusive-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "8GB"
+  effective_cache_size: "465GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "32"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "32"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "5GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "465GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB-独占
+  labels:
+    classKey: polar.o.x8.4xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-exclusive-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "233472"
+  iops: "384000"
+  max_conn: "12800"
+  max_storage: "102389760"
+  mem: "262144"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores_request: "32"
+  mem_request: "96598"
+  exclusive: "true"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"10000m","limit_memory":"30Gi","config":"-w 48 -s 15 -i 131072 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"21200m","limit_memory":"64Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 32核256GB-独占
+  labels:
+    classKey: polar.o.x8.4xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-4xlarge-exclusive-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "4GB"
+  effective_cache_size: "192GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "16"
+  max_parallel_workers: "28"
+  max_parallel_workers_per_gather: "24"
+  max_sync_workers_per_subscription: "28"
+  polar_logindex_bloom_blocks: "12288"
+  polar_logindex_mem_size: "6144MB"
+  polar_parallel_new_bgwriter_threshold_lag: "6GB"
+  polar_xlog_page_buffers: "7250MB"
+  polar_xlog_queue_buffers: "6144MB"
+  shared_buffers: "192GB"
+  wal_buffers: "16MB"
+  work_mem: "65536"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB-独占
+  labels:
+    classKey: polar.o.x8.2xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_resource
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-exclusive-resource-rwo
+  namespace: kube-system
+data:
+  hugepage_limit: "119808"
+  iops: "256000"
+  max_conn: "6400"
+  max_storage: "102389760"
+  mem: "131072"
+  storage: "512000"
+  mem_oom_buffer: "2048"
+  mem_pfs_buffer: "4096"
+  mem_opt_buffer: "1024"
+  cpu_cores_request: "16"
+  mem_request: "48395"
+  exclusive: "true"
+  class_specified: '{"pfsd-tool":{"cpu_cores":"400m","limit_memory":"1Gi"},"pfsd":{"cpu_cores":"4800m","limit_memory":"16Gi","config":"-w 32 -s 10 -i 65536 -f"},"manager":{"cpu_cores":"400m","limit_memory":"1Gi"},"engine":{"cpu_cores":"10400m","limit_memory":"30Gi"}}'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  annotations:
+    polarbox.class.name: 16核128GB-独占
+  labels:
+    classKey: polar.o.x8.2xlarge.exclusive
+    configtype: instance_level
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+    leveltype: instance_level_config
+  name: postgresql-1-0-level-polar-o-x8-2xlarge-exclusive-config-rwo
+  namespace: kube-system
+data:
+  autovacuum_max_workers: "8"
+  autovacuum_work_mem: "2GB"
+  effective_cache_size: "96GB"
+  maintenance_work_mem: "4GB"
+  max_connections: "36100"
+  max_parallel_maintenance_workers: "8"
+  max_parallel_workers: "12"
+  max_parallel_workers_per_gather: "12"
+  max_sync_workers_per_subscription: "12"
+  polar_logindex_bloom_blocks: "6144"
+  polar_logindex_mem_size: "3072MB"
+  polar_parallel_new_bgwriter_threshold_lag: "3GB"
+  polar_xlog_page_buffers: "3000MB"
+  polar_xlog_queue_buffers: "3072MB"
+  shared_buffers: "96GB"
+  wal_buffers: "16MB"
+  work_mem: "32768"

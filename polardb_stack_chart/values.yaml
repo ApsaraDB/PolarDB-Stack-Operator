@@ -1,0 +1,17 @@
+# Default values for polardb_stack_chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+KUBERNETES_SERVICE_HOST: 10.0.0.77
+KUBERNETES_SERVICE_PORT: 6443
+
+metabase:
+  host: 10.0.0.77
+  port: 3306
+  user: polar
+  password: password
+  type: mysql
+  version: 8.0.26
+
+network:
+  interface: eth0

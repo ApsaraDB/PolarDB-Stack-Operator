@@ -1,0 +1,113 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: polardb-sms-manager
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: polardb-sms-manager
+  replicas: 3
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: polardb-sms-manager
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                  - key: app
+                    operator: In
+                    values:
+                      - polardb-sms-manager
+              topologyKey: "kubernetes.io/hostname"
+      serviceAccountName: polardb-sms-manager
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      priorityClassName: system-node-critical
+      tolerations:
+        - key: CriticalAddonsOnly
+          operator: Exists
+        - effect: NoSchedule
+          operator: Exists
+          key: node-role.kubernetes.io/master
+        - effect: NoSchedule
+          operator: Exists
+          key: node.cloudprovider.kubernetes.io/uninitialized
+      containers:
+        - name: sms-manager
+          securityContext:
+            privileged: true
+            capabilities:
+              add: [ "SYS_ADMIN" ]
+            allowPrivilegeEscalation: true
+          args:
+            - "--log_level=DEBUG"
+            - "--node_id=$(NODE_ID)"
+            - "--node_ip=$(NODE_IP)"
+          image: reg.docker.alibaba-inc.com/polarbox/polardb-sms-manager@sha256:84457d45b7942e3db56d685794e51e55d631af994f5cc834883c1aac8c4e923b
+          imagePullPolicy: IfNotPresent
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+              ephemeral-storage: 512Mi
+            requests:
+              cpu: 10m
+              memory: 96Mi
+              ephemeral-storage: 512Mi
+          env:
+            - name: NODE_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: NODE_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.hostIP
+            - name: KUBERNETES_SERVICE_HOST
+              value: "{{ .Values.KUBERNETES_SERVICE_HOST }}"
+            - name: KUBERNETES_SERVICE_PORT
+              value: "{{ .Values.KUBERNETES_SERVICE_PORT }}"
+            - name: ACCESS_KEY_ID
+              value: ""
+            - name: ACCESS_KEY_SECRET
+              value: ""
+            - name: HOST_USERNAME
+              value: ""
+            - name: LOG_TYPE
+              value: "file"
+            - name: SERVER_PORT
+              value: "18888"
+          volumeMounts:
+            - mountPath: /var/log/alicloud
+              name: kube-log-controller
+            - mountPath: /etc/localtime
+              name: localtime
+            - mountPath: /home
+              name: home
+            - name: polardb-sms-manager-conf
+              mountPath: "/var/lib/polardb-sms/manager/manager.conf"
+              subPath: "manager.conf"
+              readOnly: true
+      volumes:
+        - name: kube-log-controller
+          hostPath:
+            path: /var/log/polardb-box/polardb-sms/manager
+            type: DirectoryOrCreate
+        - hostPath:
+            path: /etc/localtime
+          name: localtime
+        - name: home
+          hostPath:
+            path: /home
+        - name: polardb-sms-manager-conf
+          configMap:
+            name: polardb-sms-manager
+            items:
+              - key: "app_conf"
+                path: "manager.conf"

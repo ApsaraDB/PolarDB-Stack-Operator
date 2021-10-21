@@ -1,0 +1,14 @@
+apiVersion: v1
+data:
+  metabase.yml: |-
+    metabase:
+      host: {{ .Values.metabase.host }}
+      port: {{ .Values.metabase.port }}
+      user: {{ .Values.metabase.user }}
+      password: {{ .Values.metabase.password }}
+      type: {{ .Values.metabase.type }}
+      version: {{ .Values.metabase.version }}
+kind: ConfigMap
+metadata:
+  name: metabase-config
+  namespace: kube-system

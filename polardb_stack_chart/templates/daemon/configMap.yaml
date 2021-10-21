@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ccm-config
+  namespace: kube-system
+data:
+  NET_CARD_NAME: "{{ .Values.network.interface }}"
+  NET_MASK: "255.255.0.0"
+  MiniLvs_RegionNo: "cn-qd-hyq-d01"
+  MiniLvs_Bid: "1"
+  MiniLvs_AliYunIdKp: "idkp"
+  MiniLvs_BackendIf: "{{ .Values.network.interface }}"
+
+

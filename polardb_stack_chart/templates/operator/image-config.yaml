@@ -1,0 +1,17 @@
+apiVersion: v1
+data:
+  name: image-open
+  pfsdImage: polardb/pfsd:1.2.41-20211018
+  pfsdToolImage: polardb/pfsd_tool:1.2.41-20211018
+  pgClusterManagerImage: reg.docker.alibaba-inc.com/hujie/cm:opensource
+  pgEngineImage: polardb/polardb_pg_engine_release:11.9.20210910.73ec28a8.20211019155239
+  pgManagerImage: polardb/polardb_pg_manager:20211019155239.d4c12f54
+kind: ConfigMap
+metadata:
+  labels:
+    configtype: minor_version_info
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+  name: postgresql-1-0-minor-version-info-rwo-image-open
+  namespace: kube-system

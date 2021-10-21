@@ -45,18 +45,17 @@ wget https://github.com/ApsaraDB/PolarDB-Stack-Operator/blob/master/script/set_l
 ### 步骤四、安装存储管理
 
 1. 安装 sms-agent
+   
+a. 安装并启动 supervisord ，并确认正常运行。
 
-1. a. 安装并启动 supervisord ，并确认正常运行。
-
-2. b. 在 sms 工程编译 agent，生成二进制包 bin/sms-agent。
+b. 在 sms 工程编译 agent，生成二进制包 bin/sms-agent。
 
 ```shell
 make build-agent
 ```
+   c. 拷贝二进制包到主机的 /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent 目录上。
 
-1. c. 拷贝二进制包到主机的 /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent 目录上。
-
-2. d. 配置 /etc/supervisord.d/polardb-sms-agent.ini
+   d. 配置 /etc/supervisord.d/polardb-sms-agent.ini
 
 ```python
 AGENT_INI="/etc/supervisord.d/polardb-sms-agent.ini"
@@ -73,7 +72,7 @@ autostart=true
 EOF
 ```
 
-1. e. 配置 /etc/polardb-sms-agent.conf
+e. 配置 /etc/polardb-sms-agent.conf
 
 ```python
 AGENT_CONF="/etc/polardb-sms-agent.conf"
@@ -114,7 +113,7 @@ a. 下载示例 yaml
 wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/blob/master/deploy/all.yaml
 ```
 
-​        b. 修改 KUBERNETES_SERVICE_HOST 及 KUBERNETES_SERVICE_PORT 为您 k8s 集群 apiserver 的 IP 及端口
+b. 修改 KUBERNETES_SERVICE_HOST 及 KUBERNETES_SERVICE_PORT 为您 k8s 集群 apiserver 的 IP 及端口
 
 ```shell
 - name: KUBERNETES_SERVICE_HOST
@@ -123,7 +122,7 @@ wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/blob/master/deploy/all.ya
   value: "6443"
 ```
 
-​        c. 将元数据库的信息配置进 config map
+c. 将元数据库的信息配置进 config map
 
 ```shell
 apiVersion: v1
@@ -142,7 +141,7 @@ metadata:
   namespace: kube-system
 ```
 
-​       d. apply 修改好的配置
+d. apply 修改好的配置
 
 ```shell
 kubectl apply -f all.yaml
