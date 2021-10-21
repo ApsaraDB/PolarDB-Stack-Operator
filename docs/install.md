@@ -95,6 +95,11 @@ EOF
 ./build/build-manager.sh
 ```
 
+或使用已经打包好的镜像 
+```shell
+docker pull polardb/polardb-sms-manager:1.0.0
+```
+
 3. 创建存储管理元数据库
 
 元数据库需要是关系型数据库，目前暂只支持 mysql，您需要自行创建元数据库并且保证该数据库可以连通。
