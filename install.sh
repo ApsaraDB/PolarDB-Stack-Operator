@@ -4,6 +4,9 @@ ENV_CONFIG=env.yaml
 
 main() {
   parse_args
+  echo "Start installing PolarDB Stack..."
+  update_config
+  set_labels
 }
 
 show_usage() {
@@ -34,11 +37,9 @@ parse_args() {
       esac
     done
   fi
-  install
 }
 
-install() {
-  echo "Start installing PolarDB Stack..."
+update_config() {
   if [ ! -f "$ENV_CONFIG" ]; then
     echo "Config file $ENV_CONFIG not exist, exit."
     exit 1
@@ -91,6 +92,10 @@ install() {
   cmd="helm install --dry-run --debug --generate-name ./polardb_stack_chart $network_interface_cmd $k8s_host_cmd $k8s_port_cmd $metabase_host_cmd $metabase_port_cmd $metabase_user_cmd $metabase_password_cmd $metabase_type_cmd $metabase_version_cmd"
   echo $cmd
   $cmd
+}
+
+set_node_label() {
+  ./script/set_labels.sh
 }
 
 main "$@"
