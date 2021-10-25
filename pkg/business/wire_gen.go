@@ -6,14 +6,14 @@
 package business
 
 import (
-	"github.com/go-logr/logr"
-	"github.com/google/wire"
 	adapter2 "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
 	"github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
 	service2 "github.com/ApsaraDB/PolarDB-Stack-Common/business/service"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/adapter"
 	domain2 "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
+	"github.com/go-logr/logr"
+	"github.com/google/wire"
 )
 
 // Injectors from wire.go:

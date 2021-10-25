@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 *See the License for the specific language governing permissions and
 *limitations under the License.
  */
-
 
 package tests
 
@@ -44,20 +43,20 @@ func getTestMPDCluster() *mpdv1.MPDCluster {
 
 	cluster := &mpdv1.MPDCluster{
 		ObjectMeta: metav1.ObjectMeta{
-			Name:                       clusterName.Name,
-			Namespace:                  clusterName.Namespace,
+			Name:      clusterName.Name,
+			Namespace: clusterName.Namespace,
 		},
 		Spec: mpdv1.MPDClusterSpec{
-			OperatorName:       "test",
-			DBClusterType:      mpdv1.MPDClusterSharedVol,
-			FollowerNum:        1,
-			ClassInfo:          mpdv1.InstanceClassInfo{
+			OperatorName:  "test",
+			DBClusterType: mpdv1.MPDClusterSharedVol,
+			FollowerNum:   1,
+			ClassInfo: mpdv1.InstanceClassInfo{
 				ClassName: "polar.o.x4.medium",
-				Cpu: "2000m",
-				Memory: "17Gi",
+				Cpu:       "2000m",
+				Memory:    "17Gi",
 			},
-			ClassInfoModifyTo:  mpdv1.InstanceClassInfo{},
-			ShareStore:         &mpdv1.ShareStoreConfig{
+			ClassInfoModifyTo: mpdv1.InstanceClassInfo{},
+			ShareStore: &mpdv1.ShareStoreConfig{
 				Drive:             "pvc",
 				SharePvcName:      "pvc-test",
 				SharePvcNameSpace: "default",
@@ -65,10 +64,10 @@ func getTestMPDCluster() *mpdv1.MPDCluster {
 				VolumeType:        "multipath",
 				DiskQuota:         "520000",
 			},
-			NetCfg:             mpdv1.DBNetConfig{
+			NetCfg: mpdv1.DBNetConfig{
 				EngineStartPort: 5400,
 			},
-			VersionCfg:         mpdv1.VersionInfo{
+			VersionCfg: mpdv1.VersionInfo{
 				VersionName: "image-open",
 			},
 			VersionCfgModifyTo: mpdv1.VersionInfo{},
@@ -83,10 +82,10 @@ func getTestMPDCluster() *mpdv1.MPDCluster {
 		Status: mpdv1.MPDClusterStatus{
 			DBInstanceStatus: map[string]*mpdv1.MPDClusterInstanceStatus{
 				"1": &mpdv1.MPDClusterInstanceStatus{
-					InsId: "1",
-					InsType: "rw",
-					PodName: "mpdcluster-open-test-0-1",
-					PodNameSpace: "default",
+					InsId:         "1",
+					InsType:       "rw",
+					PodName:       "mpdcluster-open-test-0-1",
+					PodNameSpace:  "default",
 					PhysicalInsId: "0",
 				},
 			},
@@ -98,9 +97,9 @@ func getTestMPDCluster() *mpdv1.MPDCluster {
 
 func getIns() *domain.DbIns {
 	ins := &domain.DbIns{
-		DbInsId:           domain.DbInsId{
+		DbInsId: domain.DbInsId{
 			PhysicalInsId: "4",
-			InsId: "5",
+			InsId:         "5",
 		},
 		ResourceName:      "mpdcluster-open-test-4-5",
 		ResourceNamespace: "default",
@@ -116,14 +115,14 @@ func createInstanceSystemReousrces(t *testing.T, ctx context.Context, cc client.
 	}
 
 	instanceSystemResources := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: instanceSystemResourcesName.Name,
+			Name:      instanceSystemResourcesName.Name,
 			Namespace: instanceSystemResourcesName.Namespace,
 		},
 		Data: map[string]string{
 			"enableResourceShare": "true",
-			"shared": "single:\n  manager:\n    limits:\n      cpu: 500m\n      memory: 256Mi\n    requests:\n      cpu: 50m\n      memory: 64Mi\nreadWriteMany:\n  pfsdTool:\n    limits:\n      cpu: 500m\n      memory: 256Mi\n    requests:\n      cpu: 500m\n      memory: 256Mi\n  pfsd:\n    limits:\n      cpu: 500m\n      memory: 256Mi\n    requests:\n      cpu: 500m\n      memory: 256Mi\n  manager:\n    limits:\n      cpu: 500m\n      memory: 128Mi\n    requests:\n      cpu: 500m\n      memory: 128Mi\nmaxscale:\n  operator:\n    limits:\n      cpu: 1000m\n      memory: 1Gi\n    requests:\n      cpu: 1000m\n      memory: 1Gi\n",
+			"shared":              "single:\n  manager:\n    limits:\n      cpu: 500m\n      memory: 256Mi\n    requests:\n      cpu: 50m\n      memory: 64Mi\nreadWriteMany:\n  pfsdTool:\n    limits:\n      cpu: 500m\n      memory: 256Mi\n    requests:\n      cpu: 500m\n      memory: 256Mi\n  pfsd:\n    limits:\n      cpu: 500m\n      memory: 256Mi\n    requests:\n      cpu: 500m\n      memory: 256Mi\n  manager:\n    limits:\n      cpu: 500m\n      memory: 128Mi\n    requests:\n      cpu: 500m\n      memory: 128Mi\nmaxscale:\n  operator:\n    limits:\n      cpu: 1000m\n      memory: 1Gi\n    requests:\n      cpu: 1000m\n      memory: 1Gi\n",
 		},
 		BinaryData: nil,
 	}
@@ -139,17 +138,17 @@ func createControllerConfig(t *testing.T, ctx context.Context, cc client.Client)
 	}
 
 	controllerConfig := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: controllerConfigName.Name,
+			Name:      controllerConfigName.Name,
 			Namespace: controllerConfigName.Namespace,
 		},
 		Data: map[string]string{
-			"degradeDaemonSet": "",
-			"degradeDeployment": "",
-			"disabledWfEvents": "",
-			"sshUser": "root",
-			"sshPassword": "",
+			"degradeDaemonSet":    "",
+			"degradeDeployment":   "",
+			"disabledWfEvents":    "",
+			"sshUser":             "root",
+			"sshPassword":         "",
 			"controllerNodeLabel": "node-role.kubernetes.io/master",
 		},
 		BinaryData: nil,
@@ -166,21 +165,20 @@ func createInstanceLevelResource(t *testing.T, ctx context.Context, cc client.Cl
 	}
 
 	instanceLevelResource := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: instanceLevelResourceName.Name,
+			Name:      instanceLevelResourceName.Name,
 			Namespace: instanceLevelResourceName.Namespace,
 			Labels: map[string]string{
-				"classKey": "polar.o.x4.medium",
-				"configtype": "instance_level",
+				"classKey":      "polar.o.x4.medium",
+				"configtype":    "instance_level",
 				"dbClusterMode": "WriteReadMore",
-				"dbType": "PostgreSQL",
-				"dbVersion": "1.0",
-				"leveltype": "instance_level_resource",
+				"dbType":        "PostgreSQL",
+				"dbVersion":     "1.0",
+				"leveltype":     "instance_level_resource",
 			},
 		},
-		Data: map[string]string{
-		},
+		Data:       map[string]string{},
 		BinaryData: nil,
 	}
 
@@ -195,21 +193,20 @@ func createInstanceLevelConfig(t *testing.T, ctx context.Context, cc client.Clie
 	}
 
 	obj := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name.Name,
+			Name:      name.Name,
 			Namespace: name.Namespace,
 			Labels: map[string]string{
-				"classKey": "polar.o.x4.medium",
-				"configtype": "instance_level",
+				"classKey":      "polar.o.x4.medium",
+				"configtype":    "instance_level",
 				"dbClusterMode": "WriteReadMore",
-				"dbType": "PostgreSQL",
-				"dbVersion": "1.0",
-				"leveltype": "instance_level_config",
+				"dbType":        "PostgreSQL",
+				"dbVersion":     "1.0",
+				"leveltype":     "instance_level_config",
 			},
 		},
-		Data: map[string]string{
-		},
+		Data:       map[string]string{},
 		BinaryData: nil,
 	}
 
@@ -222,15 +219,13 @@ func createMycnfTemplate(t *testing.T, ctx context.Context, cc client.Client) {
 		Name:      "postgresql-1-0-mycnf-template-rwo",
 	}
 	obj := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name.Name,
+			Name:      name.Name,
 			Namespace: name.Namespace,
-			Labels: map[string]string{
-			},
+			Labels:    map[string]string{},
 		},
-		Data: map[string]string{
-		},
+		Data:       map[string]string{},
 		BinaryData: nil,
 	}
 	createResource(t, ctx, cc, obj, name)
@@ -250,15 +245,13 @@ func createUserParams(t *testing.T, ctx context.Context, cc client.Client, mpdCl
 		Name:      mpdClusterName + "-user-params",
 	}
 	obj := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name.Name,
+			Name:      name.Name,
 			Namespace: name.Namespace,
-			Labels: map[string]string{
-			},
+			Labels:    map[string]string{},
 		},
-		Data: map[string]string{
-		},
+		Data:       map[string]string{},
 		BinaryData: nil,
 	}
 	createResource(t, ctx, cc, obj, name)
@@ -270,15 +263,13 @@ func createRunningParams(t *testing.T, ctx context.Context, cc client.Client, mp
 		Name:      mpdClusterName + "-running-params",
 	}
 	obj := &v1.ConfigMap{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name.Name,
+			Name:      name.Name,
 			Namespace: name.Namespace,
-			Labels: map[string]string{
-			},
+			Labels:    map[string]string{},
 		},
-		Data: map[string]string{
-		},
+		Data:       map[string]string{},
 		BinaryData: nil,
 	}
 	createResource(t, ctx, cc, obj, name)
@@ -290,17 +281,17 @@ func createAccountAuroraSecret(t *testing.T, ctx context.Context, cc client.Clie
 		Name:      "mpdcluster-open-test-1-aurora",
 	}
 	obj := &v1.Secret{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name.Name,
+			Name:      name.Name,
 			Namespace: name.Namespace,
 			Labels: map[string]string{
 				"mpdcluster_name": "mpdcluster-open-test",
 			},
 		},
 		StringData: map[string]string{
-			"Account": "aurora",
-			"Password": "aurora-test",
+			"Account":         "aurora",
+			"Password":        "aurora-test",
 			"Priviledge_type": "7",
 		},
 	}
@@ -313,17 +304,17 @@ func createAccountReplicatorSecret(t *testing.T, ctx context.Context, cc client.
 		Name:      "mpdcluster-open-test-1-replicator",
 	}
 	obj := &v1.Secret{
-		TypeMeta:   metav1.TypeMeta{},
+		TypeMeta: metav1.TypeMeta{},
 		ObjectMeta: metav1.ObjectMeta{
-			Name: name.Name,
+			Name:      name.Name,
 			Namespace: name.Namespace,
 			Labels: map[string]string{
 				"mpdcluster_name": "mpdcluster-open-test",
 			},
 		},
 		StringData: map[string]string{
-			"Account": "replicator",
-			"Password": "replicator-test",
+			"Account":         "replicator",
+			"Password":        "replicator-test",
 			"Priviledge_type": "7",
 		},
 	}

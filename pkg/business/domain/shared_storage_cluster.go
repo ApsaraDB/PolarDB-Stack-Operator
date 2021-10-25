@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 *limitations under the License.
  */
 
-
 package domain
 
 import (
@@ -24,12 +23,12 @@ import (
 
 	"github.com/ApsaraDB/PolarDB-Stack-Common/utils/waitutil"
 
-	"github.com/go-logr/logr"
-	"github.com/pkg/errors"
 	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
 	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
+	"github.com/go-logr/logr"
+	"github.com/pkg/errors"
 )
 
 type SharedStorageCluster struct {

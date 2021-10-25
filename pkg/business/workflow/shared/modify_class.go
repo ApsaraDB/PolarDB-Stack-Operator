@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -13,19 +13,18 @@
 *limitations under the License.
  */
 
-
 package workflow_shared
 
 import (
 	"context"
 
-	"github.com/go-logr/logr"
 	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
 	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
 	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
+	"github.com/go-logr/logr"
 )
 
 func checkModifyClass(obj statemachine.StateResource) (*statemachine.Event, error) {

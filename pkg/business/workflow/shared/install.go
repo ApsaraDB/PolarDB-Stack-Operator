@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 *See the License for the specific language governing permissions and
 *limitations under the License.
  */
-
 
 package workflow_shared
 
@@ -30,9 +29,9 @@ import (
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/define"
 
-	"github.com/go-logr/logr"
 	wf "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/wfimpl"
 	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
+	"github.com/go-logr/logr"
 )
 
 func checkInstall(obj statemachine.StateResource) (*statemachine.Event, error) {

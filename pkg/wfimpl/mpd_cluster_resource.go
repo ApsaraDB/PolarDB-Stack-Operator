@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 *limitations under the License.
  */
 
-
 package wfimpl
 
 import (
@@ -23,10 +22,10 @@ import (
 
 	v1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 
-	"github.com/go-logr/logr"
 	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 	"github.com/ApsaraDB/PolarDB-Stack-Workflow/implement"
 	"github.com/ApsaraDB/PolarDB-Stack-Workflow/statemachine"
+	"github.com/go-logr/logr"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
 )
