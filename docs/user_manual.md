@@ -288,7 +288,7 @@ data:
   name: image-open
   pfsdImage: polardb/pfsd:1.2.41-20211018
   pfsdToolImage: polardb/pfsd_tool:1.2.41-20211018
-  pgClusterManagerImage: reg.docker.alibaba-inc.com/hujie/cm:opensource
+  pgClusterManagerImage: polardb/polardb-cluster-manager:latest
   pgEngineImage: polardb/polardb_pg_engine_release:11beta2.20210910.d558886c.20211018195123
   pgManagerImage: polardb/polardb_pg_manager:20211018195123.9ae43314
 kind: ConfigMap
