@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -13,7 +13,6 @@
 *limitations under the License.
  */
 
-
 package monitor
 
 import (
@@ -24,9 +23,9 @@ import (
 
 	commondefine "github.com/ApsaraDB/PolarDB-Stack-Common/define"
 
-	"github.com/go-logr/logr"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
+	"github.com/go-logr/logr"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
 	"k8s.io/apimachinery/pkg/util/wait"
 )

@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 *See the License for the specific language governing permissions and
 *limitations under the License.
  */
-
 
 package adapter
 
@@ -29,13 +28,13 @@ import (
 
 	"github.com/ApsaraDB/PolarDB-Stack-Common/define"
 
-	"github.com/go-logr/logr"
-	"github.com/pkg/errors"
 	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
 	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
 	mgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 	"github.com/ApsaraDB/PolarDB-Stack-Common/utils"
 	"github.com/ApsaraDB/PolarDB-Stack-Common/utils/k8sutil"
+	"github.com/go-logr/logr"
+	"github.com/pkg/errors"
 	corev1 "k8s.io/api/core/v1"
 	apierrors "k8s.io/apimachinery/pkg/api/errors"
 )

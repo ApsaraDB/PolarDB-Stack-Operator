@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -13,17 +13,16 @@
 *limitations under the License.
  */
 
-
 package tests
 
 import (
 	"context"
-	"github.com/go-logr/logr"
-	"github.com/pkg/errors"
 	globalmgr "github.com/ApsaraDB/PolarDB-Stack-Common/manager"
 	mpdv1 "github.com/ApsaraDB/PolarDB-Stack-Operator/apis/mpd/v1"
 	workflow_shared "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/workflow/shared"
 	controllers "github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/controllers/mpd"
+	"github.com/go-logr/logr"
+	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/types"
@@ -52,7 +51,7 @@ mv kubebuilder_master_darwin_${arch} kubebuilder && sudo mv kubebuilder /usr/loc
 
 # update your PATH to include /usr/local/kubebuilder/bin
 export PATH=$PATH:/usr/local/kubebuilder/bin
- */
+*/
 
 func TestReconcile(t *testing.T) {
 
@@ -80,7 +79,7 @@ func TestReconcile(t *testing.T) {
 
 	assert.NilError(t, cc.Get(ctx, client.ObjectKey{
 		Namespace: clusterNameSpace,
-		Name: clusterName,
+		Name:      clusterName,
 	}, cluster))
 
 	req := ctrl.Request{
@@ -139,10 +138,10 @@ func createScheme() (*runtime.Scheme, error) {
 	return scheme, nil
 }
 
-func setupManager(t *testing.T, cfg *rest.Config, scheme *runtime.Scheme) (*controllers.MPDClusterReconciler) {
+func setupManager(t *testing.T, cfg *rest.Config, scheme *runtime.Scheme) *controllers.MPDClusterReconciler {
 
 	mgr, err := manager.New(cfg, manager.Options{
-		Scheme:             scheme,
+		Scheme: scheme,
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -187,7 +186,7 @@ func createResource(t *testing.T, ctx context.Context, cc client.Client, obj run
 
 	assert.NilError(t, cc.Get(ctx, client.ObjectKey{
 		Namespace: name.Namespace,
-		Name: name.Name,
+		Name:      name.Name,
 	}, obj))
 }
 
@@ -199,7 +198,7 @@ func createResourceWithStatusUpdate(t *testing.T, ctx context.Context, cc client
 
 	assert.NilError(t, cc.Get(ctx, client.ObjectKey{
 		Namespace: name.Namespace,
-		Name: name.Name,
+		Name:      name.Name,
 	}, obj))
 }
 

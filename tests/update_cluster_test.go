@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -12,7 +12,6 @@
 *See the License for the specific language governing permissions and
 *limitations under the License.
  */
-
 
 package tests
 
@@ -41,9 +40,9 @@ func TestUpdateCluster(t *testing.T) {
 	domainCluster := &domain.SharedStorageCluster{
 		SharedStorageDbClusterBase: commondomain.SharedStorageDbClusterBase{
 			DbClusterBase: commondomain.DbClusterBase{
-				Name:                    clusterName.Name,
-				Namespace:               clusterName.Namespace,
-				ImageInfo:               &commondomain.ImageInfo{},
+				Name:      clusterName.Name,
+				Namespace: clusterName.Namespace,
+				ImageInfo: &commondomain.ImageInfo{},
 				Resources: map[string]*commondomain.InstanceResource{
 					"engine": &commondomain.InstanceResource{
 						CPUCores:    resource.MustParse("1100m"),
@@ -53,21 +52,21 @@ func TestUpdateCluster(t *testing.T) {
 				},
 			},
 		},
-		RoReplicas:                 0,
-		Port:                       0,
-		RwIns:                      nil,
+		RoReplicas: 0,
+		Port:       0,
+		RwIns:      nil,
 		RoInses: map[string]*commondomain.DbIns{
 			"3": &commondomain.DbIns{
-				DbInsId:           commondomain.DbInsId{
+				DbInsId: commondomain.DbInsId{
 					PhysicalInsId: "2",
-					InsId: "3",
+					InsId:         "3",
 				},
 				ResourceName:      "mpdcluster-open-test-2-3",
 				ResourceNamespace: "default",
 			},
 		},
-		TempRoInses:                nil,
-		TempRoIds:                  nil,
+		TempRoInses: nil,
+		TempRoIds:   nil,
 	}
 
 	logger := getLogger()
@@ -77,7 +76,7 @@ func TestUpdateCluster(t *testing.T) {
 	resCluster := &mpdv1.MPDCluster{}
 	assert.NilError(t, cc.Get(ctx, client.ObjectKey{
 		Namespace: clusterName.Namespace,
-		Name: clusterName.Name,
+		Name:      clusterName.Name,
 	}, resCluster))
 
 	engineCfg := resCluster.Spec.ResourceAdditional["engine"]

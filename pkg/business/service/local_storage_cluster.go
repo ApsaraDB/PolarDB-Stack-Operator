@@ -1,4 +1,4 @@
-/* 
+/*
 *Copyright (c) 2019-2021, Alibaba Group Holding Limited;
 *Licensed under the Apache License, Version 2.0 (the "License");
 *you may not use this file except in compliance with the License.
@@ -13,23 +13,22 @@
 *limitations under the License.
  */
 
-
 package service
 
 import (
 	"context"
-	"github.com/go-logr/logr"
 	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
+	"github.com/go-logr/logr"
 )
 
 type LocalStorageClusterService struct {
-	Repository            domain.ILocalStorageClusterRepository
-	PodManager            commondomain.IEnginePodManager
-	IDGenerator			  commondomain.IIdGenerator
-	PortGenerator		  commondomain.IPortGenerator
-	ManagerClient         commondomain.IManagerClient
-	logger                logr.Logger
+	Repository    domain.ILocalStorageClusterRepository
+	PodManager    commondomain.IEnginePodManager
+	IDGenerator   commondomain.IIdGenerator
+	PortGenerator commondomain.IPortGenerator
+	ManagerClient commondomain.IManagerClient
+	logger        logr.Logger
 }
 
 func NewLocalStorageClusterService(
@@ -41,12 +40,12 @@ func NewLocalStorageClusterService(
 	logger logr.Logger,
 ) *LocalStorageClusterService {
 	return &LocalStorageClusterService{
-		Repository:			   repository,
-		PodManager:            podManager,
-		IDGenerator: 		   idGenerator,
-		PortGenerator: 		   portGenerator,
-		ManagerClient:		   managerClient,
-		logger:                logger,
+		Repository:    repository,
+		PodManager:    podManager,
+		IDGenerator:   idGenerator,
+		PortGenerator: portGenerator,
+		ManagerClient: managerClient,
+		logger:        logger,
 	}
 }
 

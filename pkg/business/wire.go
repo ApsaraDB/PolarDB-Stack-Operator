@@ -4,14 +4,14 @@
 package business
 
 import (
-	"github.com/go-logr/logr"
-	"github.com/google/wire"
 	commonadapter "github.com/ApsaraDB/PolarDB-Stack-Common/business/adapter"
 	commondomain "github.com/ApsaraDB/PolarDB-Stack-Common/business/domain"
 	commonservice "github.com/ApsaraDB/PolarDB-Stack-Common/business/service"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/adapter"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/domain"
 	"github.com/ApsaraDB/PolarDB-Stack-Operator/pkg/business/service"
+	"github.com/go-logr/logr"
+	"github.com/google/wire"
 )
 
 var commonSet = wire.NewSet(
