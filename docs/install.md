@@ -227,7 +227,7 @@ spec:
   classInfoModifyTo:
     className: ""
   versionCfg:
-    versionName: 11.9.20201230.468757de.20210607111111
+    versionName: image-open
   netCfg:
     engineStartPort: 5780
   shareStore:

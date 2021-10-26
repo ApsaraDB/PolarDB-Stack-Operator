@@ -98,4 +98,12 @@ set_node_label() {
   ./script/set_labels.sh
 }
 
+install_supervisor() {
+  yum install supervisor
+}
+
+install_agent() {
+  wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/releases/download/v1.0.0/sms-agent
+}
+
 main "$@"
