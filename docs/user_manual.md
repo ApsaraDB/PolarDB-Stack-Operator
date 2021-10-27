@@ -241,7 +241,7 @@ metadata:
 
 ### 集群重启
 
-将您数据库集群中的某一个节点重启。
+重启您的整个数据库集群。
 
 ***步骤：***
 
@@ -255,7 +255,7 @@ kubectl edit mpdcluster your-cluster-name
 
 | 字段                                | 字段解释                     |
 | ----------------------------------- | ---------------------------- |
-| metadata.annotations.restartCluster | 设置为 true 表示需要重启实例 |
+| metadata.annotations.restartCluster | 设置为 true 表示需要重启集群 |
 
 示例：
 
