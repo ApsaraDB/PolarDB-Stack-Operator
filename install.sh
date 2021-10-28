@@ -6,7 +6,7 @@ main() {
   parse_args
   echo "Start installing PolarDB Stack..."
   update_config
-  set_labels
+  set_node_label
 }
 
 show_usage() {
