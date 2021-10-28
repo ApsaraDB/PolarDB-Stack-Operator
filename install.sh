@@ -89,7 +89,7 @@ update_config() {
     metabase_version_cmd="--set metabase.version=$metabase_version "
     echo "set config $metabase_version_cmd"
   fi
-  cmd="helm install --dry-run --debug --generate-name ./polardb_stack_chart $network_interface_cmd $k8s_host_cmd $k8s_port_cmd $metabase_host_cmd $metabase_port_cmd $metabase_user_cmd $metabase_password_cmd $metabase_type_cmd $metabase_version_cmd"
+  cmd="helm install --dry-run --debug --generate-name ./polardb-stack-chart $network_interface_cmd $k8s_host_cmd $k8s_port_cmd $metabase_host_cmd $metabase_port_cmd $metabase_user_cmd $metabase_password_cmd $metabase_type_cmd $metabase_version_cmd"
   echo $cmd
   $cmd
 }
