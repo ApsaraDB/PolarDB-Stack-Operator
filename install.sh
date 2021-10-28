@@ -7,6 +7,9 @@ main() {
   echo "Start installing PolarDB Stack..."
   update_config
   set_node_label
+  install_supervisor
+  install_agent
+  agent_ini
 }
 
 show_usage() {
@@ -99,11 +102,38 @@ set_node_label() {
 }
 
 install_supervisor() {
-  yum install supervisor
+  yum install -y supervisor
 }
 
 install_agent() {
   wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/releases/download/v1.0.0/sms-agent
+  mkdir -p /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+  cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/
+}
+
+agent_ini() {
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  AGENT_INI="/etc/supervisord.d/polardb-sms-agent.ini"
+
+  NODE_IP=$(ifconfig $network_interface | grep netmask | awk '{print $2}')
+
+  cat <<EOF >$AGENT_INI
+  [program:polardb-sms-agent]
+  command=/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent --port=18888 --node-ip=$NODE_IP --node-id=%(host_node_name)s --report-endpoint=$REPORT_ENDPOINT
+  process_name=%(program_name)s
+  startretries=1000
+  autorestart=unexpected
+  autostart=true
+  EOF
+}
+
+agent_conf() {
+
 }
 
 main "$@"

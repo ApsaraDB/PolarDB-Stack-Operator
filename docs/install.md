@@ -64,7 +64,7 @@ NODE_IP=$(ifconfig bond0 | grep netmask | awk '{print $2}')
 
 cat <<EOF >$AGENT_INI
 [program:polardb-sms-agent]
-command=/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent --port=18888 --node-ip=$NODE_IP --node-id=%(host_node_name)s --report-endpoint=$REPORT_ENDPOINT
+command=/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent --port=18888 --node-ip=$NODE_IP --node-id=%(host_node_name)s
 process_name=%(program_name)s
 startretries=1000
 autorestart=unexpected
