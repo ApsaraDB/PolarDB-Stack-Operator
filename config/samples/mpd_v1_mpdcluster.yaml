@@ -1,27 +1,27 @@
 apiVersion: mpd.polardb.aliyun.com/v1
 kind: MPDCluster
 metadata:
-  name: mpdcluster-sample-2
+  name: mpdcluster-open-01
   namespace: default
 spec:
   operatorName: polar-mpd
-  dbClusterType: share
-  followerNum: 1
+  dbClusterType: share # 表示存储类型为共享存储
+  followerNum: 2 # 需要创建几个 ro 节点
   classInfo:
-    className: polar.o.x4.medium
+    className: polar.o.x4.medium # 实例规格名称，如 polar.o.x4.medium，全局搜索 instance_level_config 找到全部配置
     cpu: 2000m
     memory: 17Gi
   classInfoModifyTo:
     className: ""
   versionCfg:
-    versionName: image-open
+    versionName: image-open # 镜像配置名称
   netCfg:
-    engineStartPort: 5780
+    engineStartPort: 5790 # 数据库服务的端口
   shareStore:
     drive: "pvc"
     sharePvcNamespace: "default"
-    sharePvcName: "pvc-360050767088081329800000000000116"
-    diskQuota: "520000"
-    volumeId: "360050767088081329800000000000116"
+    sharePvcName: "pvc-32ze341nncwlczm47bsrf" # 您已经创建好的 PVC 名称
+    diskQuota: "300000" # 数据库引擎要使用的磁盘大小，单位是 M
+    volumeId: "32ze341nncwlczm47bsrf" # 您 PVC 对应共享盘的 wwid，该盘须支持 scsi 或 nvme 协议
     volumeType: "multipath"
 
