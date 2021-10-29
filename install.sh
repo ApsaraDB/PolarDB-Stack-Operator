@@ -11,7 +11,7 @@ main() {
   install_agent
   agent_ini
   agent_conf
-
+  install_pfs
 }
 
 show_usage() {
@@ -231,6 +231,11 @@ blacklist {
 }
 EOF"
   done
+}
+
+install_pfs() {
+  wget https://github.com/ApsaraDB/polardb-file-system/releases/download/pfsd4pg-release-1.2.41-20211018/t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
+  rpm -ivh t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
 }
 
 main "$@"
