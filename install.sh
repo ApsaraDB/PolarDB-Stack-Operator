@@ -7,6 +7,7 @@ main() {
   echo "Start installing PolarDB Stack..."
   update_config
   set_node_label
+  install_multipath
   install_supervisor
   install_agent
   agent_ini
@@ -155,6 +156,7 @@ install_agent() {
   mkdir -p /home/a/project/t-polardb-sms-agent/bin/
   cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
   chmod u+x /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
   if [ -z "$network_interface" ]; then
     echo "No network interface configured, exit."
@@ -234,8 +236,24 @@ EOF"
 }
 
 install_pfs() {
-  wget https://github.com/ApsaraDB/polardb-file-system/releases/download/pfsd4pg-release-1.2.41-20211018/t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
-  rpm -ivh t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
+  pfsd=t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
+  wget https://github.com/ApsaraDB/polardb-file-system/releases/download/pfsd4pg-release-1.2.41-20211018/$pfsd
+  rpm -ivh $pfsd
+
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    scp $pfsd root@${ips[$i]}:/tmp/$pfsd
+    ssh root@${ips[$i]} rpm -ivh /tmp/$pfsd
+  done
 }
 
 main "$@"
