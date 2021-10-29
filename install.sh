@@ -155,7 +155,6 @@ install_agent() {
   wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/releases/download/v1.0.0/sms-agent
   mkdir -p /home/a/project/t-polardb-sms-agent/bin/
   cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
-  chmod u+x /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
 
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
   if [ -z "$network_interface" ]; then
@@ -168,8 +167,10 @@ install_agent() {
 
   for ((i=0;i<$cnt;i++));
   do
-    ssh root@${ips[$i]} mkdir -p /home/a/project/t-polardb-sms-agent/bin
+    base_cmd="ssh root@${ips[$i]}"
+    $base_cmd mkdir -p /home/a/project/t-polardb-sms-agent/bin
     scp /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent root@${ips[$i]}:/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+    $base_cmd chmod u+x /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
   done
 }
 
