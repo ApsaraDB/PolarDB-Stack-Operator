@@ -122,6 +122,20 @@ install_agent() {
   wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/releases/download/v1.0.0/sms-agent
   mkdir -p /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
   cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    ssh root@${ips[$i]} mkdir -p /home/a/project/t-polardb-sms-agent/bin/
+    scp /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent root@${ips[$i]}:/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+  done
 }
 
 agent_ini() {
@@ -141,18 +155,18 @@ agent_ini() {
   do
     base_cmd="ssh root@${ips[$i]}"
 
-    NODE_IP=$(ifconfig $network_interface | grep netmask | awk '{print $2}')
+    NODE_IP=$($base_cmd ifconfig $network_interface | grep netmask | awk '{print $2}')
 
     echo $base_cmd
     $base_cmd touch $AGENT_INI
-    $base_cmd cat <<EOF >$AGENT_INI
+    $base_cmd "cat <<EOF >$AGENT_INI
 [program:polardb-sms-agent]
 command=/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent --port=18888 --node-ip=$NODE_IP --node-id=%(host_node_name)s
 process_name=%(program_name)s
 startretries=1000
 autorestart=unexpected
 autostart=true
-EOF
+EOF"
     $base_cmd cat $AGENT_INI
 
   done
