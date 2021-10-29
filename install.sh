@@ -10,6 +10,8 @@ main() {
   install_supervisor
   install_agent
   agent_ini
+  agent_conf
+
 }
 
 show_usage() {
@@ -115,13 +117,14 @@ install_supervisor() {
   do
     base_cmd="ssh root@${ips[$i]}"
     $base_cmd yum install -y supervisor
+    systemctl start supervisord
   done
 }
 
 install_agent() {
   wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/releases/download/v1.0.0/sms-agent
-  mkdir -p /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
-  cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/
+  mkdir -p /home/a/project/t-polardb-sms-agent/bin/
+  cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
   if [ -z "$network_interface" ]; then
     echo "No network interface configured, exit."
@@ -133,8 +136,8 @@ install_agent() {
 
   for ((i=0;i<$cnt;i++));
   do
-    ssh root@${ips[$i]} mkdir -p /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
-    scp /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/sms-agent root@${ips[$i]}:/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/
+    ssh root@${ips[$i]} mkdir -p /home/a/project/t-polardb-sms-agent/bin
+    scp /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent root@${ips[$i]}:/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
   done
 }
 
@@ -174,6 +177,30 @@ EOF"
 
 agent_conf() {
 
+  AGENT_CONF="/etc/polardb-sms-agent.conf"
+
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    base_cmd="ssh root@${ips[$i]}"
+
+    $base_cmd "cat <<EOF >$AGENT_CONF
+blacklist {
+    attachlist {
+    }
+    locallist {
+    }
+}
+EOF"
+  done
 }
 
 main "$@"
