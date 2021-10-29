@@ -55,11 +55,6 @@ spec:
             configMapKeyRef:
               key: KUBERNETES_SERVICE_ENDPOINTS
               name: k8s-env-config
-        - name: ETCDCTL_ENDPOINTS
-          valueFrom:
-            configMapKeyRef:
-              key: endpoints-event
-              name: etcd-configmap
         - name: ETCDCTL_CERT
           value: /cert/client.pem
         - name: ETCDCTL_KEY
@@ -140,14 +135,3 @@ spec:
         path: /var/run/docker.sock
         type: ""
       name: var-run-docker
-    - configMap:
-        defaultMode: 420
-        items:
-          - key: ca.pem
-            path: ca.pem
-          - key: client.pem
-            path: client.pem
-          - key: client-key.pem
-            path: client-key.pem
-        name: etcd-configmap
-      name: config-etcd

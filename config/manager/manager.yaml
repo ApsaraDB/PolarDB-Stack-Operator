@@ -90,11 +90,6 @@ spec:
               value: "127.0.0.1"
             - name: KUBERNETES_SERVICE_PORT
               value: "7443"
-            - name: ETCDCTL_ENDPOINTS
-              valueFrom:
-                configMapKeyRef:
-                  key: endpoints-event
-                  name: etcd-configmap
             - name: ETCDCTL_CERT
               value: /cert/client.pem
             - name: ETCDCTL_KEY

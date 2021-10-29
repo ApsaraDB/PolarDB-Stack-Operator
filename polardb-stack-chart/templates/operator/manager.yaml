@@ -90,11 +90,6 @@ spec:
               value: "{{ .Values.KUBERNETES_SERVICE_HOST }}"
             - name: KUBERNETES_SERVICE_PORT
               value: "{{ .Values.KUBERNETES_SERVICE_PORT }}"
-            - name: ETCDCTL_ENDPOINTS
-              valueFrom:
-                configMapKeyRef:
-                  key: endpoints-event
-                  name: etcd-configmap
             - name: ETCDCTL_CERT
               value: /cert/client.pem
             - name: ETCDCTL_KEY

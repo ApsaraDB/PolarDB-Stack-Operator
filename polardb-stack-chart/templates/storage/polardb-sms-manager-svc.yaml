@@ -10,7 +10,7 @@ spec:
     - port: 2002
       protocol: TCP
       targetPort: 2002
-      nodePort: 2003
+      nodePort: 30003
   selector:
     app: polardb-sms-manager
   type: NodePort

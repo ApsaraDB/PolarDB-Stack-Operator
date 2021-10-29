@@ -4482,11 +4482,6 @@ spec:
               value: "{{ .Values.KUBERNETES_SERVICE_HOST }}"
             - name: KUBERNETES_SERVICE_PORT
               value: "{{ .Values.KUBERNETES_SERVICE_PORT }}"
-            - name: ETCDCTL_ENDPOINTS
-              valueFrom:
-                configMapKeyRef:
-                  key: endpoints-event
-                  name: etcd-configmap
             - name: ETCDCTL_CERT
               value: /cert/client.pem
             - name: ETCDCTL_KEY
@@ -4558,16 +4553,6 @@ spec:
         - name: var-run-docker
           hostPath:
             path: /var/run/docker.sock
-        - name: config-etcd
-          configMap:
-            name: etcd-configmap
-            items:
-              - key: ca.pem
-                path: ca.pem
-              - key: client.pem
-                path: client.pem
-              - key: client-key.pem
-                path: client-key.pem
 
 ---
 apiVersion: v1
