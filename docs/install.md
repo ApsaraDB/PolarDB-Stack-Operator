@@ -45,17 +45,19 @@ wget https://github.com/ApsaraDB/PolarDB-Stack-Operator/blob/master/script/set_l
 ### 步骤四、安装存储管理
 
 1. 安装 sms-agent
-   
-a. 安装并启动 supervisord ，并确认正常运行。
 
-b. 在 sms 工程编译 agent，生成二进制包 bin/sms-agent。
+a. 安装 multipath
+   
+b. 安装并启动 supervisord ，并确认正常运行。
+
+c. 在 sms 工程编译 agent，生成二进制包 bin/sms-agent。
 
 ```shell
 make build-agent
 ```
-   c. 拷贝二进制包到主机的 /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent 目录上。
+d. 拷贝二进制包到主机的 /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent 目录上。
 
-   d. 配置 /etc/supervisord.d/polardb-sms-agent.ini
+e. 配置 /etc/supervisord.d/polardb-sms-agent.ini
 
 ```python
 AGENT_INI="/etc/supervisord.d/polardb-sms-agent.ini"
@@ -72,7 +74,7 @@ autostart=true
 EOF
 ```
 
-e. 配置 /etc/polardb-sms-agent.conf
+f. 配置 /etc/polardb-sms-agent.conf
 
 ```python
 AGENT_CONF="/etc/polardb-sms-agent.conf"
@@ -80,7 +82,6 @@ AGENT_CONF="/etc/polardb-sms-agent.conf"
 cat <<EOF >$AGENT_CONF
 blacklist {
     attachlist {
-    ${polardbSmsBlacklist}
     }
     locallist {
     }

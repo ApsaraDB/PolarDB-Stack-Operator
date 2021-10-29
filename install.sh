@@ -103,6 +103,25 @@ set_node_label() {
   ./script/set_labels.sh
 }
 
+install_multipath() {
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    base_cmd="ssh root@${ips[$i]}"
+    $base_cmd yum install -y device-mapper-multipath
+    $base_cmd systemctl enable multipathd.service
+    $base_cmd systemctl start multipathd.service
+  done
+}
+
 install_supervisor() {
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
   if [ -z "$network_interface" ]; then
@@ -117,7 +136,8 @@ install_supervisor() {
   do
     base_cmd="ssh root@${ips[$i]}"
     $base_cmd yum install -y supervisor
-    systemctl start supervisord
+    $base_cmd systemctl enable supervisord
+    $base_cmd systemctl start supervisord
   done
 }
 
