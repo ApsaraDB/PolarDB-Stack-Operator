@@ -133,8 +133,8 @@ install_agent() {
 
   for ((i=0;i<$cnt;i++));
   do
-    ssh root@${ips[$i]} mkdir -p /home/a/project/t-polardb-sms-agent/bin/
-    scp /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent root@${ips[$i]}:/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+    ssh root@${ips[$i]} mkdir -p /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+    scp /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/sms-agent root@${ips[$i]}:/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent/
   done
 }
 
