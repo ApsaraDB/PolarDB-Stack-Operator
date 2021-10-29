@@ -117,6 +117,15 @@ install_multipath() {
   do
     base_cmd="ssh root@${ips[$i]}"
     $base_cmd yum install -y device-mapper-multipath
+    $base_cmd "cat <<EOF >/etc/multipath.conf
+defaults {
+	user_friendly_names no
+	find_multipaths no
+}
+blacklist {
+devnode "^sda$"
+}
+EOF"
     $base_cmd systemctl enable multipathd.service
     $base_cmd systemctl start multipathd.service
   done
