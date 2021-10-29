@@ -24,7 +24,7 @@ metadata:
     controller-tools.k8s.io: "1.0"
 spec:
   progressDeadlineSeconds: 20
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       control-plane: mpd-controller-manager
