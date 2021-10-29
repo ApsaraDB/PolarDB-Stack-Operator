@@ -102,7 +102,20 @@ set_node_label() {
 }
 
 install_supervisor() {
-  yum install -y supervisor
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    base_cmd="ssh root@${ips[$i]}"
+    $base_cmd yum install -y supervisor
+  done
 }
 
 install_agent() {
@@ -112,24 +125,37 @@ install_agent() {
 }
 
 agent_ini() {
+
+  AGENT_INI="/etc/supervisord.d/polardb-sms-agent.ini"
+
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
   if [ -z "$network_interface" ]; then
     echo "No network interface configured, exit."
     exit 1
   fi
 
-  AGENT_INI="/etc/supervisord.d/polardb-sms-agent.ini"
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
 
-  NODE_IP=$(ifconfig $network_interface | grep netmask | awk '{print $2}')
+  for ((i=0;i<$cnt;i++));
+  do
+    base_cmd="ssh root@${ips[$i]}"
 
-  cat <<EOF >$AGENT_INI
-  [program:polardb-sms-agent]
-  command=/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent --port=18888 --node-ip=$NODE_IP --node-id=%(host_node_name)s --report-endpoint=$REPORT_ENDPOINT
-  process_name=%(program_name)s
-  startretries=1000
-  autorestart=unexpected
-  autostart=true
-  EOF
+    NODE_IP=$(ifconfig $network_interface | grep netmask | awk '{print $2}')
+
+    echo $base_cmd
+    $base_cmd touch $AGENT_INI
+    $base_cmd cat <<EOF >$AGENT_INI
+[program:polardb-sms-agent]
+command=/home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent --port=18888 --node-ip=$NODE_IP --node-id=%(host_node_name)s
+process_name=%(program_name)s
+startretries=1000
+autorestart=unexpected
+autostart=true
+EOF
+    $base_cmd cat $AGENT_INI
+
+  done
 }
 
 agent_conf() {
