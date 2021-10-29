@@ -125,6 +125,7 @@ install_agent() {
   wget https://github.com/ApsaraDB/PolarDB-Stack-Storage/releases/download/v1.0.0/sms-agent
   mkdir -p /home/a/project/t-polardb-sms-agent/bin/
   cp sms-agent /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
+  chmod u+x /home/a/project/t-polardb-sms-agent/bin/polardb-sms-agent
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
   if [ -z "$network_interface" ]; then
     echo "No network interface configured, exit."
