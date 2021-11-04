@@ -1,4 +1,12 @@
-# PolarDB Stack开源版生命周期
+# PolarDB Stack 
+
+## 快速开始
+[一键安装](docs/install_quick.md)
+
+## 安装与使用
+[安装文档](docs/install.md)
+
+[使用手册](docs/user_manual.md)
 
 ## 1 系统概述
 
@@ -60,10 +68,3 @@ PolarDB Stack集群组件整体分为Data Panel, Control Panel和Paas三部分�
 ![img](docs/img/5.png)
 
 
-## 快速开始
-[一键安装](docs/install_quick.md)
-
-## 安装与使用
-[安装文档](docs/install.md)
-
-[使用手册](docs/user_manual.md)
