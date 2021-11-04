@@ -1,5 +1,7 @@
 # 手工安装手册
 
+安装前请先查阅[部署前置要求](prerequest.md)确认您的环境满足最低要求
+
 ### 步骤一、安装 docker
 
 安装docker，请参见[Docker安装指南](https://docs.docker.com/engine/install/)
