@@ -238,7 +238,7 @@ EOF"
 
 install_pfs() {
   pfsd=t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
-  wget https://github.com/ApsaraDB/polardb-file-system/releases/download/pfsd4pg-release-1.2.41-20211018/$pfsd
+  wget https://github.com/ApsaraDB/PolarDB-FileSystem/releases/download/pfsd4pg-release-1.2.41-20211018/$pfsd
   rpm -ivh $pfsd
 
   network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')

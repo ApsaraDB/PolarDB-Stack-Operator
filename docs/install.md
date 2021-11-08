@@ -163,10 +163,10 @@ cloud-provider-wwid-usage-dbm-03     4      33s
 注意：DATA 中有数据表示已经扫描到 polardb 所需的共享盘。
 
 6. 在机器上安装 pfs，需要分别在您所有的机器上安装 pfs rpm 包。
-[pfs 编译安装](https://github.com/ApsaraDB/polardb-file-system) 
+[pfs 编译安装](https://github.com/ApsaraDB/PolarDB-FileSystem) 
 
 ```shell
-wget https://github.com/ApsaraDB/polardb-file-system/releases/download/pfsd4pg-release-1.2.41-20211018/t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
+wget https://github.com/ApsaraDB/PolarDB-FileSystem/releases/download/pfsd4pg-release-1.2.41-20211018/t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
 rpm -ivh t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
 ```
 
