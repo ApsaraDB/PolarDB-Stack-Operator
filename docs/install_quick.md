@@ -23,6 +23,13 @@ network:
 k8s:
   host: 10.0.0.77
   port: 6443
+metabase:
+  host: 10.0.0.77
+  port: 3306
+  user: polar
+  password: password
+  type: mysql
+  version: 8.0.26
 ```
 字段说明：
 
