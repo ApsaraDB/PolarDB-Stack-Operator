@@ -5,6 +5,7 @@ ENV_CONFIG=env.yaml
 main() {
   parse_args
   echo "Start installing PolarDB Stack..."
+  install_helm
   update_config
   set_node_label
   install_multipath
@@ -43,6 +44,10 @@ parse_args() {
       esac
     done
   fi
+}
+
+install_helm() {
+  yum install -y helm
 }
 
 update_config() {
