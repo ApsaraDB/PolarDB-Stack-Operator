@@ -47,7 +47,6 @@ parse_args() {
 }
 
 install_helm() {
-  yum install -y helm
 }
 
 update_config() {
