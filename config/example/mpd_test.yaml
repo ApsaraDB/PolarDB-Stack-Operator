@@ -17,7 +17,7 @@ items:
       name: localstore-mpd
       namespace: default
       resourceVersion: "16764919"
-      selfLink: /apis/mpd.polardb.aliyun.com/v1beta1/namespaces/default/mpdclusters/localstore-mpd
+      selfLink: /apis/mpd.polardb.aliyun.com/v1/namespaces/default/mpdclusters/localstore-mpd
       uid: cttest123456
     spec:
       backupJustOnce:

@@ -1,6 +1,6 @@
 
 ---
-apiVersion: apiextensions.k8s.io/v1beta1
+apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
   annotations:
@@ -15,89 +15,358 @@ spec:
     plural: mpdclusters
     singular: mpdcluster
   scope: Namespaced
-  subresources:
-    status: {}
-  validation:
-    openAPIV3Schema:
-      description: MPDCluster is the Schema for the mpdclusters API
-      properties:
-        apiVersion:
-          description: 'APIVersion defines the versioned schema of this representation
-            of an object. Servers should convert recognized schemas to the latest
-            internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
-          type: string
-        kind:
-          description: 'Kind is a string value representing the REST resource this
-            object represents. Servers may infer this from the endpoint the client
-            submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
-          type: string
-        metadata:
-          type: object
-        spec:
+  versions:
+    - name: v1
+      served: true
+      storage: true
+      subresources:
+        status: {}
+      schema:
+        openAPIV3Schema:
+          description: MPDCluster is the Schema for the mpdclusters API
           properties:
-            classInfo:
-              properties:
-                className:
-                  type: string
-                cpu:
-                  type: string
-                iops:
-                  type: string
-                memory:
-                  type: string
-              required:
-              - className
-              type: object
-            classInfoModifyTo:
-              properties:
-                className:
-                  type: string
-                cpu:
-                  type: string
-                iops:
-                  type: string
-                memory:
-                  type: string
-              required:
-              - className
-              type: object
-            dbClusterType:
+            apiVersion:
+              description: 'APIVersion defines the versioned schema of this representation
+                of an object. Servers should convert recognized schemas to the latest
+                internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
               type: string
-            dbProxyInfo:
+            kind:
+              description: 'Kind is a string value representing the REST resource this
+                object represents. Servers may infer this from the endpoint the client
+                submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+              type: string
+            metadata:
+              type: object
+            spec:
               properties:
-                consistencyLevel:
+                classInfo:
+                  properties:
+                    className:
+                      type: string
+                    cpu:
+                      type: string
+                    iops:
+                      type: string
+                    memory:
+                      type: string
+                  required:
+                  - className
+                  type: object
+                classInfoModifyTo:
+                  properties:
+                    className:
+                      type: string
+                    cpu:
+                      type: string
+                    iops:
+                      type: string
+                    memory:
+                      type: string
+                  required:
+                  - className
+                  type: object
+                dbClusterType:
+                  type: string
+                dbProxyInfo:
+                  properties:
+                    consistencyLevel:
+                      type: integer
+                    enabled:
+                      type: boolean
+                    name:
+                      type: string
+                    resourceType:
+                      type: string
+                  required:
+                  - consistencyLevel
+                  - enabled
+                  - name
+                  - resourceType
+                  type: object
+                dbType:
+                  type: string
+                description:
+                  type: string
+                followerNum:
                   type: integer
-                enabled:
-                  type: boolean
-                name:
+                localVolName:
                   type: string
-                resourceType:
+                netCfg:
+                  properties:
+                    enableEngineAdminIP:
+                      type: boolean
+                    enableProxyAdminIP:
+                      type: boolean
+                    engineAddress:
+                      type: string
+                    engineStartPort:
+                      type: integer
+                    leaderFloatingIP:
+                      properties:
+                        basedNetIf:
+                          type: string
+                        gateWay:
+                          type: string
+                        ipAddress:
+                          type: string
+                        ipAddressCfgType:
+                          type: string
+                        ipMode:
+                          type: string
+                        mask:
+                          type: integer
+                      type: object
+                    netType:
+                      type: string
+                    portStep:
+                      type: integer
+                    proxyNetIF:
+                      type: string
+                    proxyStartPort:
+                      type: integer
+                  type: object
+                operatorName:
                   type: string
+                resourceAdditional:
+                  additionalProperties:
+                    description: 专用于额外定义资源相关参数配置
+                    properties:
+                      config:
+                        type: string
+                      cpu_cores:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
+                      limit_memory:
+                        anyOf:
+                        - type: integer
+                        - type: string
+                        pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
+                        x-kubernetes-int-or-string: true
+                    required:
+                    - config
+                    - cpu_cores
+                    - limit_memory
+                    type: object
+                  type: object
+                shareStore:
+                  properties:
+                    diskQuota:
+                      type: string
+                    drive:
+                      type: string
+                    isVolumeFormat:
+                      type: boolean
+                    sharePvcName:
+                      type: string
+                    sharePvcNamespace:
+                      type: string
+                    shareVolumeWWID:
+                      type: string
+                    volumeFormat:
+                      type: string
+                    volumeId:
+                      type: string
+                    volumeType:
+                      type: string
+                  required:
+                  - drive
+                  type: object
+                versionCfg:
+                  properties:
+                    clusterManagerImage:
+                      type: string
+                    engineImage:
+                      type: string
+                    managerImage:
+                      type: string
+                    otherImages:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    pfsdImage:
+                      type: string
+                    pfsdToolImage:
+                      type: string
+                    versionName:
+                      type: string
+                  type: object
+                versionCfgModifyTo:
+                  properties:
+                    clusterManagerImage:
+                      type: string
+                    engineImage:
+                      type: string
+                    managerImage:
+                      type: string
+                    otherImages:
+                      additionalProperties:
+                        type: string
+                      type: object
+                    pfsdImage:
+                      type: string
+                    pfsdToolImage:
+                      type: string
+                    versionName:
+                      type: string
+                  type: object
               required:
-              - consistencyLevel
-              - enabled
-              - name
-              - resourceType
+              - classInfo
+              - classInfoModifyTo
+              - dbClusterType
+              - followerNum
+              - operatorName
+              - versionCfg
               type: object
-            dbType:
-              type: string
-            description:
-              type: string
-            followerNum:
-              type: integer
-            localVolName:
-              type: string
-            netCfg:
+            status:
               properties:
-                enableEngineAdminIP:
-                  type: boolean
-                enableProxyAdminIP:
-                  type: boolean
-                engineAddress:
+                clusterManagerStatus:
+                  properties:
+                    deployName:
+                      type: string
+                    workingPort:
+                      type: integer
+                  type: object
+                clusterStatus:
                   type: string
-                engineStartPort:
-                  type: integer
-                leaderFloatingIP:
+                conditions:
+                  items:
+                    properties:
+                      lastProbeTime:
+                        description: Last time we probed the condition.
+                        format: date-time
+                        type: string
+                      lastTransitionTime:
+                        description: Last time the condition transitioned from one status
+                          to another.
+                        format: date-time
+                        type: string
+                      message:
+                        description: Human-readable message indicating details about last
+                          transition.
+                        type: string
+                      reason:
+                        description: Unique, one-word, CamelCase reason for the condition's
+                          last transition.
+                        type: string
+                      status:
+                        description: Status is the status of the condition. Can be True,
+                          False, Unknown.
+                        type: string
+                      type:
+                        type: string
+                    required:
+                    - status
+                    - type
+                    type: object
+                  type: array
+                dbInstanceStatus:
+                  additionalProperties:
+                    properties:
+                      currentState:
+                        properties:
+                          errorInfo:
+                            type: string
+                          finishAt:
+                            format: date-time
+                            type: string
+                          reason:
+                            type: string
+                          startAt:
+                            format: date-time
+                            type: string
+                          state:
+                            type: string
+                        type: object
+                      hostClientIP:
+                        type: string
+                      insClassInfo:
+                        properties:
+                          className:
+                            type: string
+                          cpu:
+                            type: string
+                          iops:
+                            type: string
+                          memory:
+                            type: string
+                        required:
+                        - className
+                        type: object
+                      insId:
+                        type: string
+                      insName:
+                        type: string
+                      insType:
+                        type: string
+                      installed:
+                        type: boolean
+                      lastState:
+                        properties:
+                          errorInfo:
+                            type: string
+                          finishAt:
+                            format: date-time
+                            type: string
+                          reason:
+                            type: string
+                          startAt:
+                            format: date-time
+                            type: string
+                          state:
+                            type: string
+                        type: object
+                      netInfo:
+                        properties:
+                          enableWorkingAdminIP:
+                            type: boolean
+                          netType:
+                            type: string
+                          workingAdminIP:
+                            type: string
+                          workingHostIP:
+                            type: string
+                          workingPort:
+                            type: integer
+                        type: object
+                      nodeName:
+                        type: string
+                      physicalInsId:
+                        type: string
+                      podName:
+                        type: string
+                      podNameSpace:
+                        type: string
+                      polarFsHostId:
+                        type: string
+                      role:
+                        type: string
+                      status:
+                        type: string
+                      versionInfo:
+                        properties:
+                          clusterManagerImage:
+                            type: string
+                          engineImage:
+                            type: string
+                          managerImage:
+                            type: string
+                          otherImages:
+                            additionalProperties:
+                              type: string
+                            type: object
+                          pfsdImage:
+                            type: string
+                          pfsdToolImage:
+                            type: string
+                          versionName:
+                            type: string
+                        type: object
+                    type: object
+                  type: object
+                floatingIP:
                   properties:
                     basedNetIf:
                       type: string
@@ -112,325 +381,55 @@ spec:
                     mask:
                       type: integer
                   type: object
-                netType:
-                  type: string
-                portStep:
+                followerNum:
                   type: integer
-                proxyNetIF:
-                  type: string
-                proxyStartPort:
-                  type: integer
-              type: object
-            operatorName:
-              type: string
-            resourceAdditional:
-              additionalProperties:
-                description: 专用于额外定义资源相关参数配置
-                properties:
-                  config:
-                    type: string
-                  cpu_cores:
-                    anyOf:
-                    - type: integer
-                    - type: string
-                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                    x-kubernetes-int-or-string: true
-                  limit_memory:
-                    anyOf:
-                    - type: integer
-                    - type: string
-                    pattern: ^(\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))(([KMGTPE]i)|[numkMGTPE]|([eE](\+|-)?(([0-9]+(\.[0-9]*)?)|(\.[0-9]+))))?$
-                    x-kubernetes-int-or-string: true
-                required:
-                - config
-                - cpu_cores
-                - limit_memory
-                type: object
-              type: object
-            shareStore:
-              properties:
-                diskQuota:
-                  type: string
-                drive:
-                  type: string
-                isVolumeFormat:
-                  type: boolean
-                sharePvcName:
-                  type: string
-                sharePvcNamespace:
-                  type: string
-                shareVolumeWWID:
-                  type: string
-                volumeFormat:
-                  type: string
-                volumeId:
-                  type: string
-                volumeType:
-                  type: string
-              required:
-              - drive
-              type: object
-            versionCfg:
-              properties:
-                clusterManagerImage:
-                  type: string
-                engineImage:
-                  type: string
-                managerImage:
-                  type: string
-                otherImages:
-                  additionalProperties:
-                    type: string
+                insClassInfo:
+                  properties:
+                    className:
+                      type: string
+                    cpu:
+                      type: string
+                    iops:
+                      type: string
+                    memory:
+                      type: string
+                  required:
+                  - className
                   type: object
-                pfsdImage:
+                leaderInstanceHost:
                   type: string
-                pfsdToolImage:
+                leaderInstanceId:
                   type: string
-                versionName:
+                localVolName:
                   type: string
-              type: object
-            versionCfgModifyTo:
-              properties:
-                clusterManagerImage:
+                logicId:
                   type: string
-                engineImage:
-                  type: string
-                managerImage:
-                  type: string
-                otherImages:
-                  additionalProperties:
-                    type: string
-                  type: object
-                pfsdImage:
-                  type: string
-                pfsdToolImage:
-                  type: string
-                versionName:
-                  type: string
-              type: object
-          required:
-          - classInfo
-          - classInfoModifyTo
-          - dbClusterType
-          - followerNum
-          - operatorName
-          - versionCfg
-          type: object
-        status:
-          properties:
-            clusterManagerStatus:
-              properties:
-                deployName:
-                  type: string
-                workingPort:
-                  type: integer
-              type: object
-            clusterStatus:
-              type: string
-            conditions:
-              items:
-                properties:
-                  lastProbeTime:
-                    description: Last time we probed the condition.
-                    format: date-time
-                    type: string
-                  lastTransitionTime:
-                    description: Last time the condition transitioned from one status
-                      to another.
-                    format: date-time
-                    type: string
-                  message:
-                    description: Human-readable message indicating details about last
-                      transition.
-                    type: string
-                  reason:
-                    description: Unique, one-word, CamelCase reason for the condition's
-                      last transition.
-                    type: string
-                  status:
-                    description: Status is the status of the condition. Can be True,
-                      False, Unknown.
-                    type: string
-                  type:
-                    type: string
-                required:
-                - status
-                - type
-                type: object
-              type: array
-            dbInstanceStatus:
-              additionalProperties:
-                properties:
-                  currentState:
-                    properties:
-                      errorInfo:
-                        type: string
-                      finishAt:
-                        format: date-time
-                        type: string
-                      reason:
-                        type: string
-                      startAt:
-                        format: date-time
-                        type: string
-                      state:
-                        type: string
-                    type: object
-                  hostClientIP:
-                    type: string
-                  insClassInfo:
-                    properties:
-                      className:
-                        type: string
-                      cpu:
-                        type: string
-                      iops:
-                        type: string
-                      memory:
-                        type: string
-                    required:
-                    - className
-                    type: object
-                  insId:
-                    type: string
-                  insName:
-                    type: string
-                  insType:
-                    type: string
-                  installed:
-                    type: boolean
-                  lastState:
-                    properties:
-                      errorInfo:
-                        type: string
-                      finishAt:
-                        format: date-time
-                        type: string
-                      reason:
-                        type: string
-                      startAt:
-                        format: date-time
-                        type: string
-                      state:
-                        type: string
-                    type: object
-                  netInfo:
-                    properties:
-                      enableWorkingAdminIP:
-                        type: boolean
-                      netType:
-                        type: string
-                      workingAdminIP:
-                        type: string
-                      workingHostIP:
-                        type: string
-                      workingPort:
-                        type: integer
-                    type: object
-                  nodeName:
-                    type: string
-                  physicalInsId:
-                    type: string
-                  podName:
-                    type: string
-                  podNameSpace:
-                    type: string
-                  polarFsHostId:
-                    type: string
-                  role:
-                    type: string
-                  status:
-                    type: string
-                  versionInfo:
-                    properties:
-                      clusterManagerImage:
-                        type: string
-                      engineImage:
-                        type: string
-                      managerImage:
-                        type: string
-                      otherImages:
-                        additionalProperties:
-                          type: string
+                proxyStatus:
+                  properties:
+                    maxScaleName:
+                      type: string
+                    maxScaleNameSpace:
+                      type: string
+                    workingAddr:
+                      items:
+                        properties:
+                          enableWorkingAdminIP:
+                            type: boolean
+                          netType:
+                            type: string
+                          workingAdminIP:
+                            type: string
+                          workingHostIP:
+                            type: string
+                          workingPort:
+                            type: integer
                         type: object
-                      pfsdImage:
-                        type: string
-                      pfsdToolImage:
-                        type: string
-                      versionName:
-                        type: string
-                    type: object
-                type: object
-              type: object
-            floatingIP:
-              properties:
-                basedNetIf:
-                  type: string
-                gateWay:
-                  type: string
-                ipAddress:
-                  type: string
-                ipAddressCfgType:
-                  type: string
-                ipMode:
-                  type: string
-                mask:
-                  type: integer
-              type: object
-            followerNum:
-              type: integer
-            insClassInfo:
-              properties:
-                className:
-                  type: string
-                cpu:
-                  type: string
-                iops:
-                  type: string
-                memory:
-                  type: string
-              required:
-              - className
-              type: object
-            leaderInstanceHost:
-              type: string
-            leaderInstanceId:
-              type: string
-            localVolName:
-              type: string
-            logicId:
-              type: string
-            proxyStatus:
-              properties:
-                maxScaleName:
-                  type: string
-                maxScaleNameSpace:
-                  type: string
-                workingAddr:
-                  items:
-                    properties:
-                      enableWorkingAdminIP:
-                        type: boolean
-                      netType:
-                        type: string
-                      workingAdminIP:
-                        type: string
-                      workingHostIP:
-                        type: string
-                      workingPort:
-                        type: integer
-                    type: object
-                  type: array
-                workingPort:
-                  type: integer
+                      type: array
+                    workingPort:
+                      type: integer
+                  type: object
               type: object
           type: object
-      type: object
-  version: v1
-  versions:
-  - name: v1
-    served: true
-    storage: true
 status:
   acceptedNames:
     kind: ""

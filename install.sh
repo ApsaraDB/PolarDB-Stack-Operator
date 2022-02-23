@@ -47,6 +47,7 @@ parse_args() {
 }
 
 install_helm() {
+  echo "Skip install helm."
 }
 
 update_config() {

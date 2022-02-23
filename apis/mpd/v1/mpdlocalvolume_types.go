@@ -207,10 +207,10 @@ type MPDLocalVolumeStatus struct {
 }
 
 // +kubebuilder:object:root=true
-// +kubebuilder:printcolumn:name="lvnum",type="integer",JSONPath=".spec.lvNum",description="lvm logical volumes number claimed"
-// +kubebuilder:printcolumn:name="current lvnum",type="integer",JSONPath=".status.validLVNum",description="current lvm logical volumes available"
-// +kubebuilder:printcolumn:name="pvcready",type=boolean,JSONPath=.status.pvcReady,description="LVM related PVCs are ready"
-// +kubebuilder:printcolumn:name="age",type="date",JSONPath=".metadata.creationTimestamp",description="the age of this resource"
+// +kubebuilder:printcolumn:name="lvnum",type="integer",jsonPath=".spec.lvNum",description="lvm logical volumes number claimed"
+// +kubebuilder:printcolumn:name="current lvnum",type="integer",jsonPath=".status.validLVNum",description="current lvm logical volumes available"
+// +kubebuilder:printcolumn:name="pvcready",type=boolean,jsonPath=.status.pvcReady,description="LVM related PVCs are ready"
+// +kubebuilder:printcolumn:name="age",type="date",jsonPath=".metadata.creationTimestamp",description="the age of this resource"
 // +kubebuilder:resource:scope=Namespaced,categories={all,mpd},shortName=mv,singular=mpdlocalvolume,path=mpdlocalvolumes
 // +kubebuilder:storageversion
 // +kubebuilder:subresource:status

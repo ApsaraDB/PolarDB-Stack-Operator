@@ -94,8 +94,6 @@ spec:
           name: ssh-client
         - mountPath: /kube-log
           name: kube-log
-        - mountPath: /cert
-          name: config-etcd
         - mountPath: /var/run/docker.sock
           name: var-run-docker
   dnsPolicy: ClusterFirstWithHostNet

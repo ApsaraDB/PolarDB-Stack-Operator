@@ -2,6 +2,38 @@
 
 安装前请先查阅[部署前置要求](prerequest.md)确认您的环境满足最低要求
 
+### 预装步骤
+给机器分配大页内存
+
+分配的大页内存建议大约占机器总内存的 75%
+
+```shell
+#!/bin/bash
+hugepage_mem_gb=256  # 256G
+hugepages=`echo "${hugepage_mem_gb} * 1024 / 2" | bc`
+hugepages=${hugepages%%.*}
+echo $hugepages
+grep 'vm.nr_hugepages=' /etc/sysctl.conf
+if [ $? != 0 ]; then
+    echo -e "\nvm.nr_hugepages=${hugepages}" >> /etc/sysctl.conf
+else
+    sed -i "/^vm.nr_hugepages/vm.nr_hugepages=${hugepages}" /etc/sysctl.conf
+fi
+sysctl -p /etc/sysctl.conf
+grep 'none /dev/hugepages1G hugetlbfs pagesize=1G 0 0' /etc/fstab
+if [ $? != 0 ]; then
+    sed -i '$a\none /dev/hugepages1G hugetlbfs pagesize=1G 0 0' /etc/fstab
+fi
+grep 'none /dev/hugepages2M hugetlbfs pagesize=2M 0 0' /etc/fstab
+if [ $? != 0 ]; then
+    sed -i '$a\none /dev/hugepages2M hugetlbfs pagesize=2M 0 0' /etc/fstab
+fi
+sed -i 's/default_hugepagesz=1G hugepagesz=1G hugepages=20/default_hugepagesz=2M hugepagesz=1G hugepagesz=2M hugepages=5120/g' /etc/default/grub
+grub2-mkconfig -o "$(sudo readlink -e /etc/grub2.cfg)"
+```
+
+修改完大页内存后，请手动重启服务器。
+
 ### 步骤一、安装 docker
 
 安装docker，请参见[Docker安装指南](https://docs.docker.com/engine/install/)
