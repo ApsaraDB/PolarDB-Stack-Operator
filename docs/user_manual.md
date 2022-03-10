@@ -265,6 +265,38 @@ metadata:
     restartCluster: "true"
 ```
 
+### 更新镜像版本
+如下示例，更新您需要修改的镜像版本。
+
+字段说明：
+
+| 字段           | 字段解释       |
+| -------------- | -------------- |
+| pgEngineImage  | DB 引擎镜像    |
+| pgManagerImage | manager 镜像   |
+| pfsdImage      | pfsd 镜像      |
+| pfsdToolImage  | pfsd tool 镜像 |
+
+```yaml
+apiVersion: v1
+data:
+  name: image-open
+  pfsdImage: polardb/pfsd:1.2.41-20211018
+  pfsdToolImage: polardb/pfsd_tool:1.2.41-20211018
+  pgClusterManagerImage: polardb/polardb-cluster-manager:latest
+  pgEngineImage: polardb/polardb_pg_engine_release:11beta2.20210910.d558886c.20211018195123
+  pgManagerImage: polardb/polardb_pg_manager:20211018195123.9ae43314
+kind: ConfigMap
+metadata:
+  labels:
+    configtype: minor_version_info
+    dbClusterMode: WriteReadMore
+    dbType: PostgreSQL
+    dbVersion: "1.0"
+  name: postgresql-1-0-minor-version-info-rwo-image-open
+  namespace: kube-system
+```
+
 ### 小版本升级
 
 小版本升级将您的数据库集群所使用的镜像版本升级。
@@ -308,11 +340,11 @@ metadata:
 kubectl edit mpdcluster your-cluster-name
 ```
 
-3. 修改 classInfoModifyTo.className 字段为您想要变更成的规格名称，添加如下字段，字段说明：
+3. 修改 versionCfgModifyTo.versionName 字段为您想要变更成的版本配置名称，添加如下字段，字段说明：
 
 | 字段                           | 字段解释                                                     |
 | ------------------------------ | ------------------------------------------------------------ |
-| versionCfgModifyTo.versionName | 变配后的规格名称，与您配置的 instance_level_config 中 classKey 对应 |
+| versionCfgModifyTo.versionName | 如 image-open |
 
 ***示例：***
 
