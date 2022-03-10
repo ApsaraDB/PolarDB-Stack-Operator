@@ -266,16 +266,11 @@ metadata:
 ```
 
 ### 更新镜像版本
-如下示例，更新您需要修改的镜像版本。
-
-字段说明：
-
-| 字段           | 字段解释       |
-| -------------- | -------------- |
-| pgEngineImage  | DB 引擎镜像    |
-| pgManagerImage | manager 镜像   |
-| pfsdImage      | pfsd 镜像      |
-| pfsdToolImage  | pfsd tool 镜像 |
+修改 configmap postgresql-1-0-minor-version-info-rwo-image-open
+```shell
+kubectl edit configmap postgresql-1-0-minor-version-info-rwo-image-open
+```
+示例如下，更新您需要修改的镜像版本。
 
 ```yaml
 apiVersion: v1
@@ -296,6 +291,15 @@ metadata:
   name: postgresql-1-0-minor-version-info-rwo-image-open
   namespace: kube-system
 ```
+
+字段说明：
+
+| 字段           | 字段解释       |
+| -------------- | -------------- |
+| pgEngineImage  | DB 引擎镜像    |
+| pgManagerImage | manager 镜像   |
+| pfsdImage      | pfsd 镜像      |
+| pfsdToolImage  | pfsd tool 镜像 |
 
 ### 小版本升级
 
