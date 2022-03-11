@@ -268,7 +268,7 @@ metadata:
 ### 更新镜像版本
 修改 configmap postgresql-1-0-minor-version-info-rwo-image-open
 ```shell
-kubectl edit configmap postgresql-1-0-minor-version-info-rwo-image-open
+kubectl -n kube-system edit configmap postgresql-1-0-minor-version-info-rwo-image-open
 ```
 示例如下，更新您需要修改的镜像版本。
 
