@@ -123,6 +123,11 @@ blacklist {
 EOF
 ```
 
+e. reload supervisor
+```shell
+supervisorctl reload
+```
+
 2. 编译 polardb-sms-manager 生成镜像
 
 ```python
@@ -200,6 +205,21 @@ cloud-provider-wwid-usage-dbm-03     4      33s
 ```shell
 wget https://github.com/ApsaraDB/PolarDB-FileSystem/releases/download/pfsd4pg-release-1.2.41-20211018/t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
 rpm -ivh t-pfsd-opensource-1.2.41-1.el7.x86_64.rpm
+```
+
+7. 配置 pg_hba.conf
+
+在每台机器上分别执行
+```shell
+mkdir -p /etc/postgres
+cat <<EOF >"/etc/postgres/pg_hba.conf"
+local all all           trust
+host all postgres all reject
+host all all all md5
+local replication postgres           trust
+host replication postgres all reject
+host replication all all md5
+EOF
 ```
 
 ### 安装网络管理模块

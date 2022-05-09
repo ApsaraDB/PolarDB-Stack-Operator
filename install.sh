@@ -13,7 +13,9 @@ main() {
   install_agent
   agent_ini
   agent_conf
+  supervisorctl_reload
   install_pfs
+  config_hba
 }
 
 show_usage() {
@@ -259,6 +261,47 @@ install_pfs() {
   do
     scp $pfsd root@${ips[$i]}:/tmp/$pfsd
     ssh root@${ips[$i]} rpm -ivh /tmp/$pfsd
+  done
+}
+
+supervisorctl_reload() {
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    ssh root@${ips[$i]} supervisorctl reload
+  done
+}
+
+config_hba() {
+  network_interface=$(grep "interface" $ENV_CONFIG | awk '{print $2}')
+  if [ -z "$network_interface" ]; then
+    echo "No network interface configured, exit."
+    exit 1
+  fi
+
+  ips=( `sed -n '/dbm_hosts/,/network/p' $ENV_CONFIG | grep 'ip' | awk '{print $3}'` )
+  cnt=${#ips[@]}
+
+  for ((i=0;i<$cnt;i++));
+  do
+    base_cmd="ssh root@${ips[$i]}"
+    $base_cmd "mkdir -p /etc/postgres"
+    $base_cmd "cat <<EOF >/etc/postgres/pg_hba.conf
+local all all           trust
+host all postgres all reject
+host all all all md5
+local replication postgres           trust
+host replication postgres all reject
+host replication all all md5
+EOF"
   done
 }
 
